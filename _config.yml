@@ -1,1 +1,129 @@
-theme: jekyll-theme-minimal
+# Copied from https://github.com/mmistakes/minimal-mistakes/blob/master/docs/_config.yml
+
+remote_theme: "mmistakes/minimal-mistakes"
+
+minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+
+locale: "en-IN"
+title: "Niket Naidu"
+title_separator: "-"
+name: "Niket Naidu" # &name is a YAML anchor which can be *referenced later
+description: "Add a description here"
+url: https://coder137.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+baseurl: "/" # the subpath of your site, e.g. "/blhttps://github.com/mmistakes/minimal-mistakes/blob/master/docs/_config.ymlog"
+repository: "coder137/coder137.github.io"
+
+author:
+    name: "Niket Naidu"
+    avatar: /assets/images/logo.jpg
+    bio: > # TODO, Update Further
+        Embedded Systems Enthusiast
+    location: "India"
+    email: coder137@gmail.com
+    github: coder137
+    linkedin: niket-naidu-30090a134
+
+# Reading Files
+include:
+  - .htaccess
+  - _pages
+exclude:
+  - "*.sublime-project"
+  - "*.sublime-workspace"
+  - vendor
+  - .asset-cache
+  - .bundle
+  - .jekyll-assets-cache
+  - .sass-cache
+  - assets/js/plugins
+  - assets/js/_main.js
+  - assets/js/vendor
+  - Capfile
+  - CHANGELOG
+  - config
+  - Gemfile
+  - Gruntfile.js
+  - gulpfile.js
+  - LICENSE
+  - log
+  - node_modules
+  - package.json
+  - Rakefile
+  - README
+  - tmp
+keep_files:
+  - .git
+  - .svn
+encoding: "utf-8"
+markdown_ext: "markdown,mkdown,mkdn,mkd,md"
+
+# Conversion
+markdown: kramdown
+highlighter: rouge
+lsi: false
+excerpt_separator: "\n\n"
+incremental: false
+
+# Add Collections here
+
+# Defaults
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+  # _pages
+  - scope:
+      path: "_pages"
+      type: pages
+    values:
+      layout: single
+      author_profile: true
+  # _docs
+  - scope:
+      path: ""
+      type: docs
+    values:
+      layout: single
+      read_time: false
+      author_profile: false
+      share: false
+      comments: false
+      sidebar:
+        nav: "docs"
+
+# Outputting
+permalink: /:categories/:title/
+# paginate: 5 # amount of posts to show
+# paginate_path: /page:num/
+timezone: Asia/Kolkata
+
+# Plugins (previously gems:)
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jemoji
+
+# mimic GitHub Pages with --safe
+whitelist:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jemoji
+
+# HTML Compression
+# - http://jch.penibelst.de/
+compress_html:
+  clippings: all
+  ignore:
+    envs: development
