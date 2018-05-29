@@ -10,8 +10,8 @@ permalink: /sitemap/
 ---
 
 
-### [Posts by year](/docs/posts-by-year/)
+### [Posts by year](/)
 
-### [Posts by categories](/docs/posts-by-category/)
+### [Posts by categories](/categories/)
 
-### [Posts by tags](/docs/posts-by-tags/)
+### [Posts by tags](/tags/)

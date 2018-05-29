@@ -93,6 +93,7 @@ defaults:
       comments: true
       share: true
       related: true
+      # permalink: /:title/
   # _pages
   - scope:
       path: "_pages"
@@ -136,9 +137,22 @@ whitelist:
   - jekyll-feed
   - jemoji
 
+# Archives
+category_archive:
+  type: liquid
+  path: /categories/
+tag_archive:
+  type: liquid
+  path: /tags/
+
 # HTML Compression
 # - http://jch.penibelst.de/
 compress_html:
   clippings: all
   ignore:
     envs: development
+
+# Relative links (This doesnt seem to work with minimal-mistakes)
+# relative_links:
+#   enabled:     true
+#   collections: true
