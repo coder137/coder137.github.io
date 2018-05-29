@@ -7,4 +7,10 @@ main:
   - title: Tutorials
     url: # TODO, Add here
   - title: Sitemap
-    url: # TODO, Add here
+    url: /sitemap/
+
+freertos_nav:
+    - title: Getting Started
+    - title: Tasks
+    - title: Queues
+    - title: Timers
