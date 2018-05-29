@@ -9,9 +9,8 @@ toc_icon: "cog"
 permalink: /sitemap/
 ---
 
+### [Posts by year]({% link _pages/year_archive.md %})
 
-### [Posts by year](/)
+### [Posts by categories]({% link _pages/category_archive.md %})
 
-### [Posts by categories](/categories/)
-
-### [Posts by tags](/tags/)
+### [Posts by tags]({% link _pages/tag_archive.md %})

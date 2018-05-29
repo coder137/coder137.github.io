@@ -80,6 +80,10 @@ kramdown:
 
 # Add Collections here
 
+
+# Add posts teaser
+teaser: /assets/images/c_image.jpg
+
 # Defaults
 defaults:
   # _posts
