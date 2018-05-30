@@ -14,9 +14,13 @@ freertos_nav:
     - title: Getting Started
       children:
         - title: "Test"
-          url: /hardware/esp32/test/
-        - title: First
-          url: /hardware/esp32/first/
-        - title: Second
-          url: /hardware/esp32/second/
+          url: /2018/05/28/test/
+        - title: "First"
+          url: /2018/05/29/first/
+        - title: "Second"
+          url: /2018/05/30/second/
+        - title: "Third"
+          url: /2018/05/31/third/
+        - title: "Fourth"
+          # url: # None yet
 # Other project navigation there
