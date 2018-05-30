@@ -5,10 +5,10 @@ remote_theme: "mmistakes/minimal-mistakes"
 minimal_mistakes_skin    : "contrast" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 locale: "en-US"
-title: "Niket Naidu"
+title: "Homepage"
 title_separator: "-"
 name: "Niket Naidu" # &name is a YAML anchor which can be *referenced later
-description: "Add a description here"
+description: "Generic Programmer"
 url: https://coder137.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl: "/" # the subpath of your site, e.g. "/blhttps://github.com/mmistakes/minimal-mistakes/blob/master/docs/_config.ymlog"
 repository: "coder137/coder137.github.io"

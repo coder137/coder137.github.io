@@ -3,14 +3,20 @@ main:
   - title: About
     url: /about/
   - title: Projects
-    url: # TODO, Add here
+    url: /projects/ # TODO, Add here
   - title: Tutorials
-    url: # TODO, Add here
+    url: /tutorials/ # TODO, Add here
   - title: Sitemap
     url: /sitemap/
 
+# FreeRTOS Tutorial Navigation
 freertos_nav:
     - title: Getting Started
-    - title: Tasks
-    - title: Queues
-    - title: Timers
+      children:
+        - title: "Test"
+          url: /hardware/esp32/test/
+        - title: First
+          url: /hardware/esp32/first/
+        - title: Second
+          url: /hardware/esp32/second/
+# Other project navigation there
