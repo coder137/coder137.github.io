@@ -23,7 +23,7 @@ author_profile: false
 
 ## Pre-requisites
 
-### Introduction to FreeRTOS
+### [Introduction to FreeRTOS]({% link _posts/2018-06-07-introduction-to-freertos.md %})
 ### Void Pointers
 ### Function Pointers
 

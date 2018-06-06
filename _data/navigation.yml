@@ -16,7 +16,7 @@ freertos_nav:
     - title: Pre-requisites
       children:
         - title: "Introduction"
-          url:
+          url: "/2018/06/07/introduction-to-freertos/"
         - title: "Void Pointers"
           url:
         - title: "Function Pointers"
