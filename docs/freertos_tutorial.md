@@ -1,4 +1,5 @@
 ---
+layout: single
 title: "FreeRTOS with ESP32"
 # permalink: /tutorials/
 

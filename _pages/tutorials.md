@@ -20,5 +20,5 @@ header:
 author_profile: true
 ---
 
-### [FreeRTOS with ESP32]({% link _pages/freertos_tutorial.md %})
+### [FreeRTOS with ESP32]({% link docs/freertos_tutorial.md %})
 Learning FreeRTOS with ESP-IDF and ESP32
