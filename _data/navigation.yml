@@ -3,24 +3,34 @@ main:
   - title: About
     url: /about/
   - title: Projects
-    url: /projects/ # TODO, Add here
+    url: /projects/
   - title: Tutorials
-    url: /tutorials/ # TODO, Add here
+    url: /tutorials/
   - title: Sitemap
     url: /sitemap/
+  - title: Donate
+    url: /donate/
 
 # FreeRTOS Tutorial Navigation
 freertos_nav:
-    - title: Getting Started
+    - title: Pre-requisites
       children:
-        - title: "Test"
-          url: /2018/05/28/test/
-        - title: "First"
-          url: /2018/05/29/first/
-        - title: "Second"
-          url: /2018/05/30/second/
-        - title: "Third"
-          url: /2018/05/31/third/
-        - title: "Fourth"
-          # url: # None yet
+        - title: "Introduction"
+          url:
+        - title: "Void Pointers"
+          url:
+        - title: "Function Pointers"
+          url:
+    - title: Setting up
+      children:
+        - title: "Download ESP-IDF"
+          url:
+        - title: "ESP-IDF with Eclipse"
+          url:
+    - title: Tasks
+      children:
+        - title: "CreateTasks"
+          url:
+        - title: "ParameterToTasks"
+          url:
 # Other project navigation there

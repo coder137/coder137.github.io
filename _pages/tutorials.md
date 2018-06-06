@@ -20,10 +20,5 @@ header:
 author_profile: true
 ---
 
-## FreeRTOS
-
-### Tasks
-
-### Queues
-
-> Add Stuff here
+### [FreeRTOS with ESP32]({% link _pages/freertos_tutorial.md %})
+Learning FreeRTOS with ESP-IDF and ESP32

@@ -24,8 +24,35 @@ $base0d: #82aaff !important;
 $base0e: #c792ea !important;
 $base0f: #ff5370 !important;
 
+//TODO, Check what this is
+$caption-font-family: Arial;
+//TODO, Change this also (IMPORTANT)
+$sans-serif: "Bodoni MT";
+
+//For Code
+$monospace: Consolas;
+//NOTE, This changes the main <p> </p> data
+$global-font-family: Arial;
+//NOTE, Changes the H1, H2, headings
+$header-font-family: Times;
+
 @import "minimal-mistakes"; // main partials
 
+html {
+  font-size: 12px; // 16
+
+  @include breakpoint($medium) {
+    font-size: 14px; // 18
+  }
+
+  @include breakpoint($large) {
+    font-size: 16px; // 20
+  }
+
+  @include breakpoint($x-large) {
+    font-size: 20px; // 22
+  }
+}
 
 /* solarized light syntax highlighting (base16) */
 // $base00: #f9f9f4 !important; //This is customized
