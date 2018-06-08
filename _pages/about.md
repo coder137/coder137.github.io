@@ -35,7 +35,7 @@ I am passionate about applying my knowledge in Embedded Systems and Internet of 
 
 - ***Embedded Software Developer at SpruceCube*** (April, 2018 - Current)
 
-  SpruceCube is a startup that is working on a sustainable home automation solution for skyrises. It aims to leverage Internet of Things as a medium to connect home devices which can then be controlled via your smartphone
+  SpruceCube is a startup that is working on a sustainable home automation solution for buildings/skyscrapers. It aims to leverage Internet of Things as a medium to connect home devices which can then be controlled via your smartphone
   - Creating a home automation system using the ESP8266 and Raspberry Pi
   - Creating a basic Android application to communicate and control the slave devices
 - ***Embedded Software Intern at Earth Energy EV*** (December, 2017 - March, 2018)

@@ -18,7 +18,7 @@ freertos_nav:
         - title: "Introduction"
           url: "/2018/06/07/introduction-to-freertos/"
         - title: "Void Pointers"
-          url:
+          url: "/2018/06/08/pointer-to-void/"
         - title: "Function Pointers"
           url:
     - title: Setting up

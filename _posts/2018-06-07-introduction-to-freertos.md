@@ -16,6 +16,8 @@ sidebar:
 author_profile: false
 ---
 
+What is FreeRTOS and Why is it important?
+
 ## Website and Things to download
 
 [Free FreeRTOS Books and Code Examples](https://www.freertos.org/Documentation/RTOS_book.html)

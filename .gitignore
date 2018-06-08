@@ -4,3 +4,7 @@ _site
 
 # Own Folders
 _drafts
+
+# Extensions
+*.exe
+*.o
