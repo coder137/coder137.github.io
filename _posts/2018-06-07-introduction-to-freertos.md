@@ -10,6 +10,10 @@ toc: true
 toc_label: "Table of Contents"
 toc_icon: "cog"
 
+# header
+header:
+  teaser: /assets/images/freertos.jpg
+
 # Sidebar
 sidebar:
   nav: "freertos_nav"

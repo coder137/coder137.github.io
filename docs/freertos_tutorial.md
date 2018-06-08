@@ -21,11 +21,13 @@ sidebar:
 author_profile: false
 ---
 
+[![Star this Repository](https://img.shields.io/badge/Github-Repository-green.svg?logo=github)](https://github.com/coder137/FreeRTOS_Tutorials)
+
 ## Pre-requisites
 
 ### [Introduction to FreeRTOS]({% link _posts/2018-06-07-introduction-to-freertos.md %})
 ### [Void Pointers]({% link _posts/2018-06-08-pointer-to-void.md %})
-### Function Pointers
+### [Function Pointers]({% link _posts/2018-06-09-function-pointer.md %})
 
 ## Setting up your workstation
 
