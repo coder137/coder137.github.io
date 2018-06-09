@@ -4,6 +4,8 @@ remote_theme: "mmistakes/minimal-mistakes"
 
 minimal_mistakes_skin    : "dirt" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
+# Site Settings
+
 locale: "en-US"
 title: "Homepage"
 title_separator: "-"
@@ -12,6 +14,37 @@ description: "Generic Programmer"
 url: https://coder137.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl: "/" # the subpath of your site, e.g. "/blhttps://github.com/mmistakes/minimal-mistakes/blob/master/docs/_config.ymlog"
 repository: "coder137/coder137.github.io"
+
+# Comments
+comments:
+  provider: "facebook"
+  disqus:
+    shortname:
+  discourse:
+    server:
+  facebook:
+    appid: #
+    num_posts: #
+    colorscheme: #
+staticman:
+  allowedFields          : ['name', 'email', 'url', 'message']
+  branch                 : "master"
+  commitMessage          : "New comment."
+  filename               : comment-{@timestamp}
+  format                 : "yml"
+  moderation             : true
+  path                   : "docs/_data/comments/{options.slug}"
+  requiredFields         : ['name', 'email', 'message']
+  transforms:
+    email                : "md5"
+  generatedFields:
+    date:
+      type               : "date"
+      options:
+        format           : "iso8601" # "iso8601" (default), "timestamp-seconds", "timestamp-milliseconds"
+atom_feed:
+  path                   : # blank (default) uses feed.xml
+
 
 author:
     name: "Niket Naidu"

@@ -18,6 +18,7 @@ header:
 sidebar:
   nav: "freertos_nav"
 author_profile: false
+comments: true
 ---
 
 What is FreeRTOS and Why is it important?
