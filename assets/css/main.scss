@@ -4,30 +4,44 @@
 
 @charset "utf-8";
 
+$link-color: blue;
+// $paragraph-indent: true;
+// $body-color: #FF0000;
+
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 
 /* default syntax highlighting (base16) */
-$base00: #263238 !important;
-$base01: #2e3c43 !important;
-$base02: #314549 !important;
-$base03: #546e7a !important;
-$base04: #b2ccd6 !important;
-$base05: #eeffff !important;
-$base06: #eeffff !important;
-$base07: #ffffff !important;
-$base08: #f07178 !important;
-$base09: #f78c6c !important;
-$base0a: #ffcb6b !important;
-$base0b: #c3e88d !important;
-$base0c: #89ddff !important;
-$base0d: #82aaff !important;
-$base0e: #c792ea !important;
-$base0f: #ff5370 !important;
+//Don't know what this does
+//$body-color: #FF0000;
+
+// $background-color: #FF0000;
+// $text-color: #FF0000;
+// $masthead-link-color: #FF0000;
+
+//Material Darker theme
+$base00: #212121;
+$base01: #303030;
+$base02: #353535;
+$base03: #4A4A4A;
+$base04: #B2CCD6;
+$base05: #EEFFFF;
+$base06: #EEFFFF;
+$base07: #FFFFFF;
+$base08: #F07178;
+$base09: #F78C6C;
+$base0A: #FFCB6B;
+$base0B: #C3E88D;
+$base0C: #89DDFF;
+$base0D: #82AAFF;
+$base0E: #C792EA;
+$base0F: #FF5370;
+
+
 
 //TODO, Check what this is
-$caption-font-family: Arial;
+$caption-font-family: Helvetica;
 //TODO, Change this also (IMPORTANT)
-$sans-serif: "Bodoni MT";
+$sans-serif: "Helvetica Neue";
 
 //For Code
 $monospace: Consolas;
@@ -35,7 +49,7 @@ $monospace: Consolas;
 //IMP, Garamond
 $global-font-family: Helvetica;
 //NOTE, Changes the H1, H2, headings
-$header-font-family: Times;
+$header-font-family: "Helvetica Neue";
 
 @import "minimal-mistakes"; // main partials
 
