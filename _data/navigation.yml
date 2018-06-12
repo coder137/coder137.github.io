@@ -23,8 +23,8 @@ freertos_nav:
           url: "/2018/06/09/function-pointer/"
     - title: Setting up
       children:
-        - title: "Download ESP-IDF"
-          url:
+        - title: "Setup ESP-IDF"
+          url: "/2018/06/11/download-esp-idf/"
         - title: "ESP-IDF with Eclipse"
           url:
     - title: Tasks

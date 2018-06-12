@@ -18,7 +18,6 @@ header:
 sidebar:
   nav: "freertos_nav"
 author_profile: false
-comments: true
 ---
 
 What is FreeRTOS and Why is it important?
@@ -39,16 +38,16 @@ You should already be familiar with:
 
 ## What is FreeRTOS?
 
-FreeRTOS is a real-time kernel created for microcontrollers and small microprocessors. What that means is that FreeRTOS allows devices with a small memory and single processing core to perform multi-tasking operation (mainly through a process known as time-splicing).
+FreeRTOS is a real-time kernel created for microcontrollers and small microprocessors. What that means is that FreeRTOS allows devices with a small memory and single processing core to perform multi-tasking operation (mainly through a process known as time-slicing).
 
-## What is Time Splicing
+## What is Time Slicing
 
 For various different polling operations requiring a specific amount of time to perform a task very often programmers implement a `delay()` function.
 However the down side to doing this is that no other ***process*** or ***operation*** can occur till this delay loop completes.
 
 This is a huge waste of resources, since the time spent during this delay can be used to perform other time critical tasks.
 
-***Time splicing*** is a method that allows multiple different *tasks* or *operations* to run together by sub-dividing the time spent doing each operation.
+***Time slicing*** is a method that allows multiple different *tasks* or *operations* to run together by sub-dividing the time spent doing each operation.
 
 ## Example
 
@@ -120,7 +119,7 @@ As you can see, Each function is an entire program in itself.
 
 However, instead of blocking the entire processor the function blocks itself for a set amount of time. During this time period other functions can run.
 
-FreeRTOS makes this very easy since the entire operation is taken care of by a scheduler that takes care of this `time splicing` for us.
+FreeRTOS makes this very easy since the entire operation is taken care of by a scheduler that takes care of this `time slicing` for us.
 
 Moreover, as long as the memory of the microcontroller allows us, we can keep adding functions like these and take advantagae of multi-tasking using FreeRTOS easily.
 

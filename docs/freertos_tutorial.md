@@ -31,7 +31,7 @@ author_profile: false
 
 ## Setting up your workstation
 
-### Download ESP-IDF
+### [Setup ESP-IDF]({% link _posts/2018-06-11-download-esp-idf.md %})
 ### Setting up Eclipse CDT with ESP-IDF
 
 ## Tasks
