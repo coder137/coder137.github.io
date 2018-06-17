@@ -26,7 +26,7 @@ freertos_nav:
         - title: "Setup ESP-IDF"
           url: "/2018/06/11/download-esp-idf/"
         - title: "ESP-IDF with Eclipse"
-          url:
+          url: "/2018/06/18/esp-idf-with-eclipse/"
     - title: Tasks
       children:
         - title: "CreateTasks"
