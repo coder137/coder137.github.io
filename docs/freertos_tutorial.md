@@ -36,7 +36,7 @@ author_profile: false
 
 ## Tasks
 
-### CreateTasks
+### [CreateTasks]({% link _posts/2018-06-25-create-tasks.md %})
 ### ParameterToTasks
 ### DelayTasks
 ### DelayTasksUntil
