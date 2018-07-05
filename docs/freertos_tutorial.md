@@ -39,11 +39,10 @@ author_profile: false
 ## Tasks
 
 ### [CreateTasks]({% link _posts/2018-06-25-create-tasks.md %})
-### ParameterToTasks
+### [ParameterToTasks]({% link _posts/2018-07-02-parameter-to-tasks.md %})
 ### DelayTasks
-### DelayTasksUntil
 ### IdleTasks
-### TaskPriorityChange
+### TaskPriority
 ### DeleteTasks
 
 ## Queues

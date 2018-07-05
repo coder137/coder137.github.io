@@ -33,4 +33,12 @@ freertos_nav:
           url: "/2018/06/25/create-tasks/"
         - title: "ParameterToTasks"
           url: "/2018/07/02/parameter-to-tasks/"
+        - title: "DelayTasks"
+          url:
+        - title: "IdleTasks"
+          url:
+        - title: "TaskPriority"
+          url:
+        - title: "DeleteTasks"
+          url:
 # Other project navigation there

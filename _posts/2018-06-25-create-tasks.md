@@ -16,7 +16,7 @@ toc_icon: "cog"
 
 # header
 header:
-  teaser: /assets/images/freertos.jpg
+  teaser: /assets/images/teaser_images/tasks.jpg
 
 # Sidebar
 sidebar:
