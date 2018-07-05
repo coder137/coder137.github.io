@@ -29,7 +29,7 @@ Adding a function (pointer) to a function argument
 
 ### What is a function pointer?
 
-Just as you can have a pointer to an integer or other datatype, a variable can also be a pointer to a function.
+Just as you can have a pointer to an integer or other data type, a variable can also be a pointer to a function.
 
 Example of Function Pointers declaration
 

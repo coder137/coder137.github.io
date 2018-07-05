@@ -4,6 +4,8 @@ _site
 
 # Own Folders
 _drafts
+test_docs
+.vscode
 
 # Extensions
 *.exe

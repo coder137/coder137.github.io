@@ -21,7 +21,9 @@ sidebar:
 author_profile: false
 ---
 
-[![Star this Repository](https://img.shields.io/badge/Github-Repository-green.svg?logo=github)](https://github.com/coder137/FreeRTOS_Tutorials)
+[![Star this Repository for ESP32 Examples](https://img.shields.io/badge/Github-ESP32_Repo-green.svg?logo=github)](https://github.com/coder137/ESP32-Repo)
+
+[![Star this Repository for Getting Started](https://img.shields.io/badge/Github-FreeRTOS_Tutorials-green.svg?logo=github)](https://github.com/coder137/FreeRTOS_Tutorials)
 
 ## Pre-requisites
 

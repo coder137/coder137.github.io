@@ -84,7 +84,7 @@ As you can see, we cast the *uint8_t, uint16_t and uint32_t* to *void pointer* i
 
 When we are reading the data inside the function, we ***type cast*** it appropriately so that the program knows what **type** the data is.
 
-**While compiling the above program, you might get warnings with respect to _uint8_t and uint16_t_ datatypes, this is because according to your architecture, the compiler assumes a 32bit or a 64 bit integer, this is the reason why the compiler doesn't give a warning for _uint32_t or uint64_t_ variables**
+**While compiling the above program, you might get warnings with respect to _uint8_t and uint16_t_ data types, this is because according to your architecture, the compiler assumes a 32bit or a 64 bit integer, this is the reason why the compiler doesn't give a warning for _uint32_t or uint64_t_ variables**
 {: .notice--warning}
 
 ### Architecture based `void *` size
@@ -131,7 +131,7 @@ We first tell the ptr that it is a int address, we then point to that integer
 
 ## Using Structures with Void Pointer
 
-As you have seen above, we have used the generic data types *uint8_t, uint16_t and uint32_t* and we can easily use type casting like *(uint8_t) data* to tell the pointer that it is a *char*. However, with complex datatypes like ***float, double, structs*** this is not so straightforward.
+As you have seen above, we have used the generic data types *uint8_t, uint16_t and uint32_t* and we can easily use type casting like *(uint8_t) data* to tell the pointer that it is a *char*. However, with complex data types like ***float, double, structs*** this is not so straightforward.
 
 Long story short: Pass by Address, Not by value
 
@@ -170,7 +170,7 @@ We receive a pointer to the struct inside the function and after type casting we
 
 ## Using Floats or any other complex data type with Void Pointers
 
-Another datatype type does not work with void pointer is float, i.e we cannot type cast `(float) floatData` and expect it to work,
+Another data type type does not work with void pointer is float, i.e we cannot type cast `(float) floatData` and expect it to work,
 There are different ways to circumvent this issue, given below
 
 We can circumvent this using [Method1](/assets/code/2018-06-08-pointer-to-void/bypassingFloatRestriction/main.c)
@@ -181,4 +181,4 @@ We can circumvent this also using method used for structures [Method2](/assets/c
 
 Void Pointers is extremely advantageous in creating generic functions, where the data type of a variable is not known before hand.
 
-It is due to this nature that it is widely used in the FreeRTOS kernel. Infact becoming proficient in using void pointers will help you in mastering FreeRTOS faster.
+It is due to this nature that it is widely used in the FreeRTOS kernel. In fact becoming proficient in using void pointers will help you in mastering FreeRTOS faster.

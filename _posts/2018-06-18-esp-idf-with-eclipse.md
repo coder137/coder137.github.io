@@ -89,7 +89,7 @@ Do not worry, we will configure the appropriate paths later in this tutorial.
 
 ### Initial Screen
 
-This is the intial screen. As you can see, the default settings cannot find your ESP-IDF packages and build tools.
+This is the initial screen. As you can see, the default settings cannot find your ESP-IDF packages and build tools.
 
 ![initialScreen](/assets/images/2018-06-18/initialScreen.png)
 {: .full}
@@ -166,7 +166,7 @@ You can follow the steps from the start (`make menuconfig`) and setup your envir
 
 ## Conclusion
 
-While this method does have a few configuration steps to go through for every new project setup, the 5 mins that you will spend setting up your project will greatly help you in your prototyping speed.
+While this method does have a few configuration steps to go through for every new project setup, the 5 minutes that you will spend setting up your project will greatly help you in your prototyping speed.
 
 Working with IDE's give you access to code completion and error highlighting which also reduces debugging time
 

@@ -30,7 +30,7 @@ freertos_nav:
     - title: Tasks
       children:
         - title: "CreateTasks"
-          url: "2018/06/25/create-tasks/"
+          url: "/2018/06/25/create-tasks/"
         - title: "ParameterToTasks"
-          url:
+          url: "/2018/07/02/parameter-to-tasks/"
 # Other project navigation there

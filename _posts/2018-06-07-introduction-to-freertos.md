@@ -121,7 +121,7 @@ However, instead of blocking the entire processor the function blocks itself for
 
 FreeRTOS makes this very easy since the entire operation is taken care of by a scheduler that takes care of this `time slicing` for us.
 
-Moreover, as long as the memory of the microcontroller allows us, we can keep adding functions like these and take advantagae of multi-tasking using FreeRTOS easily.
+Moreover, as long as the memory of the microcontroller allows us, we can keep adding functions like these and take advantage of multi-tasking using FreeRTOS easily.
 
 **NOTE: This is an example of how FreeRTOS tasks are implemented, however to get it to work you need to do some additional steps which will be highlighted in following posts.**
 {: .notice}

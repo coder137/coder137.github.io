@@ -30,7 +30,7 @@ Get started with creating a basic task in FreeRTOS with the ESP32 and ESP-IDF
 
 Before starting make sure that you have downloaded the [FreeRTOS Books and Code Examples.](https://www.freertos.org/Documentation/RTOS_book.html)
 
-Check this [tutorial]({%link _posts/2018-06-07-introduction-to-freertos.md %})
+Check this [Introduction to FreeRTOS]({%link _posts/2018-06-07-introduction-to-freertos.md %})
 
 **Since we are using the ESP-IDF Framework with FreeRTOS, we do not need to call `vTaskStartScheduler()` in main. However when porting to different microcontrollers we will have to implement this.**
 
@@ -117,7 +117,7 @@ pdMS_TO_TICKS(uint32_t millis);
 
 vTaskDelay is used to send your Task into Blocked State for a set number of Ticks
 
-The number of Ticks, in FreeRTOS is calculated based on the TickRate. However, instead of doing the calculations on your own an easy to use Macro pdMS_TO_TICKS() converts your millisecond time into `TickType_t` that can be fed to `vTaskDelay`
+The number of Ticks, in FreeRTOS is calculated based on the TickRate. However, instead of doing the calculations on your own an easy to use Macro `pdMS_TO_TICKS()` converts your millisecond time into `TickType_t` that can be fed to `vTaskDelay`
 
 ## Code example
 
@@ -144,7 +144,7 @@ void blink_task(void *pvParameter)
   }
 }
 ```
-Check the entire code [here](https://github.com/coder137/FreeRTOS_Tutorials/tree/master/Configuration/ConfigProject/import)
+Check the entire code [here](https://github.com/coder137/ESP32-Repo/tree/master/FreeRTOS/Task/CreateTasks)
 
 - In ESP-IDF instead of main, we use app_main()
 - As you can see, we have set the `usStackDepth` as `configMINIMAL_STACK_SIZE` which has a default value of 768 Bytes.
@@ -155,12 +155,12 @@ Check the entire code [here](https://github.com/coder137/FreeRTOS_Tutorials/tree
 
 ### Setting up project with Eclipse
 
-- Clone the Code Repository [here](https://github.com/coder137/FreeRTOS_Tutorials)
+- Clone the Code Repository [here](https://github.com/coder137/ESP32-Repo)
 - Take the ```import``` project and add the contents of the folder to your new project
 - Run ```make menuconfig``` and make changes to your makefiles if needed
 - Run ```make clean``` in case the project has been built before
 - Import the project to Eclipse by following the previous tutorial
-- Add your [Configurations](https://github.com/coder137/FreeRTOS_Tutorials/tree/master/Configuration/ConfigReadme)
+- Add your [Configurations](https://github.com/coder137/ESP32-Repo/blob/master/Configuration%20README/README.md)
 - Build the project for all the packages to be detected by Eclipse
 
 **These steps will be common in every project, follow these exact steps to get started with a new project**
@@ -168,19 +168,17 @@ Check the entire code [here](https://github.com/coder137/FreeRTOS_Tutorials/tree
 
 ## Output
 
-```make monitor```
+**Since we have just created a simple blink task there is no output on the serial monitor**
 
-![Output](/assets/images/2018-06-25/output.png)
-
-We learnt how to create basic Tasks and use the `xTaskCreate` API
+In this Tutorial we learnt how to create basic Tasks and use the `xTaskCreate` API
 
 If everything proceeds smoothly you should see your internal LED on pin D2 blinking
 
 ## Conclusion
 
-As you can see, we successfully get our LED to blink using FreeRTOS.
+As you can see, we successfully got our LED to blink using FreeRTOS.
 
-However the project does not yet show the true strength of FreeRTOS Tasks. Since we are only blinking the LED, we aren't performing any multi-tasking operations.
+However the project does not yet show the true strength of FreeRTOS Tasks. Since we are currently executing a single task, we aren't performing any multi-tasking operations.
 
 In the next tutorial, we will learn how to add **ParameterToTasks**. We shall also create multiple Tasks and talk about something known as **Task Priority**.
 

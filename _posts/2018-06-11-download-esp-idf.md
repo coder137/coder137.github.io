@@ -178,6 +178,6 @@ When `make flash` is completed, this will be your output
 
 After all these steps, you should see your ESP32 internal LED blinking at a constant rate of once per second.
 
-This tutorial has beem about setting up your ESP-IDF with your computer system so the code example has not been explained.
+This tutorial has been about setting up your ESP-IDF with your computer system so the code example has not been explained.
 
 In the next tutorial, I plan to show you how to integrate the ESP-IDF environment with the ECLIPSE IDE for faster prototyping
