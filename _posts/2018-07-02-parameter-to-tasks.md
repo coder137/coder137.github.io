@@ -30,6 +30,8 @@ Learn to add dynamic parameter to Tasks in FreeRTOS with the ESP32 and ESP-IDF
 
 Check the previous tutorial on [Creating a Basic Task]({%link _posts/2018-06-25-create-tasks.md%})
 
+Check this tutorial on [Pointer to void]({%link _posts/2018-06-08-pointer-to-void.md %})
+
 Import your project from one of [these configured builds](https://github.com/coder137/ESP32-Repo/tree/master/Configs/Configured)
 
 ## Why do we need to add "Parameters to Tasks"
@@ -105,6 +107,36 @@ This is because both Task1 and Task2 have the same priority to run. When the pro
 This might cause either Task1 or Task2 to be chosen, i.e both functions have an equal probability to be executed.
 
 *We shall talk about task priorities and how they function more in later tutorials too*
+
+### Sending a struct as a parameter
+
+While the above example does use only `const char *` supplied as a `void *parameter` we can very well supply a `struct` to our program.
+
+``` c
+typedef struct Data_t
+{
+    uint32_t ucData;
+    char id;
+} GenericData_t;
+
+void genericStructPrint(void *xStruct)
+{
+    GenericData_t * data = (GenericData_t *) xStruct;
+    printf("ucData: %" PRIu32 "\n", data->ucData);
+    printf("id: %c\n", data->id);
+}
+
+int main()
+{
+    GenericData_t data1 = {100, 'a'};
+    GenericData_t data2 = {200, 'z'};
+    genericStructPrint((void *) &data1);
+    genericStructPrint((void *) &data2);
+    return 0;
+}
+```
+
+As you can see from the above example the `void *` is a very efficient way to send generic data to a function. As opposed to function overloading practiced in C++ this method can be used where code flexibility is of the utmost importance.
 
 ## Conclusion
 
