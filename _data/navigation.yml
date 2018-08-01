@@ -34,7 +34,7 @@ freertos_nav:
         - title: "ParameterToTasks"
           url: "/2018/07/02/parameter-to-tasks/"
         - title: "DelayTasks"
-          url:
+          url: "/2018/07/30/delay-tasks/"
         - title: "IdleTasks"
           url:
         - title: "TaskPriority"

@@ -5,6 +5,7 @@
 @charset "utf-8";
 
 $link-color: blue;
+$text-color: #333 !default;
 // $paragraph-indent: true;
 // $body-color: #FF0000;
 
@@ -14,7 +15,7 @@ $link-color: blue;
 //Don't know what this does
 //$body-color: #FF0000;
 
-// $background-color: #FF0000;
+$background-color: #FFFFFF;
 // $text-color: #FF0000;
 // $masthead-link-color: #FF0000;
 
@@ -36,20 +37,22 @@ $base0D: #82AAFF;
 $base0E: #C792EA;
 $base0F: #FF5370;
 
-
-
 //TODO, Check what this is
-$caption-font-family: Helvetica;
-//TODO, Change this also (IMPORTANT)
-$sans-serif: "Helvetica Neue";
+// $caption-font-family: Helvetica;
+
+// *$sans-serif: "Helvetica Neue",Helvetica,Arial,sans-serif;
+$sans-serif: Helvetica;
 
 //For Code
 $monospace: Consolas;
+
 //NOTE, This changes the main <p> </p> data
 //IMP, Garamond
+// *$global-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 $global-font-family: Helvetica;
+
 //NOTE, Changes the H1, H2, headings
-$header-font-family: "Helvetica Neue";
+$header-font-family: inherit;
 
 @import "minimal-mistakes"; // main partials
 
