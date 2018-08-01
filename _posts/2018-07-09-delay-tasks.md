@@ -113,16 +113,15 @@ const TickType_t xDelay250ms = pdMS_TO_TICKS(250);
 
 void print_task(void *pvParameters)
 {
-	char *pcTaskName;
-	pcTaskName = (char *)pvParameters;
+  char *pcTaskName;
+  pcTaskName = (char *)pvParameters;
 
-	while(1)
-	{
-		printf("Parameter: %s", pcTaskName);
-		vTaskDelay(xDelay250ms);
-	}
-
-	vTaskDelete(NULL);
+  while(1)
+  {
+    printf("Parameter: %s", pcTaskName);
+    vTaskDelay(xDelay250ms);
+  }
+  vTaskDelete(NULL);
 }
 ```
 
