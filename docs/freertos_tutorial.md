@@ -41,7 +41,7 @@ author_profile: false
 ### [CreateTasks]({% link _posts/2018-06-25-create-tasks.md %})
 ### [ParameterToTasks]({% link _posts/2018-07-02-parameter-to-tasks.md %})
 ### [DelayTasks]({% link _posts/2018-07-09-delay-tasks.md %})
-### IdleTasks
+### [IdleTasks]({% link _posts/2018-08-30-idle-tasks.md %})
 ### TaskPriority
 ### DeleteTasks
 

@@ -36,8 +36,8 @@ freertos_nav:
         - title: "DelayTasks"
           url: "/2018/07/30/delay-tasks/"
         - title: "IdleTasks"
-          url:
-        - title: "TaskPriority"
+          url: "/2018/08/30/idle-tasks/"
+        - title: "ChangeTaskPriority"
           url:
         - title: "DeleteTasks"
           url:
