@@ -165,6 +165,7 @@ plugins:
   - jekyll-gist
   - jekyll-feed
   - jemoji
+  - jekyll-include-cache
 #  - jekyll-relative-links
 
 # mimic GitHub Pages with --safe
