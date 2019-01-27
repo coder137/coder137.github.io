@@ -26,4 +26,8 @@ author_profile: true
 
 ### with NodeMCU and Blynk -->
 
-> Page under Construction
+## Green Homes Project
+
+### [Campaign Page](https://ketto.org/green-homes-project)
+
+### [Contributors List]({% link projects/green-homes-project/contributors.md %})
