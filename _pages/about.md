@@ -23,7 +23,7 @@ author_profile: true
 
 I am a BTECH undergraduate from Amity University, Delhi and have majored in Electronics and Communication (ECE).
 
-Take a look at my [Resume]({% link resume/resume.html %})
+Take a look at my [Resume]({% link resume/index.html %})
 
 ## Career Vision
 
