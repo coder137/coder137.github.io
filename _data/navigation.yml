@@ -8,8 +8,8 @@ main:
     url: /tutorials/
   - title: Sitemap
     url: /sitemap/
-  - title: Donate
-    url: /donate/
+  # - title: Donate
+  #   url: /donate/
 
 # FreeRTOS Tutorial Navigation
 freertos_nav:
