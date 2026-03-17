@@ -1,0 +1,4 @@
+[tasks.ci]
+script = '''
+dx build --web --fullstack true --force-sequential true --ssg --release --debug-symbols=false
+'''
