@@ -76,7 +76,7 @@ fn App() -> Element {
 pub fn Home() -> Element {
     let info = info::info();
     rsx! {
-        div { class: "divider",
+        daisyui::Divider {
             h1 { class: "text-2xl font-bold", "Skills" }
         }
         ResumeSkillSection { skill_section_info: info.resume_info.skill_section_info }

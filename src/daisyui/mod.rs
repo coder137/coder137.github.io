@@ -4,6 +4,9 @@ pub use badge::*;
 mod card;
 pub use card::*;
 
+mod divider;
+pub use divider::*;
+
 mod navbar;
 pub use navbar::*;
 
