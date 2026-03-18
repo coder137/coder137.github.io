@@ -41,3 +41,10 @@ pub fn CardBody(props: CardBodyProps) -> Element {
         div { class: "card-body {props.class}", {props.children} }
     }
 }
+
+#[component]
+pub fn CardTitle(text: String) -> Element {
+    rsx! {
+        h2 { class: "card-title", {text} }
+    }
+}

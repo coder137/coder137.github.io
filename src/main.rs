@@ -64,7 +64,7 @@ fn App() -> Element {
         Meta { name: "description", content: "coder137.portfolio" }
         document::Link { rel: "stylesheet", href: TAILWIND_CSS }
 
-        div { class: "mx-auto max-w-5xl",
+        div { class: "mx-auto max-w-5xl p-2",
             WebsiteHeader {}
             Router::<Route> {}
             WebsiteFooter {}
@@ -88,30 +88,21 @@ fn ResumeSkillSection(skill_section_info: info::UserResumeSkillSectionInfo) -> E
     let is_odd = skill_section_info.skills.len() % 2 != 0;
     let last = skill_section_info.skills.len() - 1;
     rsx! {
-        div { class: "grid md:grid-cols-4 md:gap-4 mb-2",
+        div { class: "grid md:grid-cols-4 gap-4 mb-4",
             if is_odd {
-                for (i , rs) in skill_section_info.skills.into_iter().enumerate() {
+                for (i , s) in skill_section_info.skills.into_iter().enumerate() {
                     if i == last {
                         ResumeOneSkill {
-                            class: "col-start-2 col-span-2",
-                            title: rs.title,
-                            skills: rs.topics,
+                            class: "md:col-start-2 col-span-2",
+                            skill_info: *s,
                         }
                     } else {
-                        ResumeOneSkill {
-                            class: "col-span-2",
-                            title: rs.title,
-                            skills: rs.topics,
-                        }
+                        ResumeOneSkill { class: "col-span-2", skill_info: *s }
                     }
                 }
             } else {
-                for rs in skill_section_info.skills {
-                    ResumeOneSkill {
-                        class: "col-span-2",
-                        title: rs.title,
-                        skills: rs.topics,
-                    }
+                for s in skill_section_info.skills {
+                    ResumeOneSkill { class: "col-span-2", skill_info: *s }
                 }
             }
         }
@@ -122,19 +113,20 @@ fn ResumeSkillSection(skill_section_info: info::UserResumeSkillSectionInfo) -> E
 struct ResumeOneSkillProps {
     #[props(default = "".into())]
     class: String,
-    title: &'static str,
-    skills: &'static [&'static str],
+    skill_info: info::UserResumeSkillSectionOneSkillInfo,
 }
 
 #[component]
 fn ResumeOneSkill(props: ResumeOneSkillProps) -> Element {
     rsx! {
-        daisyui::Card { class: props.class, border: daisyui::CardBorderStyle::Border,
+        daisyui::Card {
+            class: "bg-base-200 {props.class}",
+            border: daisyui::CardBorderStyle::Border,
             daisyui::CardBody { class: "items-center",
-                div { class: "card-title", "{props.title}" }
+                daisyui::CardTitle { text: "{props.skill_info.title}" }
                 div { class: "flex flex-wrap gap-2 justify-center",
-                    for s in props.skills {
-                        daisyui::Badge { text: s, color: daisyui::BadgeColor::Primary }
+                    for s in props.skill_info.topics {
+                        daisyui::Badge { text: s, color: daisyui::BadgeColor::Accent }
                     }
                 }
             }
@@ -178,7 +170,6 @@ pub fn WebsiteHeader() -> Element {
                             }
                         }
                     }
-
                 }
             }
         }
