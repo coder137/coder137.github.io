@@ -80,6 +80,12 @@ pub fn Home() -> Element {
             h1 { class: "text-2xl font-bold", "Skills" }
         }
         ResumeSkillSection { skill_section_info: info.resume_info.skill_section_info }
+        daisyui::Divider {
+            h1 { class: "text-2xl font-bold", "Experience" }
+        }
+        daisyui::Divider {
+            h1 { class: "text-2xl font-bold", "Education" }
+        }
     }
 }
 
@@ -143,33 +149,7 @@ pub fn WebsiteHeader() -> Element {
                     a { class: "text-3xl font-black", href: "/", "Niket Naidu" }
                 }
                 daisyui::NavbarEnd {
-                    daisyui::Menu {
-                        class: "gap-2",
-                        menu_type: daisyui::MenuType::Horizontal,
-                        a { href: "https://www.linkedin.com/in/niket-naidu/",
-                            dioxus_free_icons::Icon {
-                                width: 20,
-                                height: 20,
-                                icon: dioxus_free_icons::icons::fa_brands_icons::FaLinkedin,
-                            }
-                        }
-
-                        a { href: "https://github.com/coder137",
-                            dioxus_free_icons::Icon {
-                                width: 20,
-                                height: 20,
-                                icon: dioxus_free_icons::icons::fa_brands_icons::FaGithub,
-                            }
-                        }
-
-                        a { href: "mailto:niketnaiduus@gmail.com",
-                            dioxus_free_icons::Icon {
-                                width: 20,
-                                height: 20,
-                                icon: dioxus_free_icons::icons::fa_brands_icons::FaGoogle,
-                            }
-                        }
-                    }
+                    WebsiteSocials { }
                 }
             }
         }
@@ -179,34 +159,40 @@ pub fn WebsiteHeader() -> Element {
 #[component]
 pub fn WebsiteFooter() -> Element {
     rsx! {
-        daisyui::Footer { center: true, class: "footer-horizontal bg-base-200 p-2",
-            aside { class: "grid-flow-col items-center",
-                p { class: "text-base", "\u{00A9} 2025 Niket Naidu. All right reserved." }
+        daisyui::Footer {
+            center: false,
+            class: "footer-horizontal flex justify-between items-center p-2",
+            p { class: "text-base", "\u{00A9} 2025 Niket Naidu. All rights reserved." }
+            WebsiteSocials {}
+        }
+    }
+}
+
+#[component]
+pub fn WebsiteSocials() -> Element {
+    rsx! {
+        daisyui::Menu { class: "gap-2", menu_type: daisyui::MenuType::Horizontal,
+            a { href: "https://www.linkedin.com/in/niket-naidu/",
+                dioxus_free_icons::Icon {
+                    width: 20,
+                    height: 20,
+                    icon: dioxus_free_icons::icons::fa_brands_icons::FaLinkedin,
+                }
             }
 
-            div { class: "grid grid-flow-col gap-4",
-                a { href: "https://www.linkedin.com/in/niket-naidu/",
-                    dioxus_free_icons::Icon {
-                        width: 24,
-                        height: 24,
-                        icon: dioxus_free_icons::icons::fa_brands_icons::FaLinkedin,
-                    }
+            a { href: "https://github.com/coder137",
+                dioxus_free_icons::Icon {
+                    width: 20,
+                    height: 20,
+                    icon: dioxus_free_icons::icons::fa_brands_icons::FaGithub,
                 }
+            }
 
-                a { href: "https://github.com/coder137",
-                    dioxus_free_icons::Icon {
-                        width: 24,
-                        height: 24,
-                        icon: dioxus_free_icons::icons::fa_brands_icons::FaGithub,
-                    }
-                }
-
-                a { href: "mailto:niketnaiduus@gmail.com",
-                    dioxus_free_icons::Icon {
-                        width: 24,
-                        height: 24,
-                        icon: dioxus_free_icons::icons::fa_brands_icons::FaGoogle,
-                    }
+            a { href: "mailto:niketnaiduus@gmail.com",
+                dioxus_free_icons::Icon {
+                    width: 20,
+                    height: 20,
+                    icon: dioxus_free_icons::icons::fa_brands_icons::FaGoogle,
                 }
             }
         }
