@@ -1,9 +1,12 @@
 use dioxus::prelude::*;
 
+mod daisyui;
+
 const FAVICON: Asset = asset!("/assets/favicon.ico");
-const MAIN_CSS: Asset = asset!("/assets/main.css");
-const HEADER_SVG: Asset = asset!("/assets/header.svg");
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
+
+//
+const CONSTRUCTION_DRAWING: Asset = asset!("/assets/img/construction_drawing.jpg");
 
 #[derive(Routable, Debug, Clone, PartialEq)]
 enum Route {
@@ -59,32 +62,108 @@ fn main() {
 fn App() -> Element {
     rsx! {
         document::Link { rel: "icon", href: FAVICON }
-        document::Link { rel: "stylesheet", href: MAIN_CSS }
+        Meta { name: "description", content: "coder137.portfolio" }
         document::Link { rel: "stylesheet", href: TAILWIND_CSS }
-        Router::<Route> {}
+
+        div { class: "mx-auto max-w-5xl",
+            WebsiteHeader {}
+            Router::<Route> {}
+            WebsiteFooter {}
+        }
     }
 }
 
 #[component]
 pub fn Home() -> Element {
     rsx! {
-        Hero {}
+        div {
+            class: "hero min-h-screen",
+            style: "background-image: url({CONSTRUCTION_DRAWING});",
+            div { class: "hero-overlay" }
+            div { class: "hero-content text-neutral-content text-center",
+                div { class: "max-w-md",
+                    h1 { class: "mb-5 text-5xl font-bold", "Coming soon!" }
+                }
+            }
+        }
     }
 }
 
 #[component]
-pub fn Hero() -> Element {
+pub fn WebsiteHeader() -> Element {
     rsx! {
-        div {
-            id: "hero",
-            img { src: HEADER_SVG, id: "header" }
-            div { id: "links",
-                a { href: "https://dioxuslabs.com/learn/0.7/", "📚 Learn Dioxus" }
-                a { href: "https://dioxuslabs.com/awesome", "🚀 Awesome Dioxus" }
-                a { href: "https://github.com/dioxus-community/", "📡 Community Libraries" }
-                a { href: "https://github.com/DioxusLabs/sdk", "⚙️ Dioxus Development Kit" }
-                a { href: "https://marketplace.visualstudio.com/items?itemName=DioxusLabs.dioxus", "💫 VSCode Extension" }
-                a { href: "https://discord.gg/XgGxMSkvUM", "👋 Community Discord" }
+        header {
+            daisyui::Navbar { class: "bg-base-200 shadow-sm mt-2",
+                daisyui::NavbarStart {
+                    a { class: "text-2xl font-black", href: "/", "Niket Naidu" }
+                }
+                daisyui::NavbarEnd {
+                    daisyui::Menu {
+                        class: "gap-2",
+                        menu_type: daisyui::MenuType::Horizontal,
+                        a { href: "https://www.linkedin.com/in/niket-naidu/",
+                            dioxus_free_icons::Icon {
+                                width: 20,
+                                height: 20,
+                                icon: dioxus_free_icons::icons::fa_brands_icons::FaLinkedin,
+                            }
+                        }
+
+                        a { href: "https://github.com/coder137",
+                            dioxus_free_icons::Icon {
+                                width: 20,
+                                height: 20,
+                                icon: dioxus_free_icons::icons::fa_brands_icons::FaGithub,
+                            }
+                        }
+
+                        a { href: "mailto:niketnaiduus@gmail.com",
+                            dioxus_free_icons::Icon {
+                                width: 20,
+                                height: 20,
+                                icon: dioxus_free_icons::icons::fa_brands_icons::FaGoogle,
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+#[component]
+pub fn WebsiteFooter() -> Element {
+    rsx! {
+        daisyui::Footer { center: true, class: "footer-horizontal bg-base-200 p-2",
+            aside { class: "grid-flow-col items-center",
+                p { class: "text-base", "\u{00A9} 2025 Niket Naidu. All right reserved." }
+            }
+
+            nav { class: "grid-flow-col items-center",
+                a { href: "https://www.linkedin.com/in/niket-naidu/",
+                    dioxus_free_icons::Icon {
+                        width: 20,
+                        height: 20,
+                        icon: dioxus_free_icons::icons::fa_brands_icons::FaLinkedin,
+                    }
+                }
+
+                a { href: "https://github.com/coder137",
+                    dioxus_free_icons::Icon {
+                        width: 20,
+                        height: 20,
+                        icon: dioxus_free_icons::icons::fa_brands_icons::FaGithub,
+                    }
+                }
+
+                a { href: "mailto:niketnaiduus@gmail.com",
+                    dioxus_free_icons::Icon {
+                        width: 20,
+                        height: 20,
+                        icon: dioxus_free_icons::icons::fa_brands_icons::FaGoogle,
+                    }
+                }
             }
         }
     }
