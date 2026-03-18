@@ -2,11 +2,10 @@ use dioxus::prelude::*;
 
 mod daisyui;
 
+mod info;
+
 const FAVICON: Asset = asset!("/assets/favicon.ico");
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
-
-//
-const CONSTRUCTION_DRAWING: Asset = asset!("/assets/img/construction_drawing.jpg");
 
 #[derive(Routable, Debug, Clone, PartialEq)]
 enum Route {
@@ -75,14 +74,68 @@ fn App() -> Element {
 
 #[component]
 pub fn Home() -> Element {
+    let info = info::info();
     rsx! {
-        div {
-            class: "hero min-h-screen",
-            style: "background-image: url({CONSTRUCTION_DRAWING});",
-            div { class: "hero-overlay" }
-            div { class: "hero-content text-neutral-content text-center",
-                div { class: "max-w-md",
-                    h1 { class: "mb-5 text-5xl font-bold", "Coming soon!" }
+        div { class: "divider",
+            h1 { class: "text-2xl font-bold", "Skills" }
+        }
+        ResumeSkillSection { skill_section_info: info.resume_info.skill_section_info }
+    }
+}
+
+#[component]
+fn ResumeSkillSection(skill_section_info: info::UserResumeSkillSectionInfo) -> Element {
+    let is_odd = skill_section_info.skills.len() % 2 != 0;
+    let last = skill_section_info.skills.len() - 1;
+    rsx! {
+        div { class: "grid md:grid-cols-4 md:gap-4 mb-2",
+            if is_odd {
+                for (i , rs) in skill_section_info.skills.into_iter().enumerate() {
+                    if i == last {
+                        ResumeOneSkill {
+                            class: "col-start-2 col-span-2",
+                            title: rs.title,
+                            skills: rs.topics,
+                        }
+                    } else {
+                        ResumeOneSkill {
+                            class: "col-span-2",
+                            title: rs.title,
+                            skills: rs.topics,
+                        }
+                    }
+                }
+            } else {
+                for rs in skill_section_info.skills {
+                    ResumeOneSkill {
+                        class: "col-span-2",
+                        title: rs.title,
+                        skills: rs.topics,
+                    }
+                }
+            }
+        }
+    }
+}
+
+#[derive(Props, Clone, PartialEq)]
+struct ResumeOneSkillProps {
+    #[props(default = "".into())]
+    class: String,
+    title: &'static str,
+    skills: &'static [&'static str],
+}
+
+#[component]
+fn ResumeOneSkill(props: ResumeOneSkillProps) -> Element {
+    rsx! {
+        daisyui::Card { class: props.class, border: daisyui::CardBorderStyle::Border,
+            daisyui::CardBody { class: "items-center",
+                div { class: "card-title", "{props.title}" }
+                div { class: "flex flex-wrap gap-2 justify-center",
+                    for s in props.skills {
+                        daisyui::Badge { text: s, color: daisyui::BadgeColor::Primary }
+                    }
                 }
             }
         }
@@ -93,9 +146,9 @@ pub fn Home() -> Element {
 pub fn WebsiteHeader() -> Element {
     rsx! {
         header {
-            daisyui::Navbar { class: "bg-base-200 shadow-sm mt-2",
+            daisyui::Navbar { class: "",
                 daisyui::NavbarStart {
-                    a { class: "text-2xl font-black", href: "/", "Niket Naidu" }
+                    a { class: "text-3xl font-black", href: "/", "Niket Naidu" }
                 }
                 daisyui::NavbarEnd {
                     daisyui::Menu {
@@ -140,27 +193,27 @@ pub fn WebsiteFooter() -> Element {
                 p { class: "text-base", "\u{00A9} 2025 Niket Naidu. All right reserved." }
             }
 
-            nav { class: "grid-flow-col items-center",
+            div { class: "grid grid-flow-col gap-4",
                 a { href: "https://www.linkedin.com/in/niket-naidu/",
                     dioxus_free_icons::Icon {
-                        width: 20,
-                        height: 20,
+                        width: 24,
+                        height: 24,
                         icon: dioxus_free_icons::icons::fa_brands_icons::FaLinkedin,
                     }
                 }
 
                 a { href: "https://github.com/coder137",
                     dioxus_free_icons::Icon {
-                        width: 20,
-                        height: 20,
+                        width: 24,
+                        height: 24,
                         icon: dioxus_free_icons::icons::fa_brands_icons::FaGithub,
                     }
                 }
 
                 a { href: "mailto:niketnaiduus@gmail.com",
                     dioxus_free_icons::Icon {
-                        width: 20,
-                        height: 20,
+                        width: 24,
+                        height: 24,
                         icon: dioxus_free_icons::icons::fa_brands_icons::FaGoogle,
                     }
                 }
