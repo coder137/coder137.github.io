@@ -1,4 +1,5 @@
 use dioxus::prelude::*;
+use web_sys::wasm_bindgen::JsCast;
 
 mod daisyui;
 
@@ -59,6 +60,17 @@ fn main() {
 
 #[component]
 fn App() -> Element {
+    use_effect(|| {
+        let html_element = web_sys::window()
+            .expect("Window not found")
+            .document()
+            .expect("Document not found")
+            .document_element()
+            .expect("Document element not found")
+            .dyn_into::<web_sys::HtmlElement>()
+            .expect("Failed to cast to HtmlElement");
+        html_element.set_lang("en");
+    });
     rsx! {
         document::Link { rel: "icon", href: FAVICON }
         Meta { name: "description", content: "coder137.portfolio" }
@@ -336,7 +348,9 @@ pub fn WebsiteFooter() -> Element {
 pub fn WebsiteSocials() -> Element {
     rsx! {
         div { class: "flex flex-row flex-wrap gap-2",
-            a { href: "https://www.linkedin.com/in/niket-naidu/",
+            a {
+                href: "https://www.linkedin.com/in/niket-naidu/",
+                aria_label: "Linkedin link",
                 dioxus_free_icons::Icon {
                     width: 20,
                     height: 20,
@@ -344,7 +358,9 @@ pub fn WebsiteSocials() -> Element {
                 }
             }
 
-            a { href: "https://github.com/coder137",
+            a {
+                href: "https://github.com/coder137",
+                aria_label: "Github link",
                 dioxus_free_icons::Icon {
                     width: 20,
                     height: 20,
@@ -352,7 +368,9 @@ pub fn WebsiteSocials() -> Element {
                 }
             }
 
-            a { href: "mailto:niketnaiduus@gmail.com",
+            a {
+                href: "mailto:niketnaiduus@gmail.com",
+                aria_label: "Email link",
                 dioxus_free_icons::Icon {
                     width: 20,
                     height: 20,

@@ -451,6 +451,7 @@ dependencies = [
  "dioxus",
  "dioxus-free-icons",
  "dioxus-logger",
+ "web-sys",
 ]
 
 [[package]]
