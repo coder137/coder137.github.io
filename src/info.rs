@@ -10,10 +10,27 @@ pub struct UserResumeSkillSectionInfo {
 }
 
 #[derive(Clone, Copy, PartialEq)]
-pub struct UserResumeInfo {
-    pub skill_section_info: UserResumeSkillSectionInfo,
+pub struct UserOneEducationInfo {
+    pub start: usize,
+    pub end: Option<usize>,
+    pub university: &'static str,
+    pub degree_type: &'static str,
+    pub course: &'static str,
+    pub specialization: Option<&'static str>,
 }
 
+#[derive(Clone, Copy, PartialEq)]
+pub struct UserEducationInfo {
+    pub degrees: &'static [UserOneEducationInfo],
+}
+
+#[derive(Clone, Copy, PartialEq)]
+pub struct UserResumeInfo {
+    pub skill_section_info: UserResumeSkillSectionInfo,
+    pub education: UserEducationInfo,
+}
+
+#[derive(Clone, Copy, PartialEq)]
 pub struct UserInfo {
     pub resume_info: UserResumeInfo,
 }
@@ -70,7 +87,30 @@ pub fn info() -> UserInfo {
             },
         ],
     };
+    let education = UserEducationInfo {
+        degrees: &[
+            UserOneEducationInfo {
+                start: 2019,
+                end: Some(2021),
+                university: "San Jose State University",
+                degree_type: "Master of Science",
+                course: "Computer Engineering",
+                specialization: Some("Embedded Systems"),
+            },
+            UserOneEducationInfo {
+                start: 2013,
+                end: Some(2017),
+                university: "Amity University",
+                degree_type: "Bachelor of Technology",
+                course: "Electronics and Communication",
+                specialization: None,
+            },
+        ],
+    };
 
-    let resume_info = UserResumeInfo { skill_section_info };
+    let resume_info = UserResumeInfo {
+        skill_section_info,
+        education,
+    };
     UserInfo { resume_info }
 }

@@ -86,6 +86,7 @@ pub fn Home() -> Element {
         daisyui::Divider {
             h1 { class: "text-2xl font-bold", "Education" }
         }
+        ResumeEducationSection { education: info.resume_info.education }
     }
 }
 
@@ -132,9 +133,90 @@ fn ResumeOneSkill(props: ResumeOneSkillProps) -> Element {
                 daisyui::CardTitle { text: "{props.skill_info.title}" }
                 div { class: "flex flex-wrap gap-2 justify-center",
                     for s in props.skill_info.topics {
-                        daisyui::Badge { text: s, color: daisyui::BadgeColor::Accent }
+                        daisyui::Badge { text: s, color: daisyui::BadgeColor::Primary }
                     }
                 }
+            }
+        }
+    }
+}
+
+#[component]
+fn ResumeEducationSection(education: info::UserEducationInfo) -> Element {
+    rsx! {
+        daisyui::Timeline {
+            class: "max-md:timeline-compact",
+            timeline_type: daisyui::TimelineType::Vertical,
+            is_snap_icon: true,
+            is_compact: false,
+            for (i , degree) in education.degrees.into_iter().enumerate() {
+                ResumeOneEducation {
+                    left: i % 2 == 0,
+                    start: i != 0,
+                    end: i != (education.degrees.len() - 1),
+                    degree: *degree,
+                }
+            }
+        }
+    }
+}
+
+#[derive(Props, Clone, PartialEq)]
+struct ResumeOneEducationProps {
+    #[props(default = "".into())]
+    class: String,
+    left: bool,
+    start: bool,
+    end: bool,
+    degree: info::UserOneEducationInfo,
+}
+
+#[component]
+fn ResumeOneEducation(props: ResumeOneEducationProps) -> Element {
+    let end = match props.degree.end {
+        Some(end) => rsx! {
+            time { "{end}" }
+        },
+        None => rsx! { "Current" },
+    };
+    let specialization = match props.degree.specialization {
+        Some(specialization) => rsx! {
+            br {}
+            p { class: "italic", "{specialization}" }
+        },
+        None => rsx! {},
+    };
+    let info = rsx! {
+        div { class: "font-mono italic mt-0.5",
+            time { "{props.degree.start}" }
+            " - "
+            {end}
+        }
+        div { class: "text-lg font-bold", "{props.degree.university}" }
+        p { class: "font-bold", "{props.degree.degree_type}" }
+        "{props.degree.course}"
+        {specialization}
+    };
+    rsx! {
+        li {
+            if props.start {
+                hr { class: "bg-primary" }
+            }
+
+            daisyui::TimelineMiddle {
+                dioxus_free_icons::Icon {
+                    icon: dioxus_free_icons::icons::fa_solid_icons::FaGraduationCap,
+                }
+            }
+
+            if props.left {
+                daisyui::TimelineStart { class: "md:text-end mb-4", {info} }
+            } else {
+                daisyui::TimelineEnd { class: "mb-4", {info} }
+            }
+
+            if props.end {
+                hr { class: "bg-primary" }
             }
         }
     }
@@ -144,13 +226,11 @@ fn ResumeOneSkill(props: ResumeOneSkillProps) -> Element {
 pub fn WebsiteHeader() -> Element {
     rsx! {
         header {
-            daisyui::Navbar { class: "",
+            daisyui::Navbar { class: "bg-base-200 rounded-field",
                 daisyui::NavbarStart {
                     a { class: "text-3xl font-black", href: "/", "Niket Naidu" }
                 }
-                daisyui::NavbarEnd {
-                    WebsiteSocials { }
-                }
+                daisyui::NavbarEnd { WebsiteSocials {} }
             }
         }
     }
@@ -160,8 +240,8 @@ pub fn WebsiteHeader() -> Element {
 pub fn WebsiteFooter() -> Element {
     rsx! {
         daisyui::Footer {
+            class: "footer-horizontal bg-base-200 rounded-field flex justify-between items-center px-2",
             center: false,
-            class: "footer-horizontal flex justify-between items-center p-2",
             p { class: "text-base", "\u{00A9} 2025 Niket Naidu. All rights reserved." }
             WebsiteSocials {}
         }
