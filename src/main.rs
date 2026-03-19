@@ -251,7 +251,7 @@ fn ResumeOneEducation(props: ResumeOneEducationProps) -> Element {
         None => rsx! {},
     };
     let info = rsx! {
-        div { class: "font-mono italic mt-0.5",
+        div { class: "font-mono italic",
             time { "{props.degree.start}" }
             " - "
             {end}
@@ -272,9 +272,9 @@ fn ResumeOneEducation(props: ResumeOneEducationProps) -> Element {
             }
 
             if props.left {
-                daisyui::TimelineStart { class: "md:text-end mb-4", {info} }
+                daisyui::TimelineStart { class: "md:text-end mb-4 timeline-box bg-base-200 text-base", {info} }
             } else {
-                daisyui::TimelineEnd { class: "mb-4", {info} }
+                daisyui::TimelineEnd { class: "mb-4 timeline-box bg-base-200 text-base", {info} }
             }
 
             if props.end {
