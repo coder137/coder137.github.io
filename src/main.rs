@@ -324,7 +324,7 @@ pub fn WebsiteHeader() -> Element {
 pub fn WebsiteFooter() -> Element {
     rsx! {
         daisyui::Footer {
-            class: "footer-horizontal bg-base-200 rounded-field flex justify-between items-center px-2",
+            class: "footer-horizontal bg-base-200 rounded-field flex justify-between items-center p-2",
             center: false,
             p { class: "text-base", "\u{00A9} 2025 Niket Naidu. All rights reserved." }
             WebsiteSocials {}
@@ -335,7 +335,7 @@ pub fn WebsiteFooter() -> Element {
 #[component]
 pub fn WebsiteSocials() -> Element {
     rsx! {
-        daisyui::Menu { class: "gap-2", menu_type: daisyui::MenuType::Horizontal,
+        div { class: "flex flex-row flex-wrap gap-2",
             a { href: "https://www.linkedin.com/in/niket-naidu/",
                 dioxus_free_icons::Icon {
                     width: 20,
