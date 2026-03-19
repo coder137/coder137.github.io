@@ -169,9 +169,9 @@ fn ResumeOneExperience(props: ResumeOneExperienceProps) -> Element {
         }
         div { class: "text-lg font-bold", "{props.experience.company}" }
         p { class: "font-bold", "{props.experience.title}" }
-        ul { class: "list {text_direction} text-base",
+        daisyui::List { class: "{text_direction} text-base",
             for achievement in props.experience.achievements {
-                li { class: "list-row px-0 gap-0", "{achievement}" }
+                daisyui::ListRow { class: "px-0 gap-0", "{achievement}" }
             }
         }
         div { class: "flex {row_direction} flex-wrap gap-2",
