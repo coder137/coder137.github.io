@@ -272,7 +272,9 @@ fn ResumeOneEducation(props: ResumeOneEducationProps) -> Element {
             }
 
             if props.left {
-                daisyui::TimelineStart { class: "md:text-end mb-4 timeline-box bg-base-200 text-base", {info} }
+                daisyui::TimelineStart { class: "md:text-end mb-4 timeline-box bg-base-200 text-base",
+                    {info}
+                }
             } else {
                 daisyui::TimelineEnd { class: "mb-4 timeline-box bg-base-200 text-base", {info} }
             }
