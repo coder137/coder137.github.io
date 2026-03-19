@@ -79,10 +79,11 @@ pub fn Home() -> Element {
         daisyui::Divider {
             h1 { class: "text-2xl font-bold", "Skills" }
         }
-        ResumeSkillSection { skill_section_info: info.resume.skill }
+        ResumeSkillSection { skill: info.resume.skill }
         daisyui::Divider {
             h1 { class: "text-2xl font-bold", "Experience" }
         }
+        ResumeExperienceSection { experience: info.resume.experience }
         daisyui::Divider {
             h1 { class: "text-2xl font-bold", "Education" }
         }
@@ -116,13 +117,13 @@ fn ResumeOneSkill(props: ResumeOneSkillProps) -> Element {
 }
 
 #[component]
-fn ResumeSkillSection(skill_section_info: info::UserSkillInfo) -> Element {
-    let is_odd = skill_section_info.skills.len() % 2 != 0;
-    let last = skill_section_info.skills.len() - 1;
+fn ResumeSkillSection(skill: info::UserSkillInfo) -> Element {
+    let is_odd = skill.skills.len() % 2 != 0;
+    let last = skill.skills.len() - 1;
     rsx! {
         div { class: "grid md:grid-cols-4 gap-4 mb-4",
             if is_odd {
-                for (i , skill) in skill_section_info.skills.into_iter().enumerate() {
+                for (i , skill) in skill.skills.into_iter().enumerate() {
                     if i == last {
                         ResumeOneSkill { class: "md:col-start-2 col-span-2", skill: *skill }
                     } else {
@@ -130,8 +131,94 @@ fn ResumeSkillSection(skill_section_info: info::UserSkillInfo) -> Element {
                     }
                 }
             } else {
-                for skill in skill_section_info.skills {
+                for skill in skill.skills {
                     ResumeOneSkill { class: "col-span-2", skill: *skill }
+                }
+            }
+        }
+    }
+}
+
+#[derive(Props, Clone, PartialEq)]
+struct ResumeOneExperienceProps {
+    left: bool,
+    start: bool,
+    end: bool,
+    experience: info::UserOneExperienceInfo,
+}
+
+#[component]
+fn ResumeOneExperience(props: ResumeOneExperienceProps) -> Element {
+    let end = match props.experience.end {
+        Some(end) => rsx! {
+            time { "{end}" }
+        },
+        None => rsx! { "Current" },
+    };
+    let text_direction = if props.left { "md:text-right" } else { "" };
+    let row_direction = if props.left {
+        "md:flex-row-reverse"
+    } else {
+        ""
+    };
+    let info = rsx! {
+        div { class: "font-mono italic",
+            time { "{props.experience.start}" }
+            " - "
+            {end}
+        }
+        div { class: "text-lg font-bold", "{props.experience.company}" }
+        p { class: "font-bold", "{props.experience.title}" }
+        ul { class: "list {text_direction} text-base",
+            for achievement in props.experience.achievements {
+                li { class: "list-row px-0 gap-0", "{achievement}" }
+            }
+        }
+        div { class: "flex {row_direction} flex-wrap gap-2",
+            for s in props.experience.skills {
+                daisyui::Badge { text: s, color: daisyui::BadgeColor::Primary }
+            }
+        }
+    };
+    rsx! {
+        li {
+            if props.start {
+                hr { class: "bg-primary" }
+            }
+
+            daisyui::TimelineMiddle {
+                dioxus_free_icons::Icon { icon: dioxus_free_icons::icons::fa_solid_icons::FaBriefcase }
+            }
+
+            if props.left {
+                daisyui::TimelineStart { class: "md:text-end mb-4 timeline-box bg-base-200 text-base",
+                    {info}
+                }
+            } else {
+                daisyui::TimelineEnd { class: "mb-4 timeline-box bg-base-200 text-base", {info} }
+            }
+
+            if props.end {
+                hr { class: "bg-primary" }
+            }
+        }
+    }
+}
+
+#[component]
+fn ResumeExperienceSection(experience: info::UserExperienceInfo) -> Element {
+    rsx! {
+        daisyui::Timeline {
+            class: "max-md:timeline-compact",
+            timeline_type: daisyui::TimelineType::Vertical,
+            is_snap_icon: true,
+            is_compact: false,
+            for (i , role) in experience.roles.into_iter().enumerate() {
+                ResumeOneExperience {
+                    left: i % 2 == 0,
+                    start: i != 0,
+                    end: i != (experience.roles.len() - 1),
+                    experience: *role,
                 }
             }
         }
