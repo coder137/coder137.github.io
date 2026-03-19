@@ -79,40 +79,14 @@ pub fn Home() -> Element {
         daisyui::Divider {
             h1 { class: "text-2xl font-bold", "Skills" }
         }
-        ResumeSkillSection { skill_section_info: info.resume_info.skill_section_info }
+        ResumeSkillSection { skill_section_info: info.resume.skill }
         daisyui::Divider {
             h1 { class: "text-2xl font-bold", "Experience" }
         }
         daisyui::Divider {
             h1 { class: "text-2xl font-bold", "Education" }
         }
-        ResumeEducationSection { education: info.resume_info.education }
-    }
-}
-
-#[component]
-fn ResumeSkillSection(skill_section_info: info::UserResumeSkillSectionInfo) -> Element {
-    let is_odd = skill_section_info.skills.len() % 2 != 0;
-    let last = skill_section_info.skills.len() - 1;
-    rsx! {
-        div { class: "grid md:grid-cols-4 gap-4 mb-4",
-            if is_odd {
-                for (i , s) in skill_section_info.skills.into_iter().enumerate() {
-                    if i == last {
-                        ResumeOneSkill {
-                            class: "md:col-start-2 col-span-2",
-                            skill_info: *s,
-                        }
-                    } else {
-                        ResumeOneSkill { class: "col-span-2", skill_info: *s }
-                    }
-                }
-            } else {
-                for s in skill_section_info.skills {
-                    ResumeOneSkill { class: "col-span-2", skill_info: *s }
-                }
-            }
-        }
+        ResumeEducationSection { education: info.resume.education }
     }
 }
 
@@ -120,7 +94,7 @@ fn ResumeSkillSection(skill_section_info: info::UserResumeSkillSectionInfo) -> E
 struct ResumeOneSkillProps {
     #[props(default = "".into())]
     class: String,
-    skill_info: info::UserResumeSkillSectionOneSkillInfo,
+    skill: info::UserOneSkillInfo,
 }
 
 #[component]
@@ -130,9 +104,9 @@ fn ResumeOneSkill(props: ResumeOneSkillProps) -> Element {
             class: "bg-base-200 {props.class}",
             border: daisyui::CardBorderStyle::Border,
             daisyui::CardBody { class: "items-center",
-                daisyui::CardTitle { text: "{props.skill_info.title}" }
+                daisyui::CardTitle { text: "{props.skill.title}" }
                 div { class: "flex flex-wrap gap-2 justify-center",
-                    for s in props.skill_info.topics {
+                    for s in props.skill.topics {
                         daisyui::Badge { text: s, color: daisyui::BadgeColor::Primary }
                     }
                 }
@@ -142,19 +116,22 @@ fn ResumeOneSkill(props: ResumeOneSkillProps) -> Element {
 }
 
 #[component]
-fn ResumeEducationSection(education: info::UserEducationInfo) -> Element {
+fn ResumeSkillSection(skill_section_info: info::UserSkillInfo) -> Element {
+    let is_odd = skill_section_info.skills.len() % 2 != 0;
+    let last = skill_section_info.skills.len() - 1;
     rsx! {
-        daisyui::Timeline {
-            class: "max-md:timeline-compact",
-            timeline_type: daisyui::TimelineType::Vertical,
-            is_snap_icon: true,
-            is_compact: false,
-            for (i , degree) in education.degrees.into_iter().enumerate() {
-                ResumeOneEducation {
-                    left: i % 2 == 0,
-                    start: i != 0,
-                    end: i != (education.degrees.len() - 1),
-                    degree: *degree,
+        div { class: "grid md:grid-cols-4 gap-4 mb-4",
+            if is_odd {
+                for (i , skill) in skill_section_info.skills.into_iter().enumerate() {
+                    if i == last {
+                        ResumeOneSkill { class: "md:col-start-2 col-span-2", skill: *skill }
+                    } else {
+                        ResumeOneSkill { class: "col-span-2", skill: *skill }
+                    }
+                }
+            } else {
+                for skill in skill_section_info.skills {
+                    ResumeOneSkill { class: "col-span-2", skill: *skill }
                 }
             }
         }
@@ -204,9 +181,7 @@ fn ResumeOneEducation(props: ResumeOneEducationProps) -> Element {
             }
 
             daisyui::TimelineMiddle {
-                dioxus_free_icons::Icon {
-                    icon: dioxus_free_icons::icons::fa_solid_icons::FaGraduationCap,
-                }
+                dioxus_free_icons::Icon { icon: dioxus_free_icons::icons::fa_solid_icons::FaGraduationCap }
             }
 
             if props.left {
@@ -217,6 +192,26 @@ fn ResumeOneEducation(props: ResumeOneEducationProps) -> Element {
 
             if props.end {
                 hr { class: "bg-primary" }
+            }
+        }
+    }
+}
+
+#[component]
+fn ResumeEducationSection(education: info::UserEducationInfo) -> Element {
+    rsx! {
+        daisyui::Timeline {
+            class: "max-md:timeline-compact",
+            timeline_type: daisyui::TimelineType::Vertical,
+            is_snap_icon: true,
+            is_compact: false,
+            for (i , degree) in education.degrees.into_iter().enumerate() {
+                ResumeOneEducation {
+                    left: i % 2 == 0,
+                    start: i != 0,
+                    end: i != (education.degrees.len() - 1),
+                    degree: *degree,
+                }
             }
         }
     }

@@ -1,12 +1,12 @@
 #[derive(Clone, Copy, PartialEq)]
-pub struct UserResumeSkillSectionOneSkillInfo {
+pub struct UserOneSkillInfo {
     pub title: &'static str,
     pub topics: &'static [&'static str],
 }
 
 #[derive(Clone, Copy, PartialEq)]
-pub struct UserResumeSkillSectionInfo {
-    pub skills: &'static [UserResumeSkillSectionOneSkillInfo],
+pub struct UserSkillInfo {
+    pub skills: &'static [UserOneSkillInfo],
 }
 
 #[derive(Clone, Copy, PartialEq)]
@@ -26,23 +26,23 @@ pub struct UserEducationInfo {
 
 #[derive(Clone, Copy, PartialEq)]
 pub struct UserResumeInfo {
-    pub skill_section_info: UserResumeSkillSectionInfo,
+    pub skill: UserSkillInfo,
     pub education: UserEducationInfo,
 }
 
 #[derive(Clone, Copy, PartialEq)]
 pub struct UserInfo {
-    pub resume_info: UserResumeInfo,
+    pub resume: UserResumeInfo,
 }
 
 pub fn info() -> UserInfo {
-    let skill_section_info = UserResumeSkillSectionInfo {
+    let skill = UserSkillInfo {
         skills: &[
-            UserResumeSkillSectionOneSkillInfo {
+            UserOneSkillInfo {
                 title: "Programming Languages",
                 topics: &["Rust", "C++17", "C", "Python", "Dart"],
             },
-            UserResumeSkillSectionOneSkillInfo {
+            UserOneSkillInfo {
                 title: "OS & Tools",
                 topics: &[
                     "FreeRTOS",
@@ -56,7 +56,7 @@ pub fn info() -> UserInfo {
                     "Dioxus",
                 ],
             },
-            UserResumeSkillSectionOneSkillInfo {
+            UserOneSkillInfo {
                 title: "Network & Wireless Protocols",
                 topics: &[
                     "gRPC",
@@ -69,11 +69,11 @@ pub fn info() -> UserInfo {
                     "GPS",
                 ],
             },
-            UserResumeSkillSectionOneSkillInfo {
+            UserOneSkillInfo {
                 title: "Hardware Interfaces",
                 topics: &["I2C", "SPI", "CAN", "UART"],
             },
-            UserResumeSkillSectionOneSkillInfo {
+            UserOneSkillInfo {
                 title: "Processors",
                 topics: &[
                     "STMicroelectronics (STM32F7/STM32L4)",
@@ -108,9 +108,6 @@ pub fn info() -> UserInfo {
         ],
     };
 
-    let resume_info = UserResumeInfo {
-        skill_section_info,
-        education,
-    };
-    UserInfo { resume_info }
+    let resume = UserResumeInfo { skill, education };
+    UserInfo { resume }
 }
