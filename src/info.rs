@@ -161,7 +161,7 @@ pub fn info() -> UserInfo {
                 company: "Qualcomm Technologies",
                 title: "Cellular Software Engineer",
                 achievements: QUALCOMM_ENGINEER_ACHIEVEMENTS,
-                skills: &["C", "Python", "LTE"],
+                skills: &["C", "Python", "LTE", "Jenkins CI", "Sequence Diagrams"],
             },
             UserOneExperienceInfo {
                 start: "2020-12",
@@ -169,7 +169,7 @@ pub fn info() -> UserInfo {
                 company: "TuringSense",
                 title: "Firmware Engineer Intern",
                 achievements: TURINGSENSE_INTERN_ACHIEVEMENTS,
-                skills: &[],
+                skills: &["C", "NXP Semiconductors", "BLE", "Device Drivers"],
             },
             UserOneExperienceInfo {
                 start: "2020-05",
@@ -185,7 +185,7 @@ pub fn info() -> UserInfo {
                 company: "San Jose State University",
                 title: "Research Assistant",
                 achievements: SJSU_RA_ACHIEVEMENTS,
-                skills: &[],
+                skills: &["GPS", "LTE", "MBED OS", "Zephyr RTOS", "BG96"],
             },
         ],
     };
