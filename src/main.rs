@@ -78,7 +78,7 @@ fn App() -> Element {
 
         div { class: "mx-auto max-w-5xl p-2",
             WebsiteHeader {}
-            Router::<Route> {}
+            main { Router::<Route> {} }
             WebsiteFooter {}
         }
     }
@@ -88,20 +88,18 @@ fn App() -> Element {
 pub fn Home() -> Element {
     let info = info::info();
     rsx! {
-        main {
-            daisyui::Divider {
-                h1 { class: "text-2xl font-bold", "Skills" }
-            }
-            ResumeSkillSection { skill: info.resume.skill }
-            daisyui::Divider {
-                h1 { class: "text-2xl font-bold", "Experience" }
-            }
-            ResumeExperienceSection { experience: info.resume.experience }
-            daisyui::Divider {
-                h1 { class: "text-2xl font-bold", "Education" }
-            }
-            ResumeEducationSection { education: info.resume.education }
+        daisyui::Divider {
+            h1 { class: "text-2xl font-bold", "Skills" }
         }
+        ResumeSkillSection { skill: info.resume.skill }
+        daisyui::Divider {
+            h1 { class: "text-2xl font-bold", "Experience" }
+        }
+        ResumeExperienceSection { experience: info.resume.experience }
+        daisyui::Divider {
+            h1 { class: "text-2xl font-bold", "Education" }
+        }
+        ResumeEducationSection { education: info.resume.education }
     }
 }
 
