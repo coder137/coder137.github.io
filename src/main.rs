@@ -88,18 +88,20 @@ fn App() -> Element {
 pub fn Home() -> Element {
     let info = info::info();
     rsx! {
-        daisyui::Divider {
-            h1 { class: "text-2xl font-bold", "Skills" }
+        main {
+            daisyui::Divider {
+                h1 { class: "text-2xl font-bold", "Skills" }
+            }
+            ResumeSkillSection { skill: info.resume.skill }
+            daisyui::Divider {
+                h1 { class: "text-2xl font-bold", "Experience" }
+            }
+            ResumeExperienceSection { experience: info.resume.experience }
+            daisyui::Divider {
+                h1 { class: "text-2xl font-bold", "Education" }
+            }
+            ResumeEducationSection { education: info.resume.education }
         }
-        ResumeSkillSection { skill: info.resume.skill }
-        daisyui::Divider {
-            h1 { class: "text-2xl font-bold", "Experience" }
-        }
-        ResumeExperienceSection { experience: info.resume.experience }
-        daisyui::Divider {
-            h1 { class: "text-2xl font-bold", "Education" }
-        }
-        ResumeEducationSection { education: info.resume.education }
     }
 }
 
