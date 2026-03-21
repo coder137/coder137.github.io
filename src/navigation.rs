@@ -112,7 +112,10 @@ pub fn to_month_str(month: u32) -> &'static str {
 }
 
 #[component]
-fn ResumeOneExperienceTitle(left: bool, title: info::UserOneExperienceTitleInfo) -> Element {
+fn ResumeOneExperienceTitle(
+    left: bool,
+    title: &'static info::UserOneExperienceTitleInfo,
+) -> Element {
     let (start_year, start_month) = title.start;
     let start_month_str = to_month_str(start_month);
     let start = rsx! { "{start_month_str} {start_year}" };
@@ -152,7 +155,7 @@ struct ResumeOneExperienceProps {
     left: bool,
     start: bool,
     end: bool,
-    experience: info::UserOneExperienceInfo,
+    experience: &'static info::UserOneExperienceInfo,
 }
 
 #[component]
@@ -166,10 +169,8 @@ fn ResumeOneExperience(props: ResumeOneExperienceProps) -> Element {
         }
         info::UserOneExperienceInfo::Group { company, titles } => rsx! {
             div { class: "text-lg font-bold", "{company}" }
-            // get [0] -> end date / current date
-            // get [last] -> start date
-            for (i , title) in titles.into_iter().enumerate() {
-                ResumeOneExperienceTitle { left: props.left, title: *title }
+            for (i , title) in titles.iter().enumerate() {
+                ResumeOneExperienceTitle { left: props.left, title }
                 if i != titles.len() - 1 {
                     daisyui::Divider {}
                 }
@@ -209,12 +210,12 @@ fn ResumeExperienceSection(experience: &'static info::UserExperienceInfo) -> Ele
             timeline_type: daisyui::TimelineType::Vertical,
             is_snap_icon: true,
             is_compact: false,
-            for (i , role) in experience.roles.into_iter().enumerate() {
+            for (i , role) in experience.roles.iter().enumerate() {
                 ResumeOneExperience {
                     left: i % 2 == 0,
                     start: i != 0,
                     end: i != (experience.roles.len() - 1),
-                    experience: *role,
+                    experience: role,
                 }
             }
         }
@@ -228,7 +229,7 @@ struct ResumeOneEducationProps {
     left: bool,
     start: bool,
     end: bool,
-    degree: info::UserOneEducationInfo,
+    degree: &'static info::UserOneEducationInfo,
 }
 
 #[component]
@@ -290,12 +291,12 @@ fn ResumeEducationSection(education: &'static info::UserEducationInfo) -> Elemen
             timeline_type: daisyui::TimelineType::Vertical,
             is_snap_icon: true,
             is_compact: false,
-            for (i , degree) in education.degrees.into_iter().enumerate() {
+            for (i , degree) in education.degrees.iter().enumerate() {
                 ResumeOneEducation {
                     left: i % 2 == 0,
                     start: i != 0,
                     end: i != (education.degrees.len() - 1),
-                    degree: *degree,
+                    degree,
                 }
             }
         }
