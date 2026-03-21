@@ -71,11 +71,16 @@ fn App() -> Element {
 
 #[component]
 pub fn WebsiteHeader() -> Element {
+    let home_route = navigation::Route::Home.to_string();
     rsx! {
         header {
             daisyui::Navbar { class: "bg-base-200 rounded-field",
                 daisyui::NavbarStart {
-                    a { class: "text-3xl font-black", href: "/", "Niket Naidu" }
+                    a {
+                        class: "font-barrio tracking-wide text-4xl",
+                        href: {home_route},
+                        "Niket Naidu"
+                    }
                 }
                 daisyui::NavbarEnd { WebsiteSocials {} }
             }

@@ -1,5 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Caesar+Dressing&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barrio&display=swap');
 @import "tailwindcss";
 @source "./src/**/*.{rs,html,css}";
+
+@theme {
+    --font-caesar-dressing: "Caesar Dressing", system-ui;
+    --font-barrio: "Barrio", system-ui;
+}
 
 @source not "./tailwindcss";
 @source not "./daisyui{,*}.mjs";
