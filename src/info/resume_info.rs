@@ -1,55 +1,4 @@
-#[derive(Clone, Copy, PartialEq)]
-pub struct UserOneSkillInfo {
-    pub title: &'static str,
-    pub topics: &'static [&'static str],
-}
-
-#[derive(Clone, Copy, PartialEq)]
-pub struct UserSkillInfo {
-    pub skills: &'static [UserOneSkillInfo],
-}
-
-#[derive(Clone, Copy, PartialEq)]
-pub struct UserOneExperienceInfo {
-    pub start: &'static str,
-    pub end: Option<&'static str>,
-    pub company: &'static str,
-    pub title: &'static str,
-    pub achievements: &'static [&'static str],
-    pub skills: &'static [&'static str],
-}
-
-#[derive(Clone, Copy, PartialEq)]
-pub struct UserExperienceInfo {
-    pub roles: &'static [UserOneExperienceInfo],
-}
-
-#[derive(Clone, Copy, PartialEq)]
-pub struct UserOneEducationInfo {
-    pub start: usize,
-    pub end: Option<usize>,
-    pub university: &'static str,
-    pub degree_type: &'static str,
-    pub course: &'static str,
-    pub specialization: Option<&'static str>,
-}
-
-#[derive(Clone, Copy, PartialEq)]
-pub struct UserEducationInfo {
-    pub degrees: &'static [UserOneEducationInfo],
-}
-
-#[derive(Clone, Copy, PartialEq)]
-pub struct UserResumeInfo {
-    pub skill: UserSkillInfo,
-    pub experience: UserExperienceInfo,
-    pub education: UserEducationInfo,
-}
-
-#[derive(Clone, Copy, PartialEq)]
-pub struct UserInfo {
-    pub resume: UserResumeInfo,
-}
+use crate::info::*;
 
 #[rustfmt::skip]
 const QUALCOMM_SENIOR_ENGINEER_ACHIEVEMENTS: &[&str] = &[
@@ -84,7 +33,7 @@ const SJSU_RA_ACHIEVEMENTS: &[&str] = &[
 "Achieved a significant 50 USD reduction in firmware costs per device and a 20% improvement in power efficiency for the second prototype.",
 ];
 
-pub fn info() -> UserInfo {
+pub fn resume() -> UserResumeInfo {
     let skill = UserSkillInfo {
         skills: &[
             UserOneSkillInfo {
@@ -139,7 +88,8 @@ pub fn info() -> UserInfo {
     let experience = UserExperienceInfo {
         roles: &[
             UserOneExperienceInfo {
-                start: "2023-12",
+                // TODO, Use DateTime from the chrono library
+                start: "December 2023",
                 end: None,
                 company: "Qualcomm Technologies",
                 title: "Senior Software Engineer",
@@ -210,10 +160,9 @@ pub fn info() -> UserInfo {
         ],
     };
 
-    let resume = UserResumeInfo {
+    UserResumeInfo {
         skill,
         experience,
         education,
-    };
-    UserInfo { resume }
+    }
 }
