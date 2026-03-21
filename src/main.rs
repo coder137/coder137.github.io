@@ -130,7 +130,7 @@ pub fn WebsiteSocials() -> Element {
                 dioxus_free_icons::Icon {
                     width: 20,
                     height: 20,
-                    icon: dioxus_free_icons::icons::fa_brands_icons::FaGoogle,
+                    icon: dioxus_free_icons::icons::fa_solid_icons::FaEnvelope,
                 }
             }
         }
