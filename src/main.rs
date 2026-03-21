@@ -78,7 +78,7 @@ pub fn WebsiteHeader() -> Element {
                 daisyui::NavbarStart {
                     a {
                         class: "font-barrio tracking-wide text-4xl",
-                        href: {home_route},
+                        href: home_route,
                         "Niket Naidu"
                     }
                 }
