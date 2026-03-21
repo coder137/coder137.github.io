@@ -49,7 +49,7 @@ fn Home() -> Element {
 struct ResumeOneSkillProps {
     #[props(default = "".into())]
     class: String,
-    skill: info::UserOneSkillInfo,
+    skill: &'static info::UserOneSkillInfo,
 }
 
 #[component]
@@ -77,16 +77,16 @@ fn ResumeSkillSection(skill: &'static info::UserSkillInfo) -> Element {
     rsx! {
         div { class: "grid md:grid-cols-4 gap-4 mb-4",
             if is_odd {
-                for (i , skill) in skill.skills.into_iter().enumerate() {
+                for (i , skill) in skill.skills.iter().enumerate() {
                     if i == last {
-                        ResumeOneSkill { class: "md:col-start-2 col-span-2", skill: *skill }
+                        ResumeOneSkill { class: "md:col-start-2 col-span-2", skill }
                     } else {
-                        ResumeOneSkill { class: "col-span-2", skill: *skill }
+                        ResumeOneSkill { class: "col-span-2", skill }
                     }
                 }
             } else {
                 for skill in skill.skills {
-                    ResumeOneSkill { class: "col-span-2", skill: *skill }
+                    ResumeOneSkill { class: "col-span-2", skill }
                 }
             }
         }

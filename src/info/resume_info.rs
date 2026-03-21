@@ -105,7 +105,7 @@ pub fn resume() -> UserResumeInfo {
     };
     const Q2: UserOneExperienceTitleInfo = UserOneExperienceTitleInfo {
         title: "Cellular Software Engineer",
-        start: (2021, 07),
+        start: (2021, 7),
         end: Some((2023, 11)),
         achievements: QUALCOMM_ENGINEER_ACHIEVEMENTS,
         skills: &["C", "Python", "LTE", "Jenkins CI", "Sequence Diagrams"],
@@ -123,7 +123,7 @@ pub fn resume() -> UserResumeInfo {
                 title: UserOneExperienceTitleInfo {
                     title: "Firmware Engineer Intern",
                     start: (2020, 12),
-                    end: Some((2021, 05)),
+                    end: Some((2021, 5)),
                     achievements: TURINGSENSE_INTERN_ACHIEVEMENTS,
                     skills: &["C", "NXP Semiconductors", "BLE", "Device Drivers"],
                 },
@@ -132,8 +132,8 @@ pub fn resume() -> UserResumeInfo {
                 company: "Blue River Technology",
                 title: UserOneExperienceTitleInfo {
                     title: "System Software Intern",
-                    start: (2020, 05),
-                    end: Some((2020, 08)),
+                    start: (2020, 5),
+                    end: Some((2020, 8)),
                     achievements: BLUERIVER_INTERN_ACHIEVEMENTS,
                     skills: &["C++17", "Python", "CAN J1939", "Nvidia", "Linux"],
                 },
@@ -143,7 +143,7 @@ pub fn resume() -> UserResumeInfo {
                 title: UserOneExperienceTitleInfo {
                     title: "Research Assistant",
                     start: (2019, 10),
-                    end: Some((2020, 05)),
+                    end: Some((2020, 5)),
                     achievements: SJSU_RA_ACHIEVEMENTS,
                     skills: &["GPS", "LTE", "MBED OS", "Zephyr RTOS", "BG96"],
                 },
