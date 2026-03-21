@@ -24,8 +24,8 @@ pub enum UserOneExperienceInfo {
 #[derive(Clone, Copy, PartialEq)]
 pub struct UserOneExperienceTitleInfo {
     pub title: &'static str,
-    pub start: &'static str,
-    pub end: Option<&'static str>,
+    pub start: (u32, u32),
+    pub end: Option<(u32, u32)>,
     pub achievements: &'static [&'static str],
     pub skills: &'static [&'static str],
 }
@@ -37,8 +37,8 @@ pub struct UserExperienceInfo {
 
 #[derive(Clone, Copy, PartialEq)]
 pub struct UserOneEducationInfo {
-    pub start: usize,
-    pub end: Option<usize>,
+    pub start: u32,
+    pub end: Option<u32>,
     pub university: &'static str,
     pub degree_type: &'static str,
     pub course: &'static str,

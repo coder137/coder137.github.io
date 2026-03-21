@@ -97,16 +97,16 @@ fn ResumeSkillSection(skill: &'static info::UserSkillInfo) -> Element {
 fn ResumeOneExperienceTitle(left: bool, title: info::UserOneExperienceTitleInfo) -> Element {
     let end = match title.end {
         Some(end) => rsx! {
-            time { "{end}" }
+            time { "{end:?}" }
         },
-        None => rsx! { "Current" },
+        None => rsx! { "Present" },
     };
     let text_direction = if left { "md:text-right" } else { "" };
     let row_direction = if left { "md:flex-row-reverse" } else { "" };
     rsx! {
         p { class: "font-bold", "{title.title}" }
-        div { class: "font-mono italic",
-            time { "{title.start}" }
+        div { class: "text-base-content/50",
+            time { "{title.start:?}" }
             " - "
             {end}
         }
@@ -142,6 +142,8 @@ fn ResumeOneExperience(props: ResumeOneExperienceProps) -> Element {
         }
         info::UserOneExperienceInfo::Group { company, titles } => rsx! {
             div { class: "text-lg font-bold", "{company}" }
+            // get [0] -> end date / current date
+            // get [last] -> start date
             for (i , title) in titles.into_iter().enumerate() {
                 ResumeOneExperienceTitle { left: props.left, title: *title }
                 if i != titles.len() - 1 {
@@ -211,7 +213,7 @@ fn ResumeOneEducation(props: ResumeOneEducationProps) -> Element {
         Some(end) => rsx! {
             time { "{end}" }
         },
-        None => rsx! { "Current" },
+        None => rsx! { "Present" },
     };
     let specialization = match props.degree.specialization {
         Some(specialization) => rsx! {
@@ -221,7 +223,7 @@ fn ResumeOneEducation(props: ResumeOneEducationProps) -> Element {
         None => rsx! {},
     };
     let info = rsx! {
-        div { class: "font-mono italic",
+        div { class: "text-base-content/50",
             time { "{props.degree.start}" }
             " - "
             {end}
