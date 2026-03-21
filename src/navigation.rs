@@ -93,20 +93,44 @@ fn ResumeSkillSection(skill: &'static info::UserSkillInfo) -> Element {
     }
 }
 
+pub fn to_month_str(month: u32) -> &'static str {
+    match month {
+        1 => "January",
+        2 => "February",
+        3 => "March",
+        4 => "April",
+        5 => "May",
+        6 => "June",
+        7 => "July",
+        8 => "August",
+        9 => "September",
+        10 => "October",
+        11 => "November",
+        12 => "December",
+        _ => unreachable!(),
+    }
+}
+
 #[component]
 fn ResumeOneExperienceTitle(left: bool, title: info::UserOneExperienceTitleInfo) -> Element {
+    let (start_year, start_month) = title.start;
+    let start_month_str = to_month_str(start_month);
+    let start = rsx! { "{start_month_str} {start_year}" };
+
     let end = match title.end {
-        Some(end) => rsx! {
-            time { "{end:?}" }
-        },
+        Some((end_year, end_month)) => {
+            let end_month_str = to_month_str(end_month);
+            rsx! { "{end_month_str} {end_year}" }
+        }
         None => rsx! { "Present" },
     };
+
     let text_direction = if left { "md:text-right" } else { "" };
     let row_direction = if left { "md:flex-row-reverse" } else { "" };
     rsx! {
         p { class: "font-bold", "{title.title}" }
         div { class: "text-base-content/50",
-            time { "{title.start:?}" }
+            time { {start} }
             " - "
             {end}
         }
