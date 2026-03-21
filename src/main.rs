@@ -1,28 +1,13 @@
 use dioxus::prelude::*;
+use web_sys::wasm_bindgen::JsCast;
 
 mod daisyui;
 
+mod info;
+mod navigation;
+
 const FAVICON: Asset = asset!("/assets/favicon.ico");
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
-
-//
-const CONSTRUCTION_DRAWING: Asset = asset!("/assets/img/construction_drawing.jpg");
-
-#[derive(Routable, Debug, Clone, PartialEq)]
-enum Route {
-    #[route("/")]
-    Home,
-}
-
-#[cfg(feature = "server")]
-#[server(endpoint = "static_routes", output = server_fn::codec::Json)]
-async fn static_routes() -> Result<Vec<String>, ServerFnError> {
-    // The `Routable` trait has a `static_routes` method that returns all static routes in the enum
-    Ok(Route::static_routes()
-        .iter()
-        .map(ToString::to_string)
-        .collect())
-}
 
 fn main() {
     #[cfg(not(feature = "server"))]
@@ -60,73 +45,44 @@ fn main() {
 
 #[component]
 fn App() -> Element {
+    use_effect(|| {
+        let html_element = web_sys::window()
+            .expect("Window not found")
+            .document()
+            .expect("Document not found")
+            .document_element()
+            .expect("Document element not found")
+            .dyn_into::<web_sys::HtmlElement>()
+            .expect("Failed to cast to HtmlElement");
+        html_element.set_lang("en");
+    });
     rsx! {
         document::Link { rel: "icon", href: FAVICON }
         Meta { name: "description", content: "coder137.portfolio" }
         document::Link { rel: "stylesheet", href: TAILWIND_CSS }
 
-        div { class: "mx-auto max-w-5xl",
+        div { class: "mx-auto max-w-5xl p-2",
             WebsiteHeader {}
-            Router::<Route> {}
+            main { Router::<navigation::Route> {} }
             WebsiteFooter {}
         }
     }
 }
 
 #[component]
-pub fn Home() -> Element {
-    rsx! {
-        div {
-            class: "hero min-h-screen",
-            style: "background-image: url({CONSTRUCTION_DRAWING});",
-            div { class: "hero-overlay" }
-            div { class: "hero-content text-neutral-content text-center",
-                div { class: "max-w-md",
-                    h1 { class: "mb-5 text-5xl font-bold", "Coming soon!" }
-                }
-            }
-        }
-    }
-}
-
-#[component]
 pub fn WebsiteHeader() -> Element {
+    let home_route = navigation::Route::Home.to_string();
     rsx! {
         header {
-            daisyui::Navbar { class: "bg-base-200 shadow-sm mt-2",
+            daisyui::Navbar { class: "bg-base-200 rounded-field",
                 daisyui::NavbarStart {
-                    a { class: "text-2xl font-black", href: "/", "Niket Naidu" }
-                }
-                daisyui::NavbarEnd {
-                    daisyui::Menu {
-                        class: "gap-2",
-                        menu_type: daisyui::MenuType::Horizontal,
-                        a { href: "https://www.linkedin.com/in/niket-naidu/",
-                            dioxus_free_icons::Icon {
-                                width: 20,
-                                height: 20,
-                                icon: dioxus_free_icons::icons::fa_brands_icons::FaLinkedin,
-                            }
-                        }
-
-                        a { href: "https://github.com/coder137",
-                            dioxus_free_icons::Icon {
-                                width: 20,
-                                height: 20,
-                                icon: dioxus_free_icons::icons::fa_brands_icons::FaGithub,
-                            }
-                        }
-
-                        a { href: "mailto:niketnaiduus@gmail.com",
-                            dioxus_free_icons::Icon {
-                                width: 20,
-                                height: 20,
-                                icon: dioxus_free_icons::icons::fa_brands_icons::FaGoogle,
-                            }
-                        }
+                    a {
+                        class: "font-barrio tracking-wide text-4xl",
+                        href: {home_route},
+                        "Niket Naidu"
                     }
-
                 }
+                daisyui::NavbarEnd { WebsiteSocials {} }
             }
         }
     }
@@ -135,34 +91,46 @@ pub fn WebsiteHeader() -> Element {
 #[component]
 pub fn WebsiteFooter() -> Element {
     rsx! {
-        daisyui::Footer { center: true, class: "footer-horizontal bg-base-200 p-2",
-            aside { class: "grid-flow-col items-center",
-                p { class: "text-base", "\u{00A9} 2025 Niket Naidu. All right reserved." }
+        daisyui::Footer {
+            class: "footer-horizontal bg-base-200 rounded-field flex justify-between items-center p-2",
+            center: false,
+            p { class: "text-base", "\u{00A9} 2025 Niket Naidu. All rights reserved." }
+            WebsiteSocials {}
+        }
+    }
+}
+
+#[component]
+pub fn WebsiteSocials() -> Element {
+    rsx! {
+        div { class: "flex flex-row flex-wrap gap-2",
+            a {
+                href: "https://www.linkedin.com/in/niket-naidu/",
+                aria_label: "Linkedin link",
+                dioxus_free_icons::Icon {
+                    width: 20,
+                    height: 20,
+                    icon: dioxus_free_icons::icons::fa_brands_icons::FaLinkedin,
+                }
             }
 
-            nav { class: "grid-flow-col items-center",
-                a { href: "https://www.linkedin.com/in/niket-naidu/",
-                    dioxus_free_icons::Icon {
-                        width: 20,
-                        height: 20,
-                        icon: dioxus_free_icons::icons::fa_brands_icons::FaLinkedin,
-                    }
+            a {
+                href: "https://github.com/coder137",
+                aria_label: "Github link",
+                dioxus_free_icons::Icon {
+                    width: 20,
+                    height: 20,
+                    icon: dioxus_free_icons::icons::fa_brands_icons::FaGithub,
                 }
+            }
 
-                a { href: "https://github.com/coder137",
-                    dioxus_free_icons::Icon {
-                        width: 20,
-                        height: 20,
-                        icon: dioxus_free_icons::icons::fa_brands_icons::FaGithub,
-                    }
-                }
-
-                a { href: "mailto:niketnaiduus@gmail.com",
-                    dioxus_free_icons::Icon {
-                        width: 20,
-                        height: 20,
-                        icon: dioxus_free_icons::icons::fa_brands_icons::FaGoogle,
-                    }
+            a {
+                href: "mailto:niketnaiduus@gmail.com",
+                aria_label: "Email link",
+                dioxus_free_icons::Icon {
+                    width: 20,
+                    height: 20,
+                    icon: dioxus_free_icons::icons::fa_brands_icons::FaGoogle,
                 }
             }
         }

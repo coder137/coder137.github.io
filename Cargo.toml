@@ -16,6 +16,8 @@ dioxus-free-icons = { version = "0.10", features = [
     "font-awesome-solid",
 ] }
 
+web-sys = "0.3.91"
+
 [features]
 default = ["web"]
 web = ["dioxus/web"]

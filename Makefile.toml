@@ -2,3 +2,9 @@
 script = '''
 dx build --web --fullstack true --force-sequential true --ssg --release --debug-symbols=false
 '''
+
+[tasks.fmt]
+script = '''
+dx fmt
+cargo fmt --all -- --check
+'''
