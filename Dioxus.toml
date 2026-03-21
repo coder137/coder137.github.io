@@ -3,7 +3,7 @@
 [web.app]
 
 # HTML title tag content
-title = "coder137-github-io"
+title = "Niket Naidu"
 
 # include `assets` in web platform
 [web.resource]
