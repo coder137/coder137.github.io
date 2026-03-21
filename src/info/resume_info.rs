@@ -85,57 +85,68 @@ pub fn resume() -> UserResumeInfo {
             },
         ],
     };
+
+    const Q1: UserOneExperienceTitleInfo = UserOneExperienceTitleInfo {
+        title: "Senior Software Engineer",
+        start: "December 2023",
+        end: None,
+        // TODO, Use DateTime from the chrono library
+        achievements: QUALCOMM_SENIOR_ENGINEER_ACHIEVEMENTS,
+        skills: &[
+            "Rust",
+            "C++17",
+            "Parallelism",
+            "Concurrency",
+            "Flatbuffer",
+            "Encryption",
+            "OpenTelemetry",
+            "FFI",
+        ],
+    };
+    const Q2: UserOneExperienceTitleInfo = UserOneExperienceTitleInfo {
+        title: "Cellular Software Engineer",
+        start: "2021-07",
+        end: Some("2023-11"),
+        achievements: QUALCOMM_ENGINEER_ACHIEVEMENTS,
+        skills: &["C", "Python", "LTE", "Jenkins CI", "Sequence Diagrams"],
+    };
+    const QUALCOMM: UserOneExperienceInfo = UserOneExperienceInfo::Group {
+        company: "Qualcomm Technologies",
+        titles: &[Q1, Q2],
+    };
+
     let experience = UserExperienceInfo {
         roles: &[
-            UserOneExperienceInfo {
-                // TODO, Use DateTime from the chrono library
-                start: "December 2023",
-                end: None,
-                company: "Qualcomm Technologies",
-                title: "Senior Software Engineer",
-                achievements: QUALCOMM_SENIOR_ENGINEER_ACHIEVEMENTS,
-                skills: &[
-                    "Rust",
-                    "C++17",
-                    "Parallelism",
-                    "Concurrency",
-                    "Flatbuffer",
-                    "Encryption",
-                    "OpenTelemetry",
-                    "FFI",
-                ],
-            },
-            UserOneExperienceInfo {
-                start: "2021-07",
-                end: Some("2023-11"),
-                company: "Qualcomm Technologies",
-                title: "Cellular Software Engineer",
-                achievements: QUALCOMM_ENGINEER_ACHIEVEMENTS,
-                skills: &["C", "Python", "LTE", "Jenkins CI", "Sequence Diagrams"],
-            },
-            UserOneExperienceInfo {
-                start: "2020-12",
-                end: Some("2021-05"),
+            QUALCOMM,
+            UserOneExperienceInfo::Individual {
                 company: "TuringSense",
-                title: "Firmware Engineer Intern",
-                achievements: TURINGSENSE_INTERN_ACHIEVEMENTS,
-                skills: &["C", "NXP Semiconductors", "BLE", "Device Drivers"],
+                title: UserOneExperienceTitleInfo {
+                    title: "Firmware Engineer Intern",
+                    start: "2020-12",
+                    end: Some("2021-05"),
+                    achievements: TURINGSENSE_INTERN_ACHIEVEMENTS,
+                    skills: &["C", "NXP Semiconductors", "BLE", "Device Drivers"],
+                },
             },
-            UserOneExperienceInfo {
-                start: "2020-05",
-                end: Some("2020-08"),
+            UserOneExperienceInfo::Individual {
                 company: "Blue River Technology",
-                title: "System Software Intern",
-                achievements: BLUERIVER_INTERN_ACHIEVEMENTS,
-                skills: &["C++17", "Python", "CAN J1939", "Nvidia", "Linux"],
+                title: UserOneExperienceTitleInfo {
+                    title: "System Software Intern",
+                    start: "2020-05",
+                    end: Some("2020-08"),
+                    achievements: BLUERIVER_INTERN_ACHIEVEMENTS,
+                    skills: &["C++17", "Python", "CAN J1939", "Nvidia", "Linux"],
+                },
             },
-            UserOneExperienceInfo {
-                start: "2019-10",
-                end: Some("2020-05"),
+            UserOneExperienceInfo::Individual {
                 company: "San Jose State University",
-                title: "Research Assistant",
-                achievements: SJSU_RA_ACHIEVEMENTS,
-                skills: &["GPS", "LTE", "MBED OS", "Zephyr RTOS", "BG96"],
+                title: UserOneExperienceTitleInfo {
+                    title: "Research Assistant",
+                    start: "2019-10",
+                    end: Some("2020-05"),
+                    achievements: SJSU_RA_ACHIEVEMENTS,
+                    skills: &["GPS", "LTE", "MBED OS", "Zephyr RTOS", "BG96"],
+                },
             },
         ],
     };

@@ -10,11 +10,22 @@ pub struct UserSkillInfo {
 }
 
 #[derive(Clone, Copy, PartialEq)]
-pub struct UserOneExperienceInfo {
+pub enum UserOneExperienceInfo {
+    Individual {
+        company: &'static str,
+        title: UserOneExperienceTitleInfo,
+    },
+    Group {
+        company: &'static str,
+        titles: &'static [UserOneExperienceTitleInfo],
+    },
+}
+
+#[derive(Clone, Copy, PartialEq)]
+pub struct UserOneExperienceTitleInfo {
+    pub title: &'static str,
     pub start: &'static str,
     pub end: Option<&'static str>,
-    pub company: &'static str,
-    pub title: &'static str,
     pub achievements: &'static [&'static str],
     pub skills: &'static [&'static str],
 }

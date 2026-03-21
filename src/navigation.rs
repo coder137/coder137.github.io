@@ -93,6 +93,36 @@ fn ResumeSkillSection(skill: &'static info::UserSkillInfo) -> Element {
     }
 }
 
+#[component]
+fn ResumeOneExperienceTitle(left: bool, title: info::UserOneExperienceTitleInfo) -> Element {
+    let end = match title.end {
+        Some(end) => rsx! {
+            time { "{end}" }
+        },
+        None => rsx! { "Current" },
+    };
+    let text_direction = if left { "md:text-right" } else { "" };
+    let row_direction = if left { "md:flex-row-reverse" } else { "" };
+    rsx! {
+        p { class: "font-bold", "{title.title}" }
+        div { class: "font-mono italic",
+            time { "{title.start}" }
+            " - "
+            {end}
+        }
+        daisyui::List { class: "{text_direction} text-base",
+            for achievement in title.achievements {
+                daisyui::ListRow { class: "px-0 gap-0", "{achievement}" }
+            }
+        }
+        div { class: "flex {row_direction} flex-wrap gap-2",
+            for s in title.skills {
+                daisyui::Badge { text: s, color: daisyui::BadgeColor::Primary }
+            }
+        }
+    }
+}
+
 #[derive(Props, Clone, PartialEq)]
 struct ResumeOneExperienceProps {
     left: bool,
@@ -103,36 +133,22 @@ struct ResumeOneExperienceProps {
 
 #[component]
 fn ResumeOneExperience(props: ResumeOneExperienceProps) -> Element {
-    let end = match props.experience.end {
-        Some(end) => rsx! {
-            time { "{end}" }
+    let info = match props.experience {
+        info::UserOneExperienceInfo::Individual { company, title } => {
+            rsx! {
+                div { class: "text-lg font-bold", "{company}" }
+                ResumeOneExperienceTitle { left: props.left, title }
+            }
+        }
+        info::UserOneExperienceInfo::Group { company, titles } => rsx! {
+            div { class: "text-lg font-bold", "{company}" }
+            for (i , title) in titles.into_iter().enumerate() {
+                ResumeOneExperienceTitle { left: props.left, title: *title }
+                if i != titles.len() - 1 {
+                    daisyui::Divider {}
+                }
+            }
         },
-        None => rsx! { "Current" },
-    };
-    let text_direction = if props.left { "md:text-right" } else { "" };
-    let row_direction = if props.left {
-        "md:flex-row-reverse"
-    } else {
-        ""
-    };
-    let info = rsx! {
-        div { class: "font-mono italic",
-            time { "{props.experience.start}" }
-            " - "
-            {end}
-        }
-        div { class: "text-lg font-bold", "{props.experience.company}" }
-        p { class: "font-bold", "{props.experience.title}" }
-        daisyui::List { class: "{text_direction} text-base",
-            for achievement in props.experience.achievements {
-                daisyui::ListRow { class: "px-0 gap-0", "{achievement}" }
-            }
-        }
-        div { class: "flex {row_direction} flex-wrap gap-2",
-            for s in props.experience.skills {
-                daisyui::Badge { text: s, color: daisyui::BadgeColor::Primary }
-            }
-        }
     };
     rsx! {
         li {
