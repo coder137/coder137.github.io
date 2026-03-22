@@ -55,10 +55,14 @@ fn App() -> Element {
             .dyn_into::<web_sys::HtmlElement>()
             .expect("Failed to cast to HtmlElement");
         html_element.set_lang("en");
+        html_element.set_class_name("scroll-smooth");
     });
     rsx! {
         document::Link { rel: "icon", href: FAVICON }
-        Meta { name: "description", content: "coder137.portfolio" }
+        document::Meta {
+            name: "description",
+            content: "Discover Niket Naidu, an Embedded System Engineer, specializing in real-time systems.",
+        }
         document::Link { rel: "stylesheet", href: TAILWIND_CSS }
 
         div { class: "mx-auto max-w-5xl p-2",

@@ -30,14 +30,37 @@ static RESUME_INFO: LazyLock<UserResumeInfo> = LazyLock::new(|| info::resume());
 fn Home() -> Element {
     let resume = &RESUME_INFO;
     rsx! {
+        daisyui::Navbar { class: "bg-base-100 sticky top-0 z-50",
+            daisyui::NavbarStart {}
+            daisyui::NavbarCenter {
+                daisyui::Menu { menu_type: daisyui::MenuType::Horizontal,
+                    li {
+                        a { href: "#resume-skills", class: "text-lg", "Skill" }
+                    }
+                    li {
+                        a { href: "#resume-experience", class: "text-lg", "Experience" }
+                    }
+                    li {
+                        a { href: "#resume-education", class: "text-lg", "Education" }
+                    }
+                }
+            }
+            daisyui::NavbarEnd {}
+        }
+
+        div { id: "resume-skills", class: "scroll-mt-20" }
         daisyui::Divider {
             h1 { class: "text-2xl font-bold", "Skills" }
         }
         ResumeSkillSection { skill: &resume.skill }
+
+        div { id: "resume-experience", class: "scroll-mt-20" }
         daisyui::Divider {
             h1 { class: "text-2xl font-bold", "Experience" }
         }
         ResumeExperienceSection { experience: &resume.experience }
+
+        div { id: "resume-education", class: "scroll-mt-20" }
         daisyui::Divider {
             h1 { class: "text-2xl font-bold", "Education" }
         }
