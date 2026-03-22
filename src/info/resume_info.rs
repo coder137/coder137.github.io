@@ -34,7 +34,7 @@ const SJSU_RA_ACHIEVEMENTS: &[&str] = &[
 ];
 
 pub fn resume() -> UserResumeInfo {
-    let skill = UserSkillInfo {
+    let skills = UserSkillInfo {
         skills: &[
             UserOneSkillInfo {
                 title: "Programming Languages",
@@ -150,6 +150,9 @@ pub fn resume() -> UserResumeInfo {
             },
         ],
     };
+
+    let projects = UserProjectInfo { projects: &[] };
+
     let education = UserEducationInfo {
         degrees: &[
             UserOneEducationInfo {
@@ -172,8 +175,9 @@ pub fn resume() -> UserResumeInfo {
     };
 
     UserResumeInfo {
-        skill,
+        skills,
         experience,
+        projects,
         education,
     }
 }

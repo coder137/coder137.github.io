@@ -36,6 +36,14 @@ pub struct UserExperienceInfo {
 }
 
 #[derive(Clone, Copy, PartialEq)]
+pub struct UserOneProjectInfo {}
+
+#[derive(Clone, Copy, PartialEq)]
+pub struct UserProjectInfo {
+    pub projects: &'static [UserOneProjectInfo],
+}
+
+#[derive(Clone, Copy, PartialEq)]
 pub struct UserOneEducationInfo {
     pub start: u32,
     pub end: Option<u32>,
@@ -52,7 +60,8 @@ pub struct UserEducationInfo {
 
 #[derive(Clone, Copy, PartialEq)]
 pub struct UserResumeInfo {
-    pub skill: UserSkillInfo,
+    pub skills: UserSkillInfo,
     pub experience: UserExperienceInfo,
+    pub projects: UserProjectInfo,
     pub education: UserEducationInfo,
 }
