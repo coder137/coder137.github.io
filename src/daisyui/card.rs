@@ -42,9 +42,16 @@ pub fn CardBody(props: CardBodyProps) -> Element {
     }
 }
 
+#[derive(Props, Clone, PartialEq)]
+pub struct CardTitleProps {
+    #[props(default = "".into())]
+    class: String,
+    text: String,
+}
+
 #[component]
-pub fn CardTitle(text: String) -> Element {
+pub fn CardTitle(props: CardTitleProps) -> Element {
     rsx! {
-        h2 { class: "card-title", {text} }
+        h2 { class: "card-title {props.class}", {props.text} }
     }
 }
