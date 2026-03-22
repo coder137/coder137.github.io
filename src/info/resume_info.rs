@@ -33,6 +33,12 @@ const SJSU_RA_ACHIEVEMENTS: &[&str] = &[
 "Achieved a significant 50 USD reduction in firmware costs per device and a 20% improvement in power efficiency for the second prototype.",
 ];
 
+#[rustfmt::skip]
+const PROJECT_CONNECTED_HEALTHCARE_ABOUT: &str = "To create a peer to peer mesh based network using Google’s OpenThread framework to monitor large crowds, as well as to collect and forward data to healthcare personnel for further analysis and diagnosis.";
+
+#[rustfmt::skip]
+const PROJECT_ENTERPRISE_FIRMWARE_ABOUT: &str = "To create an enterprise-level firmware stack from scratch using the GCC ARM toolchain";
+
 pub fn resume() -> UserResumeInfo {
     let skills = UserSkillInfo {
         skills: &[
@@ -151,7 +157,32 @@ pub fn resume() -> UserResumeInfo {
         ],
     };
 
-    let projects = UserProjectInfo { projects: &[] };
+    let projects = UserProjectInfo {
+        projects: &[
+            UserOneProjectInfo {
+                start: (2020, 8),
+                end: Some((2021, 5)),
+                title: "Connected and Distributed Sensing System for Healthcare",
+                link: Some("https://github.com/Connected-Healthcare"),
+                about: PROJECT_CONNECTED_HEALTHCARE_ABOUT,
+                achievements: &[],
+                skills: &[],
+                project_type_tag: "Master's Project",
+                project_type: UserOneProjectType::University,
+            },
+            UserOneProjectInfo {
+                start: (2019, 12),
+                end: Some((2021, 1)),
+                title: "Enterprise Firmware platform development",
+                link: Some("https://github.com/coder137/STM32-Repo"),
+                about: PROJECT_ENTERPRISE_FIRMWARE_ABOUT,
+                achievements: &[],
+                skills: &[],
+                project_type_tag: "Firmware",
+                project_type: UserOneProjectType::Personal,
+            },
+        ],
+    };
 
     let education = UserEducationInfo {
         degrees: &[

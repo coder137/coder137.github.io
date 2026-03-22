@@ -25,46 +25,91 @@ async fn static_routes() -> Result<Vec<String>, ServerFnError> {
 
 static RESUME_INFO: LazyLock<UserResumeInfo> = LazyLock::new(|| info::resume());
 
-// TODO, Later migrate this under the `Resume` route
+#[derive(Clone, Copy)]
+pub struct UserResumeNavigationInfo {
+    section_name: &'static str,
+    name: &'static str,
+    data: fn(&'static UserResumeInfo) -> Element,
+}
+
+static RESUME_SKILLS_NAVIGATION: UserResumeNavigationInfo = UserResumeNavigationInfo {
+    section_name: "resume-skills",
+    name: "Skill",
+    data: |resume| {
+        rsx! {
+            ResumeSkillSection { skills: &resume.skills }
+        }
+    },
+};
+
+static RESUME_EXPERIENCE_NAVIGATION: UserResumeNavigationInfo = UserResumeNavigationInfo {
+    section_name: "resume-experience",
+    name: "Experience",
+    data: |resume| {
+        rsx! {
+            ResumeExperienceSection { experience: &resume.experience }
+        }
+    },
+};
+
+static RESUME_EDUCATION_NAVIGATION: UserResumeNavigationInfo = UserResumeNavigationInfo {
+    section_name: "resume-education",
+    name: "Education",
+    data: |resume| {
+        rsx! {
+            ResumeEducationSection { education: &resume.education }
+        }
+    },
+};
+
+static RESUME_PROJECTS_NAVIGATION: UserResumeNavigationInfo = UserResumeNavigationInfo {
+    section_name: "resume-projects",
+    name: "Projects",
+    data: |resume| {
+        rsx! {
+            ResumeProjectsSection { projects: &resume.projects }
+        }
+    },
+};
+
+static RESUME_NAVIGATION: &[UserResumeNavigationInfo] = &[
+    RESUME_SKILLS_NAVIGATION,
+    RESUME_EXPERIENCE_NAVIGATION,
+    RESUME_EDUCATION_NAVIGATION,
+    RESUME_PROJECTS_NAVIGATION,
+];
+
 #[component]
 fn Home() -> Element {
     let resume = &RESUME_INFO;
+    let resume_navigation = RESUME_NAVIGATION;
+    let navigation = rsx! {
+        for rn in resume_navigation {
+            li {
+                a { href: "#{rn.section_name}", class: "text-lg", "{rn.name}" }
+            }
+        }
+    };
+
+    let data = rsx! {
+        for rn in resume_navigation {
+            div { id: "{rn.section_name}", class: "scroll-mt-20" }
+            daisyui::Divider {
+                h1 { class: "text-2xl font-bold", "{rn.name}" }
+            }
+            {(rn.data)(&resume)}
+        }
+    };
+
     rsx! {
         daisyui::Navbar { class: "bg-base-100 sticky top-0 z-50",
             daisyui::NavbarStart {}
             daisyui::NavbarCenter {
-                daisyui::Menu { menu_type: daisyui::MenuType::Horizontal,
-                    li {
-                        a { href: "#resume-skills", class: "text-lg", "Skill" }
-                    }
-                    li {
-                        a { href: "#resume-experience", class: "text-lg", "Experience" }
-                    }
-                    li {
-                        a { href: "#resume-education", class: "text-lg", "Education" }
-                    }
-                }
+                daisyui::Menu { menu_type: daisyui::MenuType::Horizontal, {navigation} }
             }
             daisyui::NavbarEnd {}
         }
-
-        div { id: "resume-skills", class: "scroll-mt-20" }
-        daisyui::Divider {
-            h1 { class: "text-2xl font-bold", "Skills" }
-        }
-        ResumeSkillSection { skill: &resume.skill }
-
-        div { id: "resume-experience", class: "scroll-mt-20" }
-        daisyui::Divider {
-            h1 { class: "text-2xl font-bold", "Experience" }
-        }
-        ResumeExperienceSection { experience: &resume.experience }
-
-        div { id: "resume-education", class: "scroll-mt-20" }
-        daisyui::Divider {
-            h1 { class: "text-2xl font-bold", "Education" }
-        }
-        ResumeEducationSection { education: &resume.education }
+        {data}
     }
 }
 
@@ -94,13 +139,13 @@ fn ResumeOneSkill(props: ResumeOneSkillProps) -> Element {
 }
 
 #[component]
-fn ResumeSkillSection(skill: &'static info::UserSkillInfo) -> Element {
-    let is_odd = skill.skills.len() % 2 != 0;
-    let last = skill.skills.len() - 1;
+fn ResumeSkillSection(skills: &'static info::UserSkillInfo) -> Element {
+    let is_odd = skills.skills.len() % 2 != 0;
+    let last = skills.skills.len() - 1;
     rsx! {
         div { class: "grid md:grid-cols-4 gap-4 mb-4",
             if is_odd {
-                for (i , skill) in skill.skills.iter().enumerate() {
+                for (i , skill) in skills.skills.iter().enumerate() {
                     if i == last {
                         ResumeOneSkill { class: "md:col-start-2 col-span-2", skill }
                     } else {
@@ -108,7 +153,7 @@ fn ResumeSkillSection(skill: &'static info::UserSkillInfo) -> Element {
                     }
                 }
             } else {
-                for skill in skill.skills {
+                for skill in skills.skills {
                     ResumeOneSkill { class: "col-span-2", skill }
                 }
             }
@@ -135,15 +180,12 @@ pub fn to_month_str(month: u32) -> &'static str {
 }
 
 #[component]
-fn ResumeOneExperienceTitle(
-    left: bool,
-    title: &'static info::UserOneExperienceTitleInfo,
-) -> Element {
-    let (start_year, start_month) = title.start;
+pub fn YearAndMonth(start: (u32, u32), end: Option<(u32, u32)>) -> Element {
+    let (start_year, start_month) = start;
     let start_month_str = to_month_str(start_month);
     let start = rsx! { "{start_month_str} {start_year}" };
 
-    let end = match title.end {
+    let end = match end {
         Some((end_year, end_month)) => {
             let end_month_str = to_month_str(end_month);
             rsx! { "{end_month_str} {end_year}" }
@@ -151,15 +193,25 @@ fn ResumeOneExperienceTitle(
         None => rsx! { "Present" },
     };
 
-    let text_direction = if left { "md:text-right" } else { "" };
-    let row_direction = if left { "md:flex-row-reverse" } else { "" };
     rsx! {
-        p { class: "font-bold", "{title.title}" }
         div { class: "text-base-content/50",
             time { {start} }
             " - "
             {end}
         }
+    }
+}
+
+#[component]
+fn ResumeOneExperienceTitle(
+    left: bool,
+    title: &'static info::UserOneExperienceTitleInfo,
+) -> Element {
+    let text_direction = if left { "md:text-right" } else { "" };
+    let row_direction = if left { "md:flex-row-reverse" } else { "" };
+    rsx! {
+        p { class: "font-bold", "{title.title}" }
+        YearAndMonth { start: title.start, end: title.end }
         daisyui::List { class: "{text_direction} text-base",
             for achievement in title.achievements {
                 daisyui::ListRow { class: "px-0 gap-0", "{achievement}" }
@@ -239,6 +291,98 @@ fn ResumeExperienceSection(experience: &'static info::UserExperienceInfo) -> Ele
                     start: i != 0,
                     end: i != (experience.roles.len() - 1),
                     experience: role,
+                }
+            }
+        }
+    }
+}
+
+#[derive(Props, Clone, PartialEq)]
+struct ResumeOneProjectProps {
+    left: bool,
+    start: bool,
+    end: bool,
+    project: &'static info::UserOneProjectInfo,
+}
+
+#[component]
+fn ResumeOneProject(props: ResumeOneProjectProps) -> Element {
+    let title_and_link = match props.project.link {
+        Some(link) => {
+            rsx! {
+                a { class: "link", href: "{link}", "{props.project.title}" }
+            }
+        }
+        None => {
+            rsx! {
+                a { "{props.project.title}" }
+            }
+        }
+    };
+
+    let row_direction = if props.left {
+        "md:flex-row-reverse"
+    } else {
+        ""
+    };
+
+    let info = rsx! {
+        div { class: "text-lg font-bold pb-2", {title_and_link} }
+
+        div { class: "flex {row_direction} flex-wrap gap-2",
+            daisyui::Badge {
+                text: "{props.project.project_type_tag}",
+                color: daisyui::BadgeColor::Primary,
+            }
+            daisyui::Badge {
+                text: "{props.project.project_type:?}",
+                color: daisyui::BadgeColor::Primary,
+            }
+        }
+
+        YearAndMonth { start: props.project.start, end: props.project.end }
+
+        {props.project.about}
+    };
+    rsx! {
+        li {
+            if props.start {
+                hr { class: "bg-primary" }
+            }
+
+            daisyui::TimelineMiddle {
+                dioxus_free_icons::Icon { icon: dioxus_free_icons::icons::fa_solid_icons::FaMicrochip }
+            }
+
+            if props.left {
+                daisyui::TimelineStart { class: "md:text-end mb-4 timeline-box bg-base-200 text-base",
+                    {info}
+                }
+            } else {
+                daisyui::TimelineEnd { class: "mb-4 timeline-box bg-base-200 text-base", {info} }
+            }
+
+            if props.end {
+                hr { class: "bg-primary" }
+            }
+        }
+    }
+}
+
+#[component]
+fn ResumeProjectsSection(projects: &'static info::UserProjectInfo) -> Element {
+    rsx! {
+        daisyui::Timeline {
+            class: "max-md:timeline-compact",
+            timeline_type: daisyui::TimelineType::Vertical,
+            is_snap_icon: true,
+            is_compact: false,
+            for (i , project) in projects.projects.iter().enumerate() {
+                ResumeOneProject {
+                    left: i % 2 == 0,
+                    start: i != 0,
+                    end: i != (projects.projects.len() - 1),
+                    project,
                 }
             }
         }
