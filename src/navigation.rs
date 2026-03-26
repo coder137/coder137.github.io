@@ -97,7 +97,7 @@ fn Home() -> Element {
             daisyui::Divider {
                 h1 { class: "text-2xl font-bold", "{rn.name}" }
             }
-            {(rn.data)(&resume)}
+            {(rn.data)(resume)}
         }
     };
 
