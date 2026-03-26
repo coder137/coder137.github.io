@@ -33,8 +33,14 @@ const SJSU_RA_ACHIEVEMENTS: &[&str] = &[
 "Achieved a significant 50 USD reduction in firmware costs per device and a 20% improvement in power efficiency for the second prototype.",
 ];
 
+#[rustfmt::skip]
+const PROJECT_CONNECTED_HEALTHCARE_ABOUT: &str = "To create a peer to peer mesh based network using Google’s OpenThread framework to monitor large crowds, as well as to collect and forward data to healthcare personnel for further analysis and diagnosis.";
+
+#[rustfmt::skip]
+const PROJECT_ENTERPRISE_FIRMWARE_ABOUT: &str = "To create an enterprise-level firmware stack from scratch using the GCC ARM toolchain";
+
 pub fn resume() -> UserResumeInfo {
-    let skill = UserSkillInfo {
+    let skills = UserSkillInfo {
         skills: &[
             UserOneSkillInfo {
                 title: "Programming Languages",
@@ -105,7 +111,7 @@ pub fn resume() -> UserResumeInfo {
     };
     const Q2: UserOneExperienceTitleInfo = UserOneExperienceTitleInfo {
         title: "Cellular Software Engineer",
-        start: (2021, 07),
+        start: (2021, 7),
         end: Some((2023, 11)),
         achievements: QUALCOMM_ENGINEER_ACHIEVEMENTS,
         skills: &["C", "Python", "LTE", "Jenkins CI", "Sequence Diagrams"],
@@ -123,7 +129,7 @@ pub fn resume() -> UserResumeInfo {
                 title: UserOneExperienceTitleInfo {
                     title: "Firmware Engineer Intern",
                     start: (2020, 12),
-                    end: Some((2021, 05)),
+                    end: Some((2021, 5)),
                     achievements: TURINGSENSE_INTERN_ACHIEVEMENTS,
                     skills: &["C", "NXP Semiconductors", "BLE", "Device Drivers"],
                 },
@@ -132,8 +138,8 @@ pub fn resume() -> UserResumeInfo {
                 company: "Blue River Technology",
                 title: UserOneExperienceTitleInfo {
                     title: "System Software Intern",
-                    start: (2020, 05),
-                    end: Some((2020, 08)),
+                    start: (2020, 5),
+                    end: Some((2020, 8)),
                     achievements: BLUERIVER_INTERN_ACHIEVEMENTS,
                     skills: &["C++17", "Python", "CAN J1939", "Nvidia", "Linux"],
                 },
@@ -143,13 +149,41 @@ pub fn resume() -> UserResumeInfo {
                 title: UserOneExperienceTitleInfo {
                     title: "Research Assistant",
                     start: (2019, 10),
-                    end: Some((2020, 05)),
+                    end: Some((2020, 5)),
                     achievements: SJSU_RA_ACHIEVEMENTS,
                     skills: &["GPS", "LTE", "MBED OS", "Zephyr RTOS", "BG96"],
                 },
             },
         ],
     };
+
+    let projects = UserProjectInfo {
+        projects: &[
+            UserOneProjectInfo {
+                start: (2020, 8),
+                end: Some((2021, 5)),
+                title: "Connected and Distributed Sensing System for Healthcare",
+                link: Some("https://github.com/Connected-Healthcare"),
+                about: PROJECT_CONNECTED_HEALTHCARE_ABOUT,
+                achievements: &[],
+                skills: &[],
+                project_type_tag: "Master's Project",
+                project_type: UserOneProjectType::University,
+            },
+            UserOneProjectInfo {
+                start: (2019, 12),
+                end: Some((2021, 1)),
+                title: "Enterprise Firmware platform development",
+                link: Some("https://github.com/coder137/STM32-Repo"),
+                about: PROJECT_ENTERPRISE_FIRMWARE_ABOUT,
+                achievements: &[],
+                skills: &[],
+                project_type_tag: "Firmware",
+                project_type: UserOneProjectType::Personal,
+            },
+        ],
+    };
+
     let education = UserEducationInfo {
         degrees: &[
             UserOneEducationInfo {
@@ -172,8 +206,9 @@ pub fn resume() -> UserResumeInfo {
     };
 
     UserResumeInfo {
-        skill,
+        skills,
         experience,
+        projects,
         education,
     }
 }

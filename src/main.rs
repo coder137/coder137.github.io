@@ -6,6 +6,8 @@ mod daisyui;
 mod info;
 mod navigation;
 
+mod ui;
+
 const FAVICON: Asset = asset!("/assets/favicon.ico");
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
 
@@ -55,12 +57,22 @@ fn App() -> Element {
             .dyn_into::<web_sys::HtmlElement>()
             .expect("Failed to cast to HtmlElement");
         html_element.set_lang("en");
+        html_element.set_class_name("scroll-smooth");
     });
     rsx! {
         document::Link { rel: "icon", href: FAVICON }
-        Meta { name: "description", content: "coder137.portfolio" }
+        document::Meta {
+            name: "description",
+            content: "Discover Niket Naidu, an Embedded System Engineer, specializing in real-time systems.",
+        }
         document::Link { rel: "stylesheet", href: TAILWIND_CSS }
+        WebsitePage {}
+    }
+}
 
+#[component]
+pub fn WebsitePage() -> Element {
+    rsx! {
         div { class: "mx-auto max-w-5xl p-2",
             WebsiteHeader {}
             main { Router::<navigation::Route> {} }
@@ -78,7 +90,7 @@ pub fn WebsiteHeader() -> Element {
                 daisyui::NavbarStart {
                     a {
                         class: "font-barrio tracking-wide text-4xl",
-                        href: {home_route},
+                        href: home_route,
                         "Niket Naidu"
                     }
                 }
@@ -94,7 +106,7 @@ pub fn WebsiteFooter() -> Element {
         daisyui::Footer {
             class: "footer-horizontal bg-base-200 rounded-field flex justify-between items-center p-2",
             center: false,
-            p { class: "text-base", "\u{00A9} 2025 Niket Naidu. All rights reserved." }
+            p { class: "text-base", "\u{00A9} 2026 Niket Naidu. All rights reserved." }
             WebsiteSocials {}
         }
     }
@@ -130,7 +142,7 @@ pub fn WebsiteSocials() -> Element {
                 dioxus_free_icons::Icon {
                     width: 20,
                     height: 20,
-                    icon: dioxus_free_icons::icons::fa_brands_icons::FaGoogle,
+                    icon: dioxus_free_icons::icons::fa_solid_icons::FaEnvelope,
                 }
             }
         }
