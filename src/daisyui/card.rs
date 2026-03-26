@@ -46,12 +46,12 @@ pub fn CardBody(props: CardBodyProps) -> Element {
 pub struct CardTitleProps {
     #[props(default = "".into())]
     class: String,
-    text: String,
+    children: Element,
 }
 
 #[component]
 pub fn CardTitle(props: CardTitleProps) -> Element {
     rsx! {
-        h2 { class: "card-title {props.class}", {props.text} }
+        h2 { class: "card-title {props.class}", {props.children} }
     }
 }

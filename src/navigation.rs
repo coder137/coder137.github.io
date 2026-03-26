@@ -127,7 +127,7 @@ fn ResumeOneSkill(props: ResumeOneSkillProps) -> Element {
             class: "bg-base-200 {props.class}",
             border: daisyui::CardBorderStyle::Border,
             daisyui::CardBody { class: "items-center",
-                daisyui::CardTitle { text: "{props.skill.title}" }
+                daisyui::CardTitle { "{props.skill.title}" }
                 div { class: "flex flex-wrap gap-2 justify-center",
                     for s in props.skill.topics {
                         daisyui::Badge { text: s, color: daisyui::BadgeColor::Primary }
@@ -209,12 +209,30 @@ fn ResumeOneExperienceTitle(
 ) -> Element {
     let text_direction = if left { "md:text-right" } else { "" };
     let row_direction = if left { "md:flex-row-reverse" } else { "" };
+
+    let collapse_arrow_start = if left {
+        "md:after:right-1 md:pr-6 max-md:after:left-0 max-md:after:end-auto max-md:pl-5"
+    } else {
+        "after:left-0 after:end-auto pl-5"
+    };
     rsx! {
-        p { class: "font-bold", "{title.title}" }
+        p { class: "", "{title.title}" }
         YearAndMonth { start: title.start, end: title.end }
-        daisyui::List { class: "{text_direction} text-base",
-            for achievement in title.achievements {
-                daisyui::ListRow { class: "px-0 gap-0", "{achievement}" }
+        daisyui::Collapse { icon_modifier: daisyui::CollapseCheckboxIconModifier::Plus,
+            daisyui::CollapseCheckbox { aria_label: "Achievements" }
+            daisyui::CollapseTitle { class: "{collapse_arrow_start} font-semibold pb-2 pt-0 after:top-0",
+                "Achievements"
+            }
+            daisyui::CollapseContent {
+                daisyui::List { class: "{text_direction} text-base",
+                    for (i , achievement) in title.achievements.iter().enumerate() {
+                        if i == 0 {
+                            daisyui::ListRow { class: "pt-0 px-0 gap-0", "{achievement}" }
+                        } else {
+                            daisyui::ListRow { class: "px-0 gap-0", "{achievement}" }
+                        }
+                    }
+                }
             }
         }
         div { class: "flex {row_direction} flex-wrap gap-2",
@@ -238,7 +256,7 @@ fn ResumeOneExperience(props: ResumeOneExperienceProps) -> Element {
     let info = match props.experience {
         info::UserOneExperienceInfo::Individual { company, title } => {
             rsx! {
-                div { class: "text-lg font-bold", "{company}" }
+                div { class: "text-xl font-semibold", "{company}" }
                 ResumeOneExperienceTitle { left: props.left, title }
             }
         }

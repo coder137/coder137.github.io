@@ -5,6 +5,9 @@ pub use badge::*;
 mod card;
 pub use card::*;
 
+mod collapse;
+pub use collapse::*;
+
 mod list;
 pub use list::*;
 

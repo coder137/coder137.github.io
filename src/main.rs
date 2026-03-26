@@ -6,6 +6,8 @@ mod daisyui;
 mod info;
 mod navigation;
 
+mod ui;
+
 const FAVICON: Asset = asset!("/assets/favicon.ico");
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
 
@@ -64,7 +66,13 @@ fn App() -> Element {
             content: "Discover Niket Naidu, an Embedded System Engineer, specializing in real-time systems.",
         }
         document::Link { rel: "stylesheet", href: TAILWIND_CSS }
+        WebsitePage {}
+    }
+}
 
+#[component]
+pub fn WebsitePage() -> Element {
+    rsx! {
         div { class: "mx-auto max-w-5xl p-2",
             WebsiteHeader {}
             main { Router::<navigation::Route> {} }
