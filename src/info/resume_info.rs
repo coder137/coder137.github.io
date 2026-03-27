@@ -1,19 +1,22 @@
+use std::sync::LazyLock;
+
 use crate::info::*;
 
-#[rustfmt::skip]
-const QUALCOMM_SENIOR_ENGINEER_ACHIEVEMENTS: &[&str] = &[
-"Currently working on accelerating AI inference performance on Qualcomm GPUs to enable real-time, on-device execution of complex neural networks.",
-"Authored high-performance rust modules for encryption, logging, and created vital Rust bindings for the Qualcomm Cloud AI software stack to enable advanced AI workloads.",
-"Pioneered new strategies to enhance codebase concurrency and parallelism, as well as creating novel visualizations with distributed tracing to optimize performance."
-];
+fn parse_achievements_data(data: &str) -> Vec<&str> {
+    data.split("\n")
+        .filter(|d| !d.is_empty())
+        .collect::<Vec<_>>()
+}
 
-#[rustfmt::skip]
-const QUALCOMM_ENGINEER_ACHIEVEMENTS: &[&str] = &[
-"Contributed significantly to a 4G LTE project, integrating a Qualcomm Modem with Oneweb's LEO satellite grid by implementing diverse features and resolving complex bugs across the Middle Layer (ML1) and Firmware (FW) teams.",
-"Drove the development of GNSS Cold Start independently, coordinating closely with cross-functional teams to integrate it within the ML1 and FW architectures.",
-"Enhanced developer efficiency by proactively redesigning the logging system to automatically visualize asynchronous system interactions, resulting in multiple hours saved in debugging.",
-// "Designed a automated ontarget jenkins CI system which"
-];
+static QUALCOMM_SENIOR_ENGINEER_ACHIEVEMENTS: LazyLock<Vec<&'static str>> = LazyLock::new(|| {
+    let data = include_str!("../../assets/info/resume/qualcomm_senior_engineer_achievements.md");
+    parse_achievements_data(data)
+});
+
+static QUALCOMM_ENGINEER_ACHIEVEMENTS: LazyLock<Vec<&'static str>> = LazyLock::new(|| {
+    let data = include_str!("../../assets/info/resume/qualcomm_engineer_achievements.md");
+    parse_achievements_data(data)
+});
 
 #[rustfmt::skip]
 const TURINGSENSE_INTERN_ACHIEVEMENTS: &[&str] = &[
@@ -92,39 +95,41 @@ pub fn resume() -> UserResumeInfo {
         ],
     };
 
-    const Q1: UserOneExperienceTitleInfo = UserOneExperienceTitleInfo {
-        title: "Senior Software Engineer",
-        start: (2023, 12),
-        end: None,
-        // TODO, Use DateTime from the chrono library
-        achievements: QUALCOMM_SENIOR_ENGINEER_ACHIEVEMENTS,
-        skills: &[
-            "Rust",
-            "C++17",
-            "Parallelism",
-            "Concurrency",
-            "Flatbuffer",
-            "Encryption",
-            "OpenTelemetry",
-            "FFI",
-        ],
-    };
-    const Q2: UserOneExperienceTitleInfo = UserOneExperienceTitleInfo {
-        title: "Cellular Software Engineer",
-        start: (2021, 7),
-        end: Some((2023, 11)),
-        achievements: QUALCOMM_ENGINEER_ACHIEVEMENTS,
-        skills: &["C", "Python", "LTE", "Jenkins CI", "Sequence Diagrams"],
-    };
-    const QUALCOMM: UserOneExperienceInfo = UserOneExperienceInfo::Group {
-        company: "Qualcomm Technologies",
-        titles: &[Q1, Q2],
-    };
+    static QUALCOMM_ROLES: LazyLock<Vec<UserOneExperienceTitleInfo>> = LazyLock::new(|| {
+        vec![
+            UserOneExperienceTitleInfo {
+                title: "Senior Software Engineer",
+                start: (2023, 12),
+                end: None,
+                achievements: &QUALCOMM_SENIOR_ENGINEER_ACHIEVEMENTS,
+                skills: &[
+                    "Rust",
+                    "C++17",
+                    "Parallelism",
+                    "Concurrency",
+                    "Flatbuffer",
+                    "Encryption",
+                    "OpenTelemetry",
+                    "FFI",
+                ],
+            },
+            UserOneExperienceTitleInfo {
+                title: "Cellular Software Engineer",
+                start: (2021, 7),
+                end: Some((2023, 11)),
+                achievements: &QUALCOMM_ENGINEER_ACHIEVEMENTS,
+                skills: &["C", "Python", "LTE", "Jenkins CI", "Sequence Diagrams"],
+            },
+        ]
+    });
 
-    let experience = UserExperienceInfo {
-        roles: &[
-            QUALCOMM,
-            UserOneExperienceInfo::Individual {
+    static ROLES: LazyLock<Vec<UserOneExperienceInfo>> = LazyLock::new(|| {
+        vec![
+            UserOneExperienceInfo::Many {
+                company: "Qualcomm Technologies",
+                titles: &QUALCOMM_ROLES,
+            },
+            UserOneExperienceInfo::One {
                 company: "TuringSense",
                 title: UserOneExperienceTitleInfo {
                     title: "Firmware Engineer Intern",
@@ -134,7 +139,7 @@ pub fn resume() -> UserResumeInfo {
                     skills: &["C", "NXP Semiconductors", "BLE", "Device Drivers"],
                 },
             },
-            UserOneExperienceInfo::Individual {
+            UserOneExperienceInfo::One {
                 company: "Blue River Technology",
                 title: UserOneExperienceTitleInfo {
                     title: "System Software Intern",
@@ -144,7 +149,7 @@ pub fn resume() -> UserResumeInfo {
                     skills: &["C++17", "Python", "CAN J1939", "Nvidia", "Linux"],
                 },
             },
-            UserOneExperienceInfo::Individual {
+            UserOneExperienceInfo::One {
                 company: "San Jose State University",
                 title: UserOneExperienceTitleInfo {
                     title: "Research Assistant",
@@ -154,35 +159,10 @@ pub fn resume() -> UserResumeInfo {
                     skills: &["GPS", "LTE", "MBED OS", "Zephyr RTOS", "BG96"],
                 },
             },
-        ],
-    };
+        ]
+    });
 
-    let projects = UserProjectInfo {
-        projects: &[
-            UserOneProjectInfo {
-                start: (2020, 8),
-                end: Some((2021, 5)),
-                title: "Connected and Distributed Sensing System for Healthcare",
-                link: Some("https://github.com/Connected-Healthcare"),
-                about: PROJECT_CONNECTED_HEALTHCARE_ABOUT,
-                achievements: &[],
-                skills: &[],
-                project_type_tag: "Master's Project",
-                project_type: UserOneProjectType::University,
-            },
-            UserOneProjectInfo {
-                start: (2019, 12),
-                end: Some((2021, 1)),
-                title: "Enterprise Firmware platform development",
-                link: Some("https://github.com/coder137/STM32-Repo"),
-                about: PROJECT_ENTERPRISE_FIRMWARE_ABOUT,
-                achievements: &[],
-                skills: &[],
-                project_type_tag: "Firmware",
-                project_type: UserOneProjectType::Personal,
-            },
-        ],
-    };
+    let experience = UserExperienceInfo { roles: &ROLES };
 
     let education = UserEducationInfo {
         degrees: &[
@@ -205,10 +185,35 @@ pub fn resume() -> UserResumeInfo {
         ],
     };
 
+    let projects = UserProjectInfo {
+        projects: &[
+            UserOneProjectInfo {
+                start: (2020, 8),
+                end: Some((2021, 5)),
+                title: "Connected and Distributed Sensing System for Healthcare",
+                link: Some("https://github.com/Connected-Healthcare"),
+                about: PROJECT_CONNECTED_HEALTHCARE_ABOUT,
+                achievements: &[],
+                skills: &[],
+                tags: &["University", "Master's Project"],
+            },
+            UserOneProjectInfo {
+                start: (2019, 12),
+                end: Some((2021, 1)),
+                title: "Enterprise Firmware platform development",
+                link: Some("https://github.com/coder137/STM32-Repo"),
+                about: PROJECT_ENTERPRISE_FIRMWARE_ABOUT,
+                achievements: &[],
+                skills: &[],
+                tags: &["Personal", "Firmware"],
+            },
+        ],
+    };
+
     UserResumeInfo {
         skills,
         experience,
-        projects,
         education,
+        projects,
     }
 }

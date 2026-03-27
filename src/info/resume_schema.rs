@@ -11,11 +11,11 @@ pub struct UserSkillInfo {
 
 #[derive(Clone, Copy, PartialEq)]
 pub enum UserOneExperienceInfo {
-    Individual {
+    One {
         company: &'static str,
         title: UserOneExperienceTitleInfo,
     },
-    Group {
+    Many {
         company: &'static str,
         titles: &'static [UserOneExperienceTitleInfo],
     },
@@ -50,12 +50,6 @@ pub struct UserEducationInfo {
     pub degrees: &'static [UserOneEducationInfo],
 }
 
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub enum UserOneProjectType {
-    Personal,
-    University,
-}
-
 #[derive(Clone, Copy, PartialEq)]
 pub struct UserOneProjectInfo {
     pub start: (u32, u32),
@@ -65,10 +59,7 @@ pub struct UserOneProjectInfo {
     pub about: &'static str,
     pub achievements: &'static [&'static str],
     pub skills: &'static [&'static str],
-    // pub links:
-    //
-    pub project_type_tag: &'static str,
-    pub project_type: UserOneProjectType,
+    pub tags: &'static [&'static str],
 }
 
 #[derive(Clone, Copy, PartialEq)]

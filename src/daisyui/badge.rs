@@ -14,10 +14,10 @@ pub enum BadgeColor {
 
 #[derive(Props, Clone, PartialEq)]
 pub struct BadgeProps {
-    text: String,
-    color: Option<BadgeColor>,
     #[props(default = "".into())]
     class: String,
+    text: String,
+    color: Option<BadgeColor>,
 }
 
 #[component]

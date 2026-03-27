@@ -125,6 +125,7 @@ fn ResumeOneSkill(props: ResumeOneSkillProps) -> Element {
     rsx! {
         daisyui::Card {
             class: "bg-base-200 {props.class}",
+            size: daisyui::CardSize::Lg,
             border: daisyui::CardBorderStyle::Border,
             daisyui::CardBody { class: "items-center",
                 daisyui::CardTitle { "{props.skill.title}" }
@@ -227,9 +228,19 @@ fn ResumeOneExperienceTitle(
                 daisyui::List { class: "{text_direction} text-base",
                     for (i , achievement) in title.achievements.iter().enumerate() {
                         if i == 0 {
-                            daisyui::ListRow { class: "pt-0 px-0 gap-0", "{achievement}" }
+                            daisyui::ListRow { class: "pt-0 px-0 gap-0",
+                                crate::ui::Markdown {
+                                    class: "prose dark:prose-invert text-base-content",
+                                    content: "{achievement}",
+                                }
+                            }
                         } else {
-                            daisyui::ListRow { class: "px-0 gap-0", "{achievement}" }
+                            daisyui::ListRow { class: "px-0 gap-0",
+                                crate::ui::Markdown {
+                                    class: "prose dark:prose-invert text-base-content",
+                                    content: "{achievement}",
+                                }
+                            }
                         }
                     }
                 }
@@ -252,16 +263,23 @@ struct ResumeOneExperienceProps {
 }
 
 #[component]
+fn WebsiteTimelineTitle(title: String) -> Element {
+    rsx! {
+        div { class: "text-xl font-semibold", "{title}" }
+    }
+}
+
+#[component]
 fn ResumeOneExperience(props: ResumeOneExperienceProps) -> Element {
     let info = match props.experience {
-        info::UserOneExperienceInfo::Individual { company, title } => {
+        info::UserOneExperienceInfo::One { company, title } => {
             rsx! {
-                div { class: "text-xl font-semibold", "{company}" }
+                WebsiteTimelineTitle { title: company }
                 ResumeOneExperienceTitle { left: props.left, title }
             }
         }
-        info::UserOneExperienceInfo::Group { company, titles } => rsx! {
-            div { class: "text-lg font-bold", "{company}" }
+        info::UserOneExperienceInfo::Many { company, titles } => rsx! {
+            WebsiteTimelineTitle { title: company }
             for (i , title) in titles.iter().enumerate() {
                 ResumeOneExperienceTitle { left: props.left, title }
                 if i != titles.len() - 1 {
@@ -270,6 +288,7 @@ fn ResumeOneExperience(props: ResumeOneExperienceProps) -> Element {
             }
         },
     };
+    let timeline_options = "pb-4 mb-4 timeline-box bg-base-200 text-base";
     rsx! {
         li {
             if props.start {
@@ -281,11 +300,9 @@ fn ResumeOneExperience(props: ResumeOneExperienceProps) -> Element {
             }
 
             if props.left {
-                daisyui::TimelineStart { class: "md:text-end mb-4 timeline-box bg-base-200 text-base",
-                    {info}
-                }
+                daisyui::TimelineStart { class: "md:text-end {timeline_options}", {info} }
             } else {
-                daisyui::TimelineEnd { class: "mb-4 timeline-box bg-base-200 text-base", {info} }
+                daisyui::TimelineEnd { class: "{timeline_options}", {info} }
             }
 
             if props.end {
@@ -309,98 +326,6 @@ fn ResumeExperienceSection(experience: &'static info::UserExperienceInfo) -> Ele
                     start: i != 0,
                     end: i != (experience.roles.len() - 1),
                     experience: role,
-                }
-            }
-        }
-    }
-}
-
-#[derive(Props, Clone, PartialEq)]
-struct ResumeOneProjectProps {
-    left: bool,
-    start: bool,
-    end: bool,
-    project: &'static info::UserOneProjectInfo,
-}
-
-#[component]
-fn ResumeOneProject(props: ResumeOneProjectProps) -> Element {
-    let title_and_link = match props.project.link {
-        Some(link) => {
-            rsx! {
-                a { class: "link", href: "{link}", "{props.project.title}" }
-            }
-        }
-        None => {
-            rsx! {
-                a { "{props.project.title}" }
-            }
-        }
-    };
-
-    let row_direction = if props.left {
-        "md:flex-row-reverse"
-    } else {
-        ""
-    };
-
-    let info = rsx! {
-        div { class: "text-lg font-bold pb-2", {title_and_link} }
-
-        div { class: "flex {row_direction} flex-wrap gap-2",
-            daisyui::Badge {
-                text: "{props.project.project_type_tag}",
-                color: daisyui::BadgeColor::Primary,
-            }
-            daisyui::Badge {
-                text: "{props.project.project_type:?}",
-                color: daisyui::BadgeColor::Primary,
-            }
-        }
-
-        YearAndMonth { start: props.project.start, end: props.project.end }
-
-        {props.project.about}
-    };
-    rsx! {
-        li {
-            if props.start {
-                hr { class: "bg-primary" }
-            }
-
-            daisyui::TimelineMiddle {
-                dioxus_free_icons::Icon { icon: dioxus_free_icons::icons::fa_solid_icons::FaMicrochip }
-            }
-
-            if props.left {
-                daisyui::TimelineStart { class: "md:text-end mb-4 timeline-box bg-base-200 text-base",
-                    {info}
-                }
-            } else {
-                daisyui::TimelineEnd { class: "mb-4 timeline-box bg-base-200 text-base", {info} }
-            }
-
-            if props.end {
-                hr { class: "bg-primary" }
-            }
-        }
-    }
-}
-
-#[component]
-fn ResumeProjectsSection(projects: &'static info::UserProjectInfo) -> Element {
-    rsx! {
-        daisyui::Timeline {
-            class: "max-md:timeline-compact",
-            timeline_type: daisyui::TimelineType::Vertical,
-            is_snap_icon: true,
-            is_compact: false,
-            for (i , project) in projects.projects.iter().enumerate() {
-                ResumeOneProject {
-                    left: i % 2 == 0,
-                    start: i != 0,
-                    end: i != (projects.projects.len() - 1),
-                    project,
                 }
             }
         }
@@ -438,11 +363,12 @@ fn ResumeOneEducation(props: ResumeOneEducationProps) -> Element {
             " - "
             {end}
         }
-        div { class: "text-lg font-bold", "{props.degree.university}" }
+        WebsiteTimelineTitle { title: "{props.degree.university}" }
         p { class: "font-bold", "{props.degree.degree_type}" }
         "{props.degree.course}"
         {specialization}
     };
+    let timeline_options = "pb-4 mb-4 timeline-box bg-base-200 text-base";
     rsx! {
         li {
             if props.start {
@@ -454,11 +380,9 @@ fn ResumeOneEducation(props: ResumeOneEducationProps) -> Element {
             }
 
             if props.left {
-                daisyui::TimelineStart { class: "md:text-end mb-4 timeline-box bg-base-200 text-base",
-                    {info}
-                }
+                daisyui::TimelineStart { class: "md:text-end {timeline_options}", {info} }
             } else {
-                daisyui::TimelineEnd { class: "mb-4 timeline-box bg-base-200 text-base", {info} }
+                daisyui::TimelineEnd { class: "{timeline_options}", {info} }
             }
 
             if props.end {
@@ -482,6 +406,34 @@ fn ResumeEducationSection(education: &'static info::UserEducationInfo) -> Elemen
                     start: i != 0,
                     end: i != (education.degrees.len() - 1),
                     degree,
+                }
+            }
+        }
+    }
+}
+
+#[component]
+fn ResumeProjectsSection(projects: &'static info::UserProjectInfo) -> Element {
+    rsx! {
+        div {
+            for (i , project) in projects.projects.iter().enumerate() {
+                daisyui::Card {
+                    class: "bg-base-200 m-4",
+                    size: daisyui::CardSize::Lg,
+                    border: daisyui::CardBorderStyle::Border,
+                    daisyui::CardBody { class: "items-center justify-center text-center",
+                        daisyui::CardTitle { "{project.title}" }
+                        YearAndMonth { start: project.start, end: project.end }
+                        div { class: "flex flex-wrap gap-2 justify-center",
+                            for tag in project.tags {
+                                daisyui::Badge {
+                                    text: tag,
+                                    color: daisyui::BadgeColor::Primary,
+                                }
+                            }
+                        }
+                        p { {project.about} }
+                    }
                 }
             }
         }
