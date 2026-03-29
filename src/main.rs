@@ -6,7 +6,7 @@ mod daisyui;
 mod info;
 mod navigation;
 
-mod ui;
+mod website;
 
 const FAVICON: Asset = asset!("/assets/favicon.ico");
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
@@ -74,77 +74,9 @@ fn App() -> Element {
 pub fn WebsitePage() -> Element {
     rsx! {
         div { class: "mx-auto max-w-5xl p-2",
-            WebsiteHeader {}
+            website::Header {}
             main { Router::<navigation::Route> {} }
-            WebsiteFooter {}
-        }
-    }
-}
-
-#[component]
-pub fn WebsiteHeader() -> Element {
-    let home_route = navigation::Route::Home.to_string();
-    rsx! {
-        header {
-            daisyui::Navbar { class: "bg-base-200 rounded-field",
-                daisyui::NavbarStart {
-                    a {
-                        class: "font-barrio tracking-wide text-4xl",
-                        href: home_route,
-                        "Niket Naidu"
-                    }
-                }
-                daisyui::NavbarEnd { WebsiteSocials {} }
-            }
-        }
-    }
-}
-
-#[component]
-pub fn WebsiteFooter() -> Element {
-    rsx! {
-        daisyui::Footer {
-            class: "footer-horizontal bg-base-200 rounded-field flex justify-between items-center p-2",
-            center: false,
-            p { class: "text-base", "\u{00A9} 2026 Niket Naidu. All rights reserved." }
-            WebsiteSocials {}
-        }
-    }
-}
-
-#[component]
-pub fn WebsiteSocials() -> Element {
-    rsx! {
-        div { class: "flex flex-row flex-wrap gap-2",
-            a {
-                href: "https://www.linkedin.com/in/niket-naidu/",
-                aria_label: "Linkedin link",
-                dioxus_free_icons::Icon {
-                    width: 20,
-                    height: 20,
-                    icon: dioxus_free_icons::icons::fa_brands_icons::FaLinkedin,
-                }
-            }
-
-            a {
-                href: "https://github.com/coder137",
-                aria_label: "Github link",
-                dioxus_free_icons::Icon {
-                    width: 20,
-                    height: 20,
-                    icon: dioxus_free_icons::icons::fa_brands_icons::FaGithub,
-                }
-            }
-
-            a {
-                href: "mailto:niketnaiduus@gmail.com",
-                aria_label: "Email link",
-                dioxus_free_icons::Icon {
-                    width: 20,
-                    height: 20,
-                    icon: dioxus_free_icons::icons::fa_solid_icons::FaEnvelope,
-                }
-            }
+            website::Footer {}
         }
     }
 }
