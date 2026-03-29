@@ -2,8 +2,8 @@ use crate::*;
 
 #[component]
 pub fn Header() -> Element {
-    let home_route = crate::navigation::Route::Home.to_string();
-    let projects_root_route = crate::navigation::Route::ProjectsRoot.to_string();
+    let home_route = website::Route::Home.to_string();
+    let projects_root_route = website::Route::ProjectsRoot.to_string();
     rsx! {
         header {
             daisyui::Navbar { class: "bg-base-200 rounded-field",

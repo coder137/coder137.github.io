@@ -76,7 +76,7 @@ pub fn WebsitePage() -> Element {
     rsx! {
         div { class: "mx-auto max-w-5xl p-2",
             website::Header {}
-            main { Router::<navigation::Route> {} }
+            main { Router::<website::Route> {} }
             website::Footer {}
         }
     }

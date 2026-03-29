@@ -1,117 +1,6 @@
-use std::sync::LazyLock;
-
 use dioxus::prelude::*;
 
-use crate::{
-    daisyui,
-    info::{self, UserResumeInfo},
-};
-
-#[derive(Routable, Debug, Clone, PartialEq)]
-pub enum Route {
-    #[route("/")]
-    Home,
-}
-
-#[cfg(feature = "server")]
-#[server(endpoint = "static_routes", output = server_fn::codec::Json)]
-async fn static_routes() -> Result<Vec<String>, ServerFnError> {
-    // The `Routable` trait has a `static_routes` method that returns all static routes in the enum
-    Ok(Route::static_routes()
-        .iter()
-        .map(ToString::to_string)
-        .collect())
-}
-
-static RESUME_INFO: LazyLock<UserResumeInfo> = LazyLock::new(|| info::resume());
-
-#[derive(Clone, Copy)]
-pub struct UserResumeNavigationInfo {
-    section_name: &'static str,
-    name: &'static str,
-    data: fn(&'static UserResumeInfo) -> Element,
-}
-
-static RESUME_SKILLS_NAVIGATION: UserResumeNavigationInfo = UserResumeNavigationInfo {
-    section_name: "resume-skills",
-    name: "Skill",
-    data: |resume| {
-        rsx! {
-            ResumeSkillSection { skills: &resume.skills }
-        }
-    },
-};
-
-static RESUME_EXPERIENCE_NAVIGATION: UserResumeNavigationInfo = UserResumeNavigationInfo {
-    section_name: "resume-experience",
-    name: "Experience",
-    data: |resume| {
-        rsx! {
-            ResumeExperienceSection { experience: &resume.experience }
-        }
-    },
-};
-
-static RESUME_EDUCATION_NAVIGATION: UserResumeNavigationInfo = UserResumeNavigationInfo {
-    section_name: "resume-education",
-    name: "Education",
-    data: |resume| {
-        rsx! {
-            ResumeEducationSection { education: &resume.education }
-        }
-    },
-};
-
-static RESUME_PROJECTS_NAVIGATION: UserResumeNavigationInfo = UserResumeNavigationInfo {
-    section_name: "resume-projects",
-    name: "Projects",
-    data: |resume| {
-        rsx! {
-            ResumeProjectsSection { projects: &resume.projects }
-        }
-    },
-};
-
-static RESUME_NAVIGATION: &[UserResumeNavigationInfo] = &[
-    RESUME_SKILLS_NAVIGATION,
-    RESUME_EXPERIENCE_NAVIGATION,
-    RESUME_EDUCATION_NAVIGATION,
-    // RESUME_PROJECTS_NAVIGATION,
-];
-
-#[component]
-fn Home() -> Element {
-    let resume = &RESUME_INFO;
-    let resume_navigation = RESUME_NAVIGATION;
-    let navigation = rsx! {
-        for rn in resume_navigation {
-            li {
-                a { href: "#{rn.section_name}", class: "text-lg", "{rn.name}" }
-            }
-        }
-    };
-
-    let data = rsx! {
-        for rn in resume_navigation {
-            div { id: "{rn.section_name}", class: "scroll-mt-20" }
-            daisyui::Divider {
-                h1 { class: "text-2xl font-bold", "{rn.name}" }
-            }
-            {(rn.data)(resume)}
-        }
-    };
-
-    rsx! {
-        daisyui::Navbar { class: "bg-base-100 sticky top-0 z-50",
-            daisyui::NavbarStart {}
-            daisyui::NavbarCenter {
-                daisyui::Menu { menu_type: daisyui::MenuType::Horizontal, {navigation} }
-            }
-            daisyui::NavbarEnd {}
-        }
-        {data}
-    }
-}
+use crate::{daisyui, info};
 
 #[derive(Props, Clone, PartialEq)]
 struct ResumeOneSkillProps {
@@ -140,7 +29,7 @@ fn ResumeOneSkill(props: ResumeOneSkillProps) -> Element {
 }
 
 #[component]
-fn ResumeSkillSection(skills: &'static info::UserSkillInfo) -> Element {
+pub fn ResumeSkillSection(skills: &'static info::UserSkillInfo) -> Element {
     let is_odd = skills.skills.len() % 2 != 0;
     let last = skills.skills.len() - 1;
     rsx! {
@@ -162,7 +51,7 @@ fn ResumeSkillSection(skills: &'static info::UserSkillInfo) -> Element {
     }
 }
 
-pub fn to_month_str(month: u32) -> &'static str {
+fn to_month_str(month: u32) -> &'static str {
     match month {
         1 => "January",
         2 => "February",
@@ -181,7 +70,7 @@ pub fn to_month_str(month: u32) -> &'static str {
 }
 
 #[component]
-pub fn YearAndMonth(start: (u32, u32), end: Option<(u32, u32)>) -> Element {
+fn YearAndMonth(start: (u32, u32), end: Option<(u32, u32)>) -> Element {
     let (start_year, start_month) = start;
     let start_month_str = to_month_str(start_month);
     let start = rsx! { "{start_month_str} {start_year}" };
@@ -313,7 +202,7 @@ fn ResumeOneExperience(props: ResumeOneExperienceProps) -> Element {
 }
 
 #[component]
-fn ResumeExperienceSection(experience: &'static info::UserExperienceInfo) -> Element {
+pub fn ResumeExperienceSection(experience: &'static info::UserExperienceInfo) -> Element {
     rsx! {
         daisyui::Timeline {
             class: "max-md:timeline-compact",
@@ -393,7 +282,7 @@ fn ResumeOneEducation(props: ResumeOneEducationProps) -> Element {
 }
 
 #[component]
-fn ResumeEducationSection(education: &'static info::UserEducationInfo) -> Element {
+pub fn ResumeEducationSection(education: &'static info::UserEducationInfo) -> Element {
     rsx! {
         daisyui::Timeline {
             class: "max-md:timeline-compact",
@@ -413,7 +302,7 @@ fn ResumeEducationSection(education: &'static info::UserEducationInfo) -> Elemen
 }
 
 #[component]
-fn ResumeProjectsSection(projects: &'static info::UserProjectInfo) -> Element {
+pub fn ResumeProjectsSection(projects: &'static info::UserProjectInfo) -> Element {
     rsx! {
         div {
             for (i , project) in projects.projects.iter().enumerate() {
