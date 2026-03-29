@@ -2,6 +2,7 @@ use dioxus::prelude::*;
 use web_sys::wasm_bindgen::JsCast;
 
 mod daisyui;
+mod ui;
 
 mod info;
 mod navigation;
