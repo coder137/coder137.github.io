@@ -56,41 +56,41 @@ fn Home() -> Element {
     }
 
     static RESUME_SKILLS_NAVIGATION: UserResumeNavigationInfo = UserResumeNavigationInfo {
-        section_name: "resume-skills",
+        section_name: "skills",
         name: "Skill",
         data: |resume| {
             rsx! {
-                navigation::ResumeSkillSection { skills: &resume.skills }
+                website::ResumeSkillSection { skills: &resume.skills }
             }
         },
     };
 
     static RESUME_EXPERIENCE_NAVIGATION: UserResumeNavigationInfo = UserResumeNavigationInfo {
-        section_name: "resume-experience",
+        section_name: "experience",
         name: "Experience",
         data: |resume| {
             rsx! {
-                navigation::ResumeExperienceSection { experience: &resume.experience }
+                website::ResumeExperienceSection { experience: &resume.experience }
             }
         },
     };
 
     static RESUME_EDUCATION_NAVIGATION: UserResumeNavigationInfo = UserResumeNavigationInfo {
-        section_name: "resume-education",
+        section_name: "education",
         name: "Education",
         data: |resume| {
             rsx! {
-                navigation::ResumeEducationSection { education: &resume.education }
+                website::ResumeEducationSection { education: &resume.education }
             }
         },
     };
 
     static RESUME_PROJECTS_NAVIGATION: UserResumeNavigationInfo = UserResumeNavigationInfo {
-        section_name: "resume-projects",
+        section_name: "projects",
         name: "Projects",
         data: |resume| {
             rsx! {
-                navigation::ResumeProjectsSection { projects: &resume.projects }
+                website::ResumeProjectsSection { projects: &resume.projects }
             }
         },
     };

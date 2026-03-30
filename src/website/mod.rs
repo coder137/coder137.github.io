@@ -10,3 +10,6 @@ pub use footer::*;
 //
 mod route;
 pub use route::*;
+
+mod pages;
+pub use pages::*;

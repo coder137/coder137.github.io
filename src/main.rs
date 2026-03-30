@@ -5,8 +5,6 @@ mod daisyui;
 mod ui;
 
 mod info;
-mod navigation;
-
 mod website;
 
 const FAVICON: Asset = asset!("/assets/favicon.ico");
