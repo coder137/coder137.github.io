@@ -37,6 +37,12 @@ const SJSU_RA_ACHIEVEMENTS: &[&str] = &[
 ];
 
 #[rustfmt::skip]
+const PROJECT_LOWLEVEL_RUST_ABOUT: &str = "Rust on microcontrollers";
+
+#[rustfmt::skip]
+const PROJECT_BUILDCC_ABOUT: &str = "BuildCC aims to be an alternative to Makefiles while using the feature rich C++ language instead of a custom DSL.";
+
+#[rustfmt::skip]
 const PROJECT_CONNECTED_HEALTHCARE_ABOUT: &str = "To create a peer to peer mesh based network using Google’s OpenThread framework to monitor large crowds, as well as to collect and forward data to healthcare personnel for further analysis and diagnosis.";
 
 #[rustfmt::skip]
@@ -187,6 +193,26 @@ pub fn resume() -> UserResumeInfo {
 
     let projects = UserProjectInfo {
         projects: &[
+            UserOneProjectInfo {
+                start: (2023, 1),
+                end: Some((2023, 4)),
+                title: "Lowlevel Rust",
+                link: Some("https://github.com/coder137/lowlevel_rust"),
+                about: PROJECT_LOWLEVEL_RUST_ABOUT,
+                achievements: &[],
+                skills: &[],
+                tags: &["Personal", "Rust", "Firmware"],
+            },
+            UserOneProjectInfo {
+                start: (2021, 2),
+                end: Some((2022, 12)),
+                title: "Build in CPP [BuildCC]",
+                link: Some("https://github.com/coder137/build_in_cpp"),
+                about: PROJECT_BUILDCC_ABOUT,
+                achievements: &[],
+                skills: &[],
+                tags: &["Personal", "C++", "Buildsystem"],
+            },
             UserOneProjectInfo {
                 start: (2020, 8),
                 end: Some((2021, 5)),

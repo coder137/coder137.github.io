@@ -302,41 +302,43 @@ pub fn ResumeEducationSection(education: &'static info::UserEducationInfo) -> El
 }
 
 #[component]
-pub fn ResumeProjectsSection(projects: &'static info::UserProjectInfo) -> Element {
+pub fn ResumeOneProject(project: &'static info::UserOneProjectInfo) -> Element {
     rsx! {
-        div {
-            for (i, project) in projects.projects.iter().enumerate() {
-                daisyui::Card {
-                    class: "bg-base-200 mb-4",
-                    size: daisyui::CardSize::Lg,
-                    border: daisyui::CardBorderStyle::Border,
-                    daisyui::CardBody { class: "items-center justify-center text-center",
-                        daisyui::CardTitle {
-                            "{project.title}"
-                            if let Some(link) = project.link {
-                                a {
-                                    href: "{link}",
-                                    aria_label: "Project link",
-                                    dioxus_free_icons::Icon {
-                                        width: 20,
-                                        height: 20,
-                                        icon: dioxus_free_icons::icons::fa_solid_icons::FaLink,
-                                    }
-                                }
+        daisyui::Card {
+            class: "bg-base-200",
+            size: daisyui::CardSize::Lg,
+            border: daisyui::CardBorderStyle::Border,
+            daisyui::CardBody { class: "items-center justify-center text-center",
+                daisyui::CardTitle {
+                    "{project.title}"
+                    if let Some(link) = project.link {
+                        a { href: "{link}", aria_label: "Project link",
+                            dioxus_free_icons::Icon {
+                                width: 20,
+                                height: 20,
+                                icon: dioxus_free_icons::icons::fa_solid_icons::FaLink,
                             }
                         }
-                        YearAndMonth { start: project.start, end: project.end }
-                        div { class: "flex flex-wrap gap-2 justify-center",
-                            for tag in project.tags {
-                                daisyui::Badge {
-                                    text: tag,
-                                    color: daisyui::BadgeColor::Primary,
-                                }
-                            }
-                        }
-                        p { {project.about} }
                     }
                 }
+                YearAndMonth { start: project.start, end: project.end }
+                div { class: "flex flex-wrap gap-2 justify-center",
+                    for tag in project.tags {
+                        daisyui::Badge { text: tag, color: daisyui::BadgeColor::Primary }
+                    }
+                }
+                p { {project.about} }
+            }
+        }
+    }
+}
+
+#[component]
+pub fn ResumeProjectsSection(projects: &'static info::UserProjectInfo) -> Element {
+    rsx! {
+        div { class: "grid md:grid-cols-1 gap-4 mb-4",
+            for project in projects.projects {
+                ResumeOneProject { project }
             }
         }
     }
