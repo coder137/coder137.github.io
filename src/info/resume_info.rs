@@ -37,16 +37,16 @@ const SJSU_RA_ACHIEVEMENTS: &[&str] = &[
 ];
 
 #[rustfmt::skip]
-const PROJECT_LOWLEVEL_RUST_ABOUT: &str = "Rust on microcontrollers";
+const PROJECT_LOWLEVEL_RUST_ABOUT: &str = "Enterprise-level firmware stack from scratch using the Rust ecosystem";
 
 #[rustfmt::skip]
-const PROJECT_BUILDCC_ABOUT: &str = "BuildCC aims to be an alternative to Makefiles while using the feature rich C++ language instead of a custom DSL.";
+const PROJECT_BUILDCC_ABOUT: &str = "Alternative to Makefiles by using the feature rich C++ language instead of a custom DSL.";
 
 #[rustfmt::skip]
-const PROJECT_CONNECTED_HEALTHCARE_ABOUT: &str = "To create a peer to peer mesh based network using Google’s OpenThread framework to monitor large crowds, as well as to collect and forward data to healthcare personnel for further analysis and diagnosis.";
+const PROJECT_CONNECTED_HEALTHCARE_ABOUT: &str = "Peer to peer mesh based network using Google’s OpenThread framework to monitor large crowds, as well as to collect and forward data to healthcare personnel for further analysis and diagnosis.";
 
 #[rustfmt::skip]
-const PROJECT_ENTERPRISE_FIRMWARE_ABOUT: &str = "To create an enterprise-level firmware stack from scratch using the GCC ARM toolchain";
+const PROJECT_ENTERPRISE_FIRMWARE_ABOUT: &str = "Enterprise-level firmware stack from scratch using the GCC ARM toolchain";
 
 pub fn resume() -> UserResumeInfo {
     let skills = UserSkillInfo {
