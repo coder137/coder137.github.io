@@ -35,7 +35,7 @@ pub fn ResumeSkillSection(skills: &'static info::UserSkillInfo) -> Element {
     rsx! {
         div { class: "grid md:grid-cols-4 gap-4 mb-4",
             if is_odd {
-                for (i , skill) in skills.skills.iter().enumerate() {
+                for (i, skill) in skills.skills.iter().enumerate() {
                     if i == last {
                         ResumeOneSkill { class: "md:col-start-2 col-span-2", skill }
                     } else {
@@ -115,7 +115,7 @@ fn ResumeOneExperienceTitle(
             }
             daisyui::CollapseContent {
                 daisyui::List { class: "{text_direction} text-base",
-                    for (i , achievement) in title.achievements.iter().enumerate() {
+                    for (i, achievement) in title.achievements.iter().enumerate() {
                         if i == 0 {
                             daisyui::ListRow { class: "pt-0 px-0 gap-0",
                                 crate::ui::Markdown {
@@ -169,7 +169,7 @@ fn ResumeOneExperience(props: ResumeOneExperienceProps) -> Element {
         }
         info::UserOneExperienceInfo::Many { company, titles } => rsx! {
             WebsiteTimelineTitle { title: company }
-            for (i , title) in titles.iter().enumerate() {
+            for (i, title) in titles.iter().enumerate() {
                 ResumeOneExperienceTitle { left: props.left, title }
                 if i != titles.len() - 1 {
                     daisyui::Divider {}
@@ -209,7 +209,7 @@ pub fn ResumeExperienceSection(experience: &'static info::UserExperienceInfo) ->
             timeline_type: daisyui::TimelineType::Vertical,
             is_snap_icon: true,
             is_compact: false,
-            for (i , role) in experience.roles.iter().enumerate() {
+            for (i, role) in experience.roles.iter().enumerate() {
                 ResumeOneExperience {
                     left: i % 2 == 0,
                     start: i != 0,
@@ -289,7 +289,7 @@ pub fn ResumeEducationSection(education: &'static info::UserEducationInfo) -> El
             timeline_type: daisyui::TimelineType::Vertical,
             is_snap_icon: true,
             is_compact: false,
-            for (i , degree) in education.degrees.iter().enumerate() {
+            for (i, degree) in education.degrees.iter().enumerate() {
                 ResumeOneEducation {
                     left: i % 2 == 0,
                     start: i != 0,
@@ -305,13 +305,26 @@ pub fn ResumeEducationSection(education: &'static info::UserEducationInfo) -> El
 pub fn ResumeProjectsSection(projects: &'static info::UserProjectInfo) -> Element {
     rsx! {
         div {
-            for (i , project) in projects.projects.iter().enumerate() {
+            for (i, project) in projects.projects.iter().enumerate() {
                 daisyui::Card {
-                    class: "bg-base-200 m-4",
+                    class: "bg-base-200 mb-4",
                     size: daisyui::CardSize::Lg,
                     border: daisyui::CardBorderStyle::Border,
                     daisyui::CardBody { class: "items-center justify-center text-center",
-                        daisyui::CardTitle { "{project.title}" }
+                        daisyui::CardTitle {
+                            "{project.title}"
+                            if let Some(link) = project.link {
+                                a {
+                                    href: "{link}",
+                                    aria_label: "Project link",
+                                    dioxus_free_icons::Icon {
+                                        width: 20,
+                                        height: 20,
+                                        icon: dioxus_free_icons::icons::fa_solid_icons::FaLink,
+                                    }
+                                }
+                            }
+                        }
                         YearAndMonth { start: project.start, end: project.end }
                         div { class: "flex flex-wrap gap-2 justify-center",
                             for tag in project.tags {
