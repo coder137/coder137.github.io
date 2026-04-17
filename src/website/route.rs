@@ -6,35 +6,20 @@ pub use crate::*;
 pub enum Route {
     #[route("/")]
     Home,
+    // #[route("/projects")]
+    // ProjectsRoot,
 
-    #[route("/projects")]
-    ProjectsRoot,
-
-    #[route("/projects/:project")]
-    ProjectSpecific { project: String },
+    // #[route("/projects/:project")]
+    // ProjectSpecific { project: String },
 }
 
 async fn create_routes() -> Result<Vec<String>, ServerFnError> {
     // The `Routable` trait has a `static_routes` method that returns all static routes in the enum
-    let mut routes = Route::static_routes()
+    let routes = Route::static_routes()
         .iter()
         .map(ToString::to_string)
+        // .chain([1, 123, 1357].into_iter().map(|d| d.to_string()))
         .collect::<Vec<_>>();
-
-    // Dynamic routes
-    // Get some random project ids
-    let ids: [i32; 3] = [1, 123, 1357];
-    let mut dynamic_routes = ids
-        .into_iter()
-        .map(|id| {
-            Route::ProjectSpecific {
-                project: format!("{id}"),
-            }
-            .to_string()
-        })
-        .collect::<Vec<_>>();
-
-    routes.append(&mut dynamic_routes);
     Ok(routes)
 }
 
@@ -134,54 +119,39 @@ fn Home() -> Element {
     }
 }
 
-#[component]
-fn ProjectsRoot() -> Element {
-    rsx! {
-        div { class: "grid md:grid-cols-2 gap-4 mb-4 mt-4",
-            daisyui::Card {
-                class: "bg-base-200",
-                size: daisyui::CardSize::Lg,
-                border: daisyui::CardBorderStyle::Border,
-                daisyui::CardBody { class: "items-center",
-                    daisyui::CardTitle { "Title" }
-                    div { class: "flex flex-wrap gap-2 justify-center" }
-                }
-            }
+// #[component]
+// fn ProjectsRoot() -> Element {
+//     rsx! {
+//         div { class: "grid md:grid-cols-2 gap-4 mb-4 mt-4",
+//             daisyui::Card {
+//                 class: "bg-base-200",
+//                 size: daisyui::CardSize::Lg,
+//                 border: daisyui::CardBorderStyle::Border,
+//                 figure { class: "p-4",
+//                     img {
+//                         class: "aspect-video rounded-lg",
+//                         src: asset!("/assets/projects/vishnu-mohanan-1-unsplash.jpg"),
+//                     }
+//                 }
+//                 daisyui::CardBody { class: "items-center justify-center text-center pt-0 pb-4",
+//                     daisyui::CardTitle { "Enterprise Firmware platform development" }
+//                     p {
+//                         "To create an enterprise-level firmware stack from scratch using the GCC ARM toolchain"
+//                     }
+//                     div { class: "pb-2" }
+//                     div { class: "card-actions",
+//                         button { class: "btn btn-primary", "Read More" }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
 
-            daisyui::Card {
-                class: "bg-base-200 image-full",
-                size: daisyui::CardSize::Lg,
-                border: daisyui::CardBorderStyle::Border,
-                // figure {
-                //     class: "",
-                //     img {
-                //         class: "aspect-square scale-75 object-scale-down px-0 py-0",
-                //         src: asset!("/assets/projects/enterprise-software-dev.png")
-                //     }
-                // }
-                daisyui::CardBody { class: "items-center justify-center text-center",
-                    daisyui::CardTitle { "Enterprise Firmware platform development" }
-                    p {
-                        "To create an enterprise-level firmware stack from scratch using the GCC ARM toolchain"
-                    }
-                    div { class: "flex flex-wrap gap-2 justify-center" }
-                }
-                        // div {
-            //     class: "card-actions justify-end",
-            //     button {
-            //         class: "btn btn-primary",
-
-            //     }
-            // }
-            }
-        }
-    }
-}
-
-#[component]
-fn ProjectSpecific(project: String) -> Element {
-    rsx! { "User page for user with project: {project}" }
-}
+// #[component]
+// fn ProjectSpecific(project: String) -> Element {
+//     rsx! { "User page for user with project: {project}" }
+// }
 
 #[cfg(test)]
 mod tests {
