@@ -336,7 +336,7 @@ pub fn ResumeOneProject(project: &'static info::UserOneProjectInfo) -> Element {
 #[component]
 pub fn ResumeProjectsSection(projects: &'static info::UserProjectInfo) -> Element {
     rsx! {
-        div { class: "grid md:grid-cols-1 gap-4 mb-4",
+        div { class: "grid md:grid-cols-2 gap-4 mb-4",
             for project in projects.projects {
                 ResumeOneProject { project }
             }

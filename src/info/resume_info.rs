@@ -37,7 +37,7 @@ const SJSU_RA_ACHIEVEMENTS: &[&str] = &[
 ];
 
 #[rustfmt::skip]
-const PROJECT_LOWLEVEL_RUST_ABOUT: &str = "Enterprise-level firmware stack from scratch using the Rust ecosystem";
+const PROJECT_LOWLEVEL_RUST_ABOUT: &str = "Rust on microcontrollers";
 
 #[rustfmt::skip]
 const PROJECT_BUILDCC_ABOUT: &str = "Alternative to Makefiles by using the feature rich C++ language instead of a custom DSL.";
@@ -213,16 +213,16 @@ pub fn resume() -> UserResumeInfo {
                 skills: &[],
                 tags: &["Personal", "C++", "Buildsystem"],
             },
-            UserOneProjectInfo {
-                start: (2020, 8),
-                end: Some((2021, 5)),
-                title: "Connected and Distributed Sensing System for Healthcare",
-                link: Some("https://github.com/Connected-Healthcare"),
-                about: PROJECT_CONNECTED_HEALTHCARE_ABOUT,
-                achievements: &[],
-                skills: &[],
-                tags: &["University", "Master's Project"],
-            },
+            // UserOneProjectInfo {
+            //     start: (2020, 8),
+            //     end: Some((2021, 5)),
+            //     title: "Connected and Distributed Sensing System for Healthcare",
+            //     link: Some("https://github.com/Connected-Healthcare"),
+            //     about: PROJECT_CONNECTED_HEALTHCARE_ABOUT,
+            //     achievements: &[],
+            //     skills: &[],
+            //     tags: &["University", "Master's Project"],
+            // },
             UserOneProjectInfo {
                 start: (2019, 12),
                 end: Some((2021, 1)),
