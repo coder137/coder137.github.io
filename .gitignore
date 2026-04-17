@@ -8,3 +8,7 @@
 
 # Dioxus specific
 assets/tailwind.css
+
+# 
+daisyui-theme.mjs
+daisyui.mjs

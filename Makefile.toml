@@ -1,7 +1,11 @@
-[tasks.ci]
+[tasks.setup]
 script = '''
 curl -sLO https://github.com/saadeghi/daisyui/releases/latest/download/daisyui.mjs
 curl -sLO https://github.com/saadeghi/daisyui/releases/latest/download/daisyui-theme.mjs
+'''
+
+[tasks.ci]
+script = '''
 dx build --web --fullstack true --force-sequential true --ssg --release --debug-symbols=false
 '''
 
