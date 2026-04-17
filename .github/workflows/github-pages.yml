@@ -19,6 +19,7 @@ jobs:
 
       - name: Build website
         run: |
+          cargo make setup
           cargo make ci
           cp -r target/dx/coder137-github-io/release/web/public _site
 

@@ -1,0 +1,3 @@
+Contributed significantly to the development of a 4G LTE [Qualcomm Modem](https://www.qualcomm.com/news/onq/2015/08/connecting-unconnected-qualcomm-and-oneweb-developing-global-network-extend) designed to communicate with [Oneweb's LEO satellite grid](https://en.wikipedia.org/wiki/Eutelsat_OneWeb) by implementing diverse features and resolving complex bugs across the Middle Layer (ML1) and Firmware (FW) teams.
+Drove the development of GNSS Cold Start independently, coordinating closely with cross-functional teams to integrate it within the ML1 and FW architectures.
+Enhanced developer efficiency by proactively redesigning the logging system to automatically visualize asynchronous system interactions, resulting in multiple hours saved in debugging.

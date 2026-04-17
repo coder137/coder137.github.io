@@ -19,4 +19,5 @@ jobs:
 
       - name: Build website
         run: |
+          cargo make setup
           cargo make ci

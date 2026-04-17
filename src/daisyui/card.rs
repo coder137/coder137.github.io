@@ -6,10 +6,21 @@ pub enum CardBorderStyle {
     Dash,
 }
 
+#[derive(Clone, Copy, PartialEq)]
+pub enum CardSize {
+    Xs,
+    Sm,
+    Md,
+    Lg,
+    Xl,
+}
+
 #[derive(Props, Clone, PartialEq)]
 pub struct CardProps {
     #[props(default = "".into())]
     class: String,
+    #[props(default = CardSize::Md)]
+    size: CardSize,
     border: Option<CardBorderStyle>,
     children: Element,
 }
@@ -23,8 +34,16 @@ pub fn Card(props: CardProps) -> Element {
         },
         None => "",
     };
+
+    let card_size = match props.size {
+        CardSize::Xs => "card-xs",
+        CardSize::Sm => "card-sm",
+        CardSize::Md => "card-md",
+        CardSize::Lg => "card-lg",
+        CardSize::Xl => "card-xl",
+    };
     rsx! {
-        div { class: "card {card_border_style} {props.class}", {props.children} }
+        div { class: "card {card_size} {card_border_style} {props.class}", {props.children} }
     }
 }
 
