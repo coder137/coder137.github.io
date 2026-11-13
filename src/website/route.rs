@@ -30,8 +30,6 @@ async fn static_routes() -> Result<Vec<String>, ServerFnError> {
 
 #[component]
 fn Home() -> Element {
-    // static USER_RESUME_INFO: LazyLock<info::UserResumeInfo> = LazyLock::new(|| info::resume());
-
     #[derive(Clone, Copy)]
     pub struct UserResumeNavigationInfo {
         section_name: &'static str,
