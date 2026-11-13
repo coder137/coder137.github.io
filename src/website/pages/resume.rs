@@ -1,16 +1,16 @@
 use dioxus::prelude::*;
 
-use crate::{daisyui, info};
+use crate::{daisyui, schema};
 
 #[derive(Props, Clone, PartialEq)]
-struct ResumeOneSkillProps {
+struct ResumeSkillProps {
     #[props(default = "".into())]
     class: String,
-    skill: &'static info::UserOneSkillInfo,
+    skill: &'static schema::ResumeSkillInfo,
 }
 
 #[component]
-fn ResumeOneSkill(props: ResumeOneSkillProps) -> Element {
+fn ResumeSkill(props: ResumeSkillProps) -> Element {
     rsx! {
         daisyui::Card {
             class: "bg-base-200 {props.class}",
@@ -19,7 +19,7 @@ fn ResumeOneSkill(props: ResumeOneSkillProps) -> Element {
             daisyui::CardBody { class: "items-center",
                 daisyui::CardTitle { "{props.skill.title}" }
                 div { class: "flex flex-wrap gap-2 justify-center",
-                    for s in props.skill.topics {
+                    for s in &props.skill.topics {
                         daisyui::Badge { text: s, color: daisyui::BadgeColor::Primary }
                     }
                 }
@@ -29,22 +29,22 @@ fn ResumeOneSkill(props: ResumeOneSkillProps) -> Element {
 }
 
 #[component]
-pub fn ResumeSkillSection(skills: &'static info::UserSkillInfo) -> Element {
-    let is_odd = skills.skills.len() % 2 != 0;
-    let last = skills.skills.len() - 1;
+pub fn ResumeSkillsSection(skills: &'static [schema::ResumeSkillInfo]) -> Element {
+    let is_odd = skills.len() % 2 != 0;
+    let last = skills.len() - 1;
     rsx! {
         div { class: "grid md:grid-cols-4 gap-4 mb-4",
             if is_odd {
-                for (i, skill) in skills.skills.iter().enumerate() {
+                for (i, skill) in skills.iter().enumerate() {
                     if i == last {
-                        ResumeOneSkill { class: "md:col-start-2 col-span-2", skill }
+                        ResumeSkill { class: "md:col-start-2 col-span-2", skill }
                     } else {
-                        ResumeOneSkill { class: "col-span-2", skill }
+                        ResumeSkill { class: "col-span-2", skill }
                     }
                 }
             } else {
-                for skill in skills.skills {
-                    ResumeOneSkill { class: "col-span-2", skill }
+                for skill in skills {
+                    ResumeSkill { class: "col-span-2", skill }
                 }
             }
         }
@@ -93,10 +93,7 @@ fn YearAndMonth(start: (u32, u32), end: Option<(u32, u32)>) -> Element {
 }
 
 #[component]
-fn ResumeOneExperienceTitle(
-    left: bool,
-    title: &'static info::UserOneExperienceTitleInfo,
-) -> Element {
+fn ResumeRoleTitle(left: bool, title: &'static schema::ResumeRoleTitleInfo) -> Element {
     let text_direction = if left { "md:text-right" } else { "" };
     let row_direction = if left { "md:flex-row-reverse" } else { "" };
 
@@ -136,7 +133,7 @@ fn ResumeOneExperienceTitle(
             }
         }
         div { class: "flex {row_direction} flex-wrap gap-2",
-            for s in title.skills {
+            for s in &title.skills {
                 daisyui::Badge { text: s, color: daisyui::BadgeColor::Primary }
             }
         }
@@ -144,11 +141,11 @@ fn ResumeOneExperienceTitle(
 }
 
 #[derive(Props, Clone, PartialEq)]
-struct ResumeOneExperienceProps {
+struct ResumeRoleProps {
     left: bool,
     start: bool,
     end: bool,
-    experience: &'static info::UserOneExperienceInfo,
+    role: &'static schema::ResumeRoleInfo,
 }
 
 #[component]
@@ -159,18 +156,18 @@ fn WebsiteTimelineTitle(title: String) -> Element {
 }
 
 #[component]
-fn ResumeOneExperience(props: ResumeOneExperienceProps) -> Element {
-    let info = match props.experience {
-        info::UserOneExperienceInfo::One { company, title } => {
+fn ResumeRole(props: ResumeRoleProps) -> Element {
+    let info = match props.role {
+        schema::ResumeRoleInfo::One { company, title } => {
             rsx! {
                 WebsiteTimelineTitle { title: company }
-                ResumeOneExperienceTitle { left: props.left, title }
+                ResumeRoleTitle { left: props.left, title }
             }
         }
-        info::UserOneExperienceInfo::Many { company, titles } => rsx! {
+        schema::ResumeRoleInfo::Many { company, titles } => rsx! {
             WebsiteTimelineTitle { title: company }
             for (i, title) in titles.iter().enumerate() {
-                ResumeOneExperienceTitle { left: props.left, title }
+                ResumeRoleTitle { left: props.left, title }
                 if i != titles.len() - 1 {
                     daisyui::Divider {}
                 }
@@ -202,19 +199,19 @@ fn ResumeOneExperience(props: ResumeOneExperienceProps) -> Element {
 }
 
 #[component]
-pub fn ResumeExperienceSection(experience: &'static info::UserExperienceInfo) -> Element {
+pub fn ResumeRolesSection(roles: &'static [schema::ResumeRoleInfo]) -> Element {
     rsx! {
         daisyui::Timeline {
             class: "max-md:timeline-compact",
             timeline_type: daisyui::TimelineType::Vertical,
             is_snap_icon: true,
             is_compact: false,
-            for (i, role) in experience.roles.iter().enumerate() {
-                ResumeOneExperience {
+            for (i, role) in roles.iter().enumerate() {
+                ResumeRole {
                     left: i % 2 == 0,
                     start: i != 0,
-                    end: i != (experience.roles.len() - 1),
-                    experience: role,
+                    end: i != (roles.len() - 1),
+                    role: role,
                 }
             }
         }
@@ -228,18 +225,12 @@ struct ResumeOneEducationProps {
     left: bool,
     start: bool,
     end: bool,
-    degree: &'static info::UserOneEducationInfo,
+    degree: &'static schema::ResumeDegreeInfo,
 }
 
 #[component]
 fn ResumeOneEducation(props: ResumeOneEducationProps) -> Element {
-    let end = match props.degree.end {
-        Some(end) => rsx! {
-            time { "{end}" }
-        },
-        None => rsx! { "Present" },
-    };
-    let specialization = match props.degree.specialization {
+    let specialization = match &props.degree.specialization {
         Some(specialization) => rsx! {
             br {}
             p { class: "italic", "{specialization}" }
@@ -247,11 +238,7 @@ fn ResumeOneEducation(props: ResumeOneEducationProps) -> Element {
         None => rsx! {},
     };
     let info = rsx! {
-        div { class: "text-base-content/50",
-            time { "{props.degree.start}" }
-            " - "
-            {end}
-        }
+        YearAndMonth { start: props.degree.start, end: props.degree.end }
         WebsiteTimelineTitle { title: "{props.degree.university}" }
         p { class: "font-bold", "{props.degree.degree_type}" }
         "{props.degree.course}"
@@ -282,18 +269,18 @@ fn ResumeOneEducation(props: ResumeOneEducationProps) -> Element {
 }
 
 #[component]
-pub fn ResumeEducationSection(education: &'static info::UserEducationInfo) -> Element {
+pub fn ResumeEducationSection(degrees: &'static [schema::ResumeDegreeInfo]) -> Element {
     rsx! {
         daisyui::Timeline {
             class: "max-md:timeline-compact",
             timeline_type: daisyui::TimelineType::Vertical,
             is_snap_icon: true,
             is_compact: false,
-            for (i, degree) in education.degrees.iter().enumerate() {
+            for (i, degree) in degrees.iter().enumerate() {
                 ResumeOneEducation {
                     left: i % 2 == 0,
                     start: i != 0,
-                    end: i != (education.degrees.len() - 1),
+                    end: i != (degrees.len() - 1),
                     degree,
                 }
             }
@@ -302,7 +289,7 @@ pub fn ResumeEducationSection(education: &'static info::UserEducationInfo) -> El
 }
 
 #[component]
-pub fn ResumeOneProject(project: &'static info::UserOneProjectInfo) -> Element {
+pub fn ResumeOneProject(project: &'static schema::ResumeProjectInfo) -> Element {
     rsx! {
         daisyui::Card {
             class: "bg-base-200",
@@ -311,7 +298,7 @@ pub fn ResumeOneProject(project: &'static info::UserOneProjectInfo) -> Element {
             daisyui::CardBody { class: "items-center justify-center text-center",
                 daisyui::CardTitle {
                     "{project.title}"
-                    if let Some(link) = project.link {
+                    if let Some(link) = &project.link {
                         a { href: "{link}", aria_label: "Project link",
                             dioxus_free_icons::Icon {
                                 width: 20,
@@ -323,21 +310,21 @@ pub fn ResumeOneProject(project: &'static info::UserOneProjectInfo) -> Element {
                 }
                 YearAndMonth { start: project.start, end: project.end }
                 div { class: "flex flex-wrap gap-2 justify-center",
-                    for tag in project.tags {
+                    for tag in &project.tags {
                         daisyui::Badge { text: tag, color: daisyui::BadgeColor::Primary }
                     }
                 }
-                p { {project.about} }
+                p { "{project.about}" }
             }
         }
     }
 }
 
 #[component]
-pub fn ResumeProjectsSection(projects: &'static info::UserProjectInfo) -> Element {
+pub fn ResumeProjectsSection(projects: &'static [schema::ResumeProjectInfo]) -> Element {
     rsx! {
         div { class: "grid md:grid-cols-2 gap-4 mb-4",
-            for project in projects.projects {
+            for project in projects {
                 ResumeOneProject { project }
             }
         }

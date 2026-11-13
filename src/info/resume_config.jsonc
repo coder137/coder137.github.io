@@ -1,0 +1,292 @@
+{
+    "$schema": "../../target/jsonschema/resume.schema.json",
+    "about": {
+        "name": "Niket Naidu",
+        "title": "Embedded & System Software Engineer"
+    },
+    "skills": [
+        {
+            "title": "Programming Languages",
+            "topics": [
+                "Rust",
+                "C++17",
+                "C",
+                "Python",
+                "Dart"
+            ]
+        },
+        {
+            "title": "OS & Tools",
+            "topics": [
+                "FreeRTOS",
+                "Zephyr RTOS",
+                // "Linux",
+                // "OpenOCD",
+                // "Git",
+                // "GDB",
+                "CMake",
+                "Flutter",
+                "Dioxus"
+            ]
+        },
+        {
+            "title": "Network & Wireless Protocols",
+            "topics": [
+                "gRPC",
+                "MQTT",
+                "TCP",
+                "UDP",
+                "QUIC",
+                "BLE",
+                "OpenThread",
+                "GPS"
+            ]
+        },
+        {
+            "title": "Hardware Interfaces",
+            "topics": [
+                "I2C",
+                "SPI",
+                "CAN",
+                "UART"
+            ]
+        },
+        {
+            "title": "Processors",
+            "topics": [
+                "STMicroelectronics (STM32F7/STM32L4)",
+                "Texas Instruments (TM4C123G/CC1352)",
+                "BG96",
+                "Raspberry Pi",
+                "Beaglebone Black",
+                "NXP Semiconductors (LPC4078)",
+                "ESP8266/12E/32 Wi-Fi Chip"
+            ]
+        }
+    ],
+    "roles": [
+        {
+            "Many": {
+                "company": "Qualcomm Technologies",
+                "titles": [
+                    {
+                        "title": "Senior Engineer - Cloud AI Hardware",
+                        "start": [
+                            2023,
+                            10
+                        ],
+                        "end": null,
+                        "achievements": [
+                            "Currently focused on accelerating AI inference workloads on [Qualcomm GPUs](https://www.qualcomm.com/news/releases/2025/10/qualcomm-unveils-ai200-and-ai250-redefining-rack-scale-data-cent) enabling the real-time, on-device execution of complex neural networks.",
+                            "Authored high-performance rust modules for encryption, logging, and created vital Rust bindings for the Qualcomm Cloud AI software stack to enable advanced AI workloads.",
+                            "Pioneered new strategies to enhance codebase concurrency and parallelism, as well as creating novel visualizations with distributed tracing to optimize performance."
+                        ],
+                        "skills": [
+                            "Rust",
+                            "C++17",
+                            "Parallelism",
+                            "Concurrency",
+                            "Flatbuffer",
+                            "Encryption",
+                            "OpenTelemetry",
+                            "FFI"
+                        ]
+                    },
+                    {
+                        "title": "Engineer - Wireless",
+                        "start": [
+                            2021,
+                            7
+                        ],
+                        "end": [
+                            2023,
+                            9
+                        ],
+                        "achievements": [
+                            "Contributed significantly to the development of a 4G LTE [Qualcomm Modem](https://www.qualcomm.com/news/onq/2015/08/connecting-unconnected-qualcomm-and-oneweb-developing-global-network-extend) designed to communicate with [Oneweb's LEO satellite grid](https://en.wikipedia.org/wiki/Eutelsat_OneWeb) by implementing diverse features and resolving complex bugs across the Middle Layer (ML1) and Firmware (FW) teams.",
+                            "Drove the development of GNSS Cold Start independently, coordinating closely with cross-functional teams to integrate it within the ML1 and FW architectures.",
+                            "Enhanced developer efficiency by proactively redesigning the logging system to automatically visualize asynchronous system interactions, resulting in multiple hours saved in debugging."
+                        ],
+                        "skills": [
+                            "C",
+                            "Python",
+                            "LTE",
+                            "Jenkins CI",
+                            "Sequence Diagrams"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "One": {
+                "company": "TuringSense",
+                "title": {
+                    "title": "Firmware Engineer Intern",
+                    "start": [
+                        2020,
+                        12
+                    ],
+                    "end": [
+                        2021,
+                        5
+                    ],
+                    "achievements": [
+                        "Architectured performant drivers (UART, SPI, TWI) during board bring-up on the Nordic ecosystem.",
+                        "Designed 3 unique software prototypes to speed up BLE transfer speeds from 10kbps to 1.4mbps."
+                    ],
+                    "skills": [
+                        "C",
+                        "NXP Semiconductors",
+                        "BLE",
+                        "Device Drivers"
+                    ]
+                }
+            }
+        },
+        {
+            "One": {
+                "company": "Blue River Technology",
+                "title": {
+                    "title": "System Software Intern",
+                    "start": [
+                        2020,
+                        12
+                    ],
+                    "end": [
+                        2021,
+                        5
+                    ],
+                    "achievements": [
+                        "Implemented algorithms for a real-time robotics system part of the See and Spray Technology by leveraging C++ 17 and Python in collaboration with the team. Improved log storage and speed efficiency.",
+                        "Created a python tool to automatically sync and upload logs to the AWS cloud, improving the productivity of the team by 40 percent. Provided feature updates as per JIRA requests."
+                    ],
+                    "skills": [
+                        "C++17",
+                        "Python",
+                        "CAN J1939",
+                        "Nvidia",
+                        "Linux"
+                    ]
+                }
+            }
+        },
+        {
+            "One": {
+                "company": "San Jose State University",
+                "title": {
+                    "title": "Research Assistant",
+                    "start": [
+                        2019,
+                        10
+                    ],
+                    "end": [
+                        2020,
+                        5
+                    ],
+                    "achievements": [
+                        "Successfully developed two embedded prototypes for firefighters in high-risk environments, integrating wireless technologies like LTE, BLE, and various sensors with AWS IoT Core.",
+                        "Achieved a significant 50 USD reduction in firmware costs per device and a 20% improvement in power efficiency for the second prototype."
+                    ],
+                    "skills": [
+                        "GPS",
+                        "LTE",
+                        "MBED OS",
+                        "Zephyr RTOS",
+                        "BG96"
+                    ]
+                }
+            }
+        }
+    ],
+    "degrees": [
+        {
+            "start": [
+                2019,
+                8
+            ],
+            "end": [
+                2021,
+                5
+            ],
+            "university": "San Jose State University",
+            "degree_type": "Master of Science",
+            "course": "Computer Engineering",
+            "specialization": "Embedded Systems"
+        },
+        {
+            "start": [
+                2013,
+                9
+            ],
+            "end": [
+                2017,
+                5
+            ],
+            "university": "Amity University",
+            "degree_type": "Bachelor of Technology",
+            "course": "Electronics and Communication"
+        }
+    ],
+    "projects": [
+        {
+            "start": [
+                2023,
+                1
+            ],
+            "end": [
+                2023,
+                4
+            ],
+            "title": "Lowlevel Rust",
+            "link": "https://github.com/coder137/lowlevel_rust",
+            "about": "Rust on microcontrollers",
+            "achievements": [],
+            "skills": [],
+            "tags": [
+                "Personal",
+                "Rust",
+                "Firmware"
+            ]
+        },
+        // {
+        //     "start": [
+        //         2021,
+        //         2
+        //     ],
+        //     "end": [
+        //         2022,
+        //         12
+        //     ],
+        //     "title": "Build in CPP [BuildCC]",
+        //     "link": "https://github.com/coder137/build_in_cpp",
+        //     "about": "Alternative to Makefiles by using the feature rich C++ language instead of a custom DSL",
+        //     "achievements": [],
+        //     "skills": [],
+        //     "tags": [
+        //         "Personal",
+        //         "C++",
+        //         "Buildsystem"
+        //     ]
+        // },
+        {
+            "start": [
+                2019,
+                12
+            ],
+            "end": [
+                2021,
+                1
+            ],
+            "title": "Enterprise Firmware platform development",
+            "link": "https://github.com/coder137/STM32-Repo",
+            "about": "Enterprise-level firmware stack from scratch using the GCC ARM toolchain",
+            "achievements": [],
+            "skills": [],
+            "tags": [
+                "Personal",
+                "Firmware"
+            ]
+        }
+    ]
+}

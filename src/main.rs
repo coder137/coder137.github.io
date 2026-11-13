@@ -1,6 +1,8 @@
 use dioxus::prelude::*;
 use web_sys::wasm_bindgen::JsCast;
 
+mod schema;
+
 mod daisyui;
 mod ui;
 
