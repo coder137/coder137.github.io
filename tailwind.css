@@ -1,12 +1,82 @@
-@import url('https://fonts.googleapis.com/css2?family=Caesar+Dressing&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Barrio&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Darumadrop+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap');
+
+/* @import url('https://fonts.googleapis.com/css2?family=Caesar+Dressing&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Barrio&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap'); */
+
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @source "./src/**/*.{rs,html,css}";
 
 @theme {
-    --font-caesar-dressing: "Caesar Dressing", system-ui;
-    --font-barrio: "Barrio", system-ui;
+    --font-darumadrop-one: "Darumadrop One", system-ui;
+    --font-rubik-glitch: "Rubik Glitch", system-ui;
+
+    /* --font-caesar-dressing: "Caesar Dressing", system-ui; */
+    /* --font-barrio: "Barrio", system-ui; */
+    /* --font-syne-mono: "Syne Mono", system-ui; */
+
+    /* Periodic glitch animations */
+    --animate-glitch-base: glitch-base 8s steps(1, end) infinite;
+    --animate-glitch-burst: glitch-burst 8s steps(1, end) infinite;
+
+    @keyframes glitch-base {
+
+        0%,
+        92%,
+        94%,
+        99%,
+        100% {
+            opacity: 1;
+        }
+
+        92.5%,
+        95%,
+        98.5% {
+            opacity: 0;
+        }
+    }
+
+    @keyframes glitch-burst {
+
+        0%,
+        92%,
+        94%,
+        99%,
+        100% {
+            opacity: 0;
+            transform: translate(0, 0) skewX(0deg);
+            text-shadow: none;
+            clip-path: none;
+        }
+
+        92.5% {
+            opacity: 1;
+            transform: translate(-3px, 1px) skewX(-6deg);
+            text-shadow: 3px 0 #ff2a85, -3px 0 #00f0ff;
+        }
+
+        95% {
+            opacity: 1;
+            transform: translate(3px, -1px) skewX(5deg);
+            text-shadow: -3px 0 #ff2a85, 3px 0 #00f0ff;
+            clip-path: inset(15% -3rem 30% -3rem);
+        }
+
+        96.5% {
+            opacity: 1;
+            transform: translate(-2px, 0) skewX(-2deg);
+            text-shadow: 2px 0 #00f0ff, -2px 0 #ff2a85;
+            clip-path: none;
+        }
+
+        98% {
+            opacity: 1;
+            transform: translate(2px, 1px);
+            text-shadow: -2px 0 #ff2a85, 2px 0 #00f0ff;
+        }
+    }
 }
 
 @source not "./tailwindcss";

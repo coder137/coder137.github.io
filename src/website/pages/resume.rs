@@ -211,7 +211,7 @@ pub fn ResumeRolesSection(roles: &'static [schema::ResumeRoleInfo]) -> Element {
                     left: i % 2 == 0,
                     start: i != 0,
                     end: i != (roles.len() - 1),
-                    role: role,
+                    role,
                 }
             }
         }

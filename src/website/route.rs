@@ -51,12 +51,21 @@ fn Home() -> Element {
                         }
                         div { class: "pr-4" }
                         div { class: "pr-4  text-center",
-                            h1 { class: "font-barrio tracking-wide text-6xl pb-4",
-                                "{about.name}"
+                            h1 { class: "relative inline-block text-4xl sm:text-6xl md:text-7xl leading-tight text-base-content group",
+
+                                // Base layer: Darumadrop One stays visible most of the time & locks layout size
+                                span { class: "font-darumadrop-one motion-safe:animate-glitch-base block whitespace-nowrap group-hover:animate-none group-hover:opacity-0",
+                                    "{about.name}"
+                                }
+
+                                // Glitch layer: Rubik Glitch snaps in briefly with zero layout shift
+                                span {
+                                    aria_hidden: "true",
+                                    class: "font-rubik-glitch opacity-0 motion-safe:animate-glitch-burst pointer-events-none select-none absolute inset-y-0 -inset-x-8 flex items-center justify-center whitespace-nowrap group-hover:animate-none group-hover:opacity-100",
+                                    "{about.name}"
+                                }
                             }
-                            div { class: "text-xl font-semibold pb-4",
-                                "{about.title}"
-                            }
+                            div { class: "text-xl font-semibold pb-4", "{about.title}" }
                         }
                     }
                 }
