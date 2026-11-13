@@ -1,5 +1,4 @@
-use std::sync::LazyLock;
-
+use crate::info::{ABOUT_IMAGE, RESUME_INFO};
 pub use crate::*;
 
 #[derive(Routable, Debug, Clone, PartialEq)]
@@ -31,31 +30,65 @@ async fn static_routes() -> Result<Vec<String>, ServerFnError> {
 
 #[component]
 fn Home() -> Element {
-    static RESUME_INFO: LazyLock<info::UserResumeInfo> = LazyLock::new(|| info::resume());
-
     #[derive(Clone, Copy)]
     pub struct UserResumeNavigationInfo {
         section_name: &'static str,
         name: &'static str,
-        data: fn(&'static info::UserResumeInfo) -> Element,
+        data: fn(&'static schema::ResumeInfo) -> Element,
     }
+
+    static RESUME_ABOUT_NAVIGATION: UserResumeNavigationInfo = UserResumeNavigationInfo {
+        section_name: "about",
+        name: "About",
+        data: |resume| {
+            let about = &resume.about;
+            rsx! {
+                div { class: "hero",
+                    div { class: "hero-content w-full flex-col lg:flex-row",
+                        img {
+                            class: "sm:max-w-3xs max-sm:max-w-5/10 rounded-full",
+                            src: ABOUT_IMAGE,
+                        }
+                        div { class: "pr-4" }
+                        div { class: "pr-4  text-center",
+                            h1 { class: "relative inline-block text-4xl sm:text-6xl md:text-7xl leading-tight text-base-content group",
+
+                                // Base layer: Darumadrop One stays visible most of the time & locks layout size
+                                span { class: "font-darumadrop-one motion-safe:animate-glitch-base block whitespace-nowrap group-hover:animate-none group-hover:opacity-0",
+                                    "{about.name}"
+                                }
+
+                                // Glitch layer: Rubik Glitch snaps in briefly with zero layout shift
+                                span {
+                                    aria_hidden: "true",
+                                    class: "font-rubik-glitch opacity-0 motion-safe:animate-glitch-burst pointer-events-none select-none absolute inset-y-0 -inset-x-8 flex items-center justify-center whitespace-nowrap group-hover:animate-none group-hover:opacity-100",
+                                    "{about.name}"
+                                }
+                            }
+                            div { class: "text-xl font-semibold pb-4", "{about.title}" }
+                        }
+                    }
+                }
+            }
+        },
+    };
 
     static RESUME_SKILLS_NAVIGATION: UserResumeNavigationInfo = UserResumeNavigationInfo {
         section_name: "skills",
         name: "Skill",
         data: |resume| {
             rsx! {
-                website::ResumeSkillSection { skills: &resume.skills }
+                website::ResumeSkillsSection { skills: &resume.skills }
             }
         },
     };
 
-    static RESUME_EXPERIENCE_NAVIGATION: UserResumeNavigationInfo = UserResumeNavigationInfo {
+    static RESUME_ROLES_NAVIGATION: UserResumeNavigationInfo = UserResumeNavigationInfo {
         section_name: "experience",
         name: "Experience",
         data: |resume| {
             rsx! {
-                website::ResumeExperienceSection { experience: &resume.experience }
+                website::ResumeRolesSection { roles: &resume.roles }
             }
         },
     };
@@ -65,7 +98,7 @@ fn Home() -> Element {
         name: "Education",
         data: |resume| {
             rsx! {
-                website::ResumeEducationSection { education: &resume.education }
+                website::ResumeEducationSection { degrees: &resume.degrees }
             }
         },
     };
@@ -81,16 +114,16 @@ fn Home() -> Element {
     };
 
     static RESUME_NAVIGATION: &[UserResumeNavigationInfo] = &[
+        RESUME_ABOUT_NAVIGATION,
         RESUME_SKILLS_NAVIGATION,
-        RESUME_EXPERIENCE_NAVIGATION,
+        RESUME_ROLES_NAVIGATION,
         RESUME_EDUCATION_NAVIGATION,
         RESUME_PROJECTS_NAVIGATION,
     ];
 
-    let resume = &RESUME_INFO;
-    let resume_navigation = RESUME_NAVIGATION;
+    let resume = &*RESUME_INFO;
     let navigation = rsx! {
-        for rn in resume_navigation {
+        for rn in RESUME_NAVIGATION {
             li {
                 a { href: "#{rn.section_name}", class: "text-lg", "{rn.name}" }
             }
@@ -98,7 +131,7 @@ fn Home() -> Element {
     };
 
     let data = rsx! {
-        for rn in resume_navigation {
+        for rn in RESUME_NAVIGATION {
             div { id: "{rn.section_name}", class: "scroll-mt-20" }
             daisyui::Divider {
                 h1 { class: "text-2xl font-bold", "{rn.name}" }

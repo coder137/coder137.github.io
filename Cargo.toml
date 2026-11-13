@@ -7,7 +7,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dioxus = { version = "0.7.5", features = ["fullstack", "router"] }
+dioxus = { version = "0.7", features = ["fullstack", "router"] }
 dioxus-free-icons = { version = "0.10", features = [
     # "material-design-icons-action",
     "font-awesome-brands",
@@ -17,7 +17,19 @@ dioxus-free-icons = { version = "0.10", features = [
 
 markdown = "1.0.0"
 
-web-sys = "0.3.91"
+web-sys = "0.3.97"
+
+#
+json-strip-comments = "3.1.2"
+serde = { version = "*", features = ["derive"] }
+serde_json = { version = "1.0" }
+schemars = "1.2.3"
+
+[build-dependencies]
+anyhow = { version = "1.0" }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = { version = "1.0" }
+schemars = "1.2.3"
 
 [features]
 default = ["web"]

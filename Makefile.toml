@@ -6,7 +6,7 @@ curl -sLO https://github.com/saadeghi/daisyui/releases/latest/download/daisyui-t
 
 [tasks.ci]
 script = '''
-dx build --web --fullstack true --force-sequential true --ssg --release --debug-symbols=false
+dx build --web --fullstack true --force-sequential true --ssg --release
 '''
 
 [tasks.fmt]

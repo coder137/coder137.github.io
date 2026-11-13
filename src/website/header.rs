@@ -9,7 +9,7 @@ pub fn Header() -> Element {
             daisyui::Navbar { class: "bg-base-200 rounded-field",
                 daisyui::NavbarStart {
                     a {
-                        class: "font-barrio tracking-wide text-4xl",
+                        class: "font-darumadrop-one text-4xl",
                         href: home_route,
                         "Niket Naidu"
                     }
