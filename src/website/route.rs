@@ -1,4 +1,4 @@
-use crate::info::{ABOUT_IMAGE, RESUME_INFO};
+use crate::info::{ABOUT_IMAGE, ABOUT_IMAGE_DESCRIPTION, RESUME, RESUME_INFO};
 pub use crate::*;
 
 #[derive(Routable, Debug, Clone, PartialEq)]
@@ -41,34 +41,8 @@ fn Home() -> Element {
         section_name: "about",
         name: "About",
         data: |resume| {
-            let about = &resume.about;
             rsx! {
-                div { class: "hero",
-                    div { class: "hero-content w-full flex-col lg:flex-row",
-                        img {
-                            class: "sm:max-w-3xs max-sm:max-w-5/10 rounded-full",
-                            src: ABOUT_IMAGE,
-                        }
-                        div { class: "pr-4" }
-                        div { class: "pr-4  text-center",
-                            h1 { class: "relative inline-block text-4xl sm:text-6xl md:text-7xl leading-tight text-base-content group",
-
-                                // Base layer: Darumadrop One stays visible most of the time & locks layout size
-                                span { class: "font-darumadrop-one motion-safe:animate-glitch-base block whitespace-nowrap group-hover:animate-none group-hover:opacity-0",
-                                    "{about.name}"
-                                }
-
-                                // Glitch layer: Rubik Glitch snaps in briefly with zero layout shift
-                                span {
-                                    aria_hidden: "true",
-                                    class: "font-rubik-glitch opacity-0 motion-safe:animate-glitch-burst pointer-events-none select-none absolute inset-y-0 -inset-x-8 flex items-center justify-center whitespace-nowrap group-hover:animate-none group-hover:opacity-100",
-                                    "{about.name}"
-                                }
-                            }
-                            div { class: "text-xl font-semibold pb-4", "{about.title}" }
-                        }
-                    }
-                }
+                website::ResumeAboutSection { about: &resume.about }
             }
         },
     };
@@ -141,12 +115,12 @@ fn Home() -> Element {
     };
 
     rsx! {
-        daisyui::Navbar { class: "bg-base-100 sticky top-0 z-50",
-            daisyui::NavbarStart {}
-            daisyui::NavbarCenter {
-                daisyui::Menu { menu_type: daisyui::MenuType::Horizontal, {navigation} }
+        div { class: "bg-base-100 sticky top-0 z-50 flex justify-center py-2",
+            daisyui::Menu {
+                class: "flex-wrap justify-center",
+                menu_type: daisyui::MenuType::Horizontal,
+                {navigation}
             }
-            daisyui::NavbarEnd {}
         }
         {data}
     }

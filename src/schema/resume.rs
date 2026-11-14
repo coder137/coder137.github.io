@@ -1,8 +1,9 @@
-#[derive(Debug, serde::Deserialize, schemars::JsonSchema)]
+#[derive(Debug, PartialEq, serde::Deserialize, schemars::JsonSchema)]
 pub struct ResumeAboutInfo {
     pub name: String,
     pub title: String,
     pub purpose: Option<String>,
+    pub email: String,
 }
 
 #[derive(Debug, PartialEq, serde::Deserialize, schemars::JsonSchema)]
