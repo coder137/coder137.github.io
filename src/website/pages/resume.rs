@@ -36,12 +36,12 @@ pub fn ResumeAboutSection(about: &'static schema::ResumeAboutInfo) -> Element {
                     div { class: "text-xl font-semibold pb-4", "{about.title}" }
                     div { class: "flex gap-2",
                         a { href: RESUME, aria_label: "Resume link",
-                            daisyui::Button { class: "btn-primary", "Resume" }
+                            daisyui::Button { color: daisyui::ButtonColor::Primary, "Resume" }
                         }
                         a {
                             href: "mailto:{about.email}",
                             aria_label: "Email link",
-                            daisyui::Button { class: "btn-primary flex", "Get in touch" }
+                            daisyui::Button { color: daisyui::ButtonColor::Primary, "Get in touch" }
                         }
                     }
                 }
