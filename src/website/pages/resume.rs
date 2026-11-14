@@ -1,6 +1,54 @@
 use dioxus::prelude::*;
 
-use crate::{daisyui, schema};
+use crate::{
+    daisyui,
+    info::{ABOUT_IMAGE, ABOUT_IMAGE_DESCRIPTION, RESUME},
+    schema,
+};
+
+#[component]
+pub fn ResumeAboutSection(about: &'static schema::ResumeAboutInfo) -> Element {
+    rsx! {
+        daisyui::Hero {
+            daisyui::HeroContent { class: "w-full flex-col lg:flex-row",
+                img {
+                    class: "sm:max-w-3xs max-sm:max-w-5/10 rounded-full",
+                    fetchpriority: "high",
+                    src: ABOUT_IMAGE,
+                    alt: ABOUT_IMAGE_DESCRIPTION,
+                }
+                div { class: "pr-4" }
+                div { class: "pr-4 text-center",
+                    h1 { class: "relative inline-block text-4xl sm:text-6xl md:text-7xl leading-tight text-base-content group",
+
+                        // Base layer: Darumadrop One stays visible most of the time & locks layout size
+                        span { class: "font-darumadrop-one motion-safe:animate-glitch-base block whitespace-nowrap group-hover:animate-none group-hover:opacity-0",
+                            "{about.name}"
+                        }
+
+                        // Glitch layer: Rubik Glitch snaps in briefly with zero layout shift
+                        span {
+                            aria_hidden: "true",
+                            class: "font-rubik-glitch opacity-0 motion-safe:animate-glitch-burst pointer-events-none select-none absolute inset-y-0 -inset-x-8 flex items-center justify-center whitespace-nowrap group-hover:animate-none group-hover:opacity-100",
+                            "{about.name}"
+                        }
+                    }
+                    div { class: "text-xl font-semibold pb-4", "{about.title}" }
+                    div { class: "flex gap-2",
+                        a { href: RESUME, target: "_blank", aria_label: "Resume link",
+                            daisyui::Button { color: daisyui::ButtonColor::Primary, "Resume" }
+                        }
+                        a {
+                            href: "mailto:{about.email}",
+                            aria_label: "Email link",
+                            daisyui::Button { color: daisyui::ButtonColor::Primary, "Get in touch" }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 #[derive(Props, Clone, PartialEq)]
 struct ResumeSkillProps {
@@ -219,7 +267,7 @@ pub fn ResumeRolesSection(roles: &'static [schema::ResumeRoleInfo]) -> Element {
 }
 
 #[derive(Props, Clone, PartialEq)]
-struct ResumeOneEducationProps {
+struct ResumeEducationProps {
     #[props(default = "".into())]
     class: String,
     left: bool,
@@ -229,7 +277,7 @@ struct ResumeOneEducationProps {
 }
 
 #[component]
-fn ResumeOneEducation(props: ResumeOneEducationProps) -> Element {
+fn ResumeEducation(props: ResumeEducationProps) -> Element {
     let specialization = match &props.degree.specialization {
         Some(specialization) => rsx! {
             br {}
@@ -277,7 +325,7 @@ pub fn ResumeEducationSection(degrees: &'static [schema::ResumeDegreeInfo]) -> E
             is_snap_icon: true,
             is_compact: false,
             for (i, degree) in degrees.iter().enumerate() {
-                ResumeOneEducation {
+                ResumeEducation {
                     left: i % 2 == 0,
                     start: i != 0,
                     end: i != (degrees.len() - 1),
@@ -289,7 +337,7 @@ pub fn ResumeEducationSection(degrees: &'static [schema::ResumeDegreeInfo]) -> E
 }
 
 #[component]
-pub fn ResumeOneProject(project: &'static schema::ResumeProjectInfo) -> Element {
+pub fn ResumeProject(project: &'static schema::ResumeProjectInfo) -> Element {
     rsx! {
         daisyui::Card {
             class: "bg-base-200",
@@ -325,7 +373,7 @@ pub fn ResumeProjectsSection(projects: &'static [schema::ResumeProjectInfo]) -> 
     rsx! {
         div { class: "grid md:grid-cols-2 gap-4 mb-4",
             for project in projects {
-                ResumeOneProject { project }
+                ResumeProject { project }
             }
         }
     }

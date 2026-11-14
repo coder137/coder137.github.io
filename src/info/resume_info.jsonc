@@ -2,7 +2,8 @@
     "$schema": "../../target/jsonschema/resume.schema.json",
     "about": {
         "name": "Niket Naidu",
-        "title": "Embedded & System Software Engineer"
+        "title": "Embedded & System Software Engineer",
+        "email": "niketnaiduus@gmail.com"
     },
     "skills": [
         {
@@ -20,7 +21,7 @@
             "topics": [
                 "FreeRTOS",
                 "Zephyr RTOS",
-                // "Linux",
+                "Linux",
                 // "OpenOCD",
                 // "Git",
                 // "GDB",
