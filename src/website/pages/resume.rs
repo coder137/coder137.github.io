@@ -34,8 +34,11 @@ pub fn ResumeAboutSection(about: &'static schema::ResumeAboutInfo) -> Element {
                         }
                     }
                     div { class: "text-xl font-semibold pb-4", "{about.title}" }
-                    div { class: "flex gap-2",
-                        a { href: RESUME, target: "_blank", aria_label: "Resume link",
+                    div { class: "flex justify-center lg:justify-start gap-2",
+                        a {
+                            href: RESUME,
+                            target: "_blank",
+                            aria_label: "Resume link",
                             daisyui::Button { color: daisyui::ButtonColor::Primary, "Resume" }
                         }
                         a {

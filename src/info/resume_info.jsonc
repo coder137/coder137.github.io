@@ -232,6 +232,45 @@
     "projects": [
         {
             "start": [
+                2024,
+                5
+            ],
+            "end": null,
+            "title": "Ticked Async Executor",
+            "link": "https://github.com/coder137/ticked-async-executor",
+            "about": "Rust based Async Executor which executes woken tasks only when it is ticked",
+            "achievements": [
+                // 1. Bug report in Miri and helped rust maintainers to decide
+                // whether UnsafePinned should also act like an UnsafeCell
+                // https://github.com/rust-lang/rust/pull/137043#discussion_r1973978597
+            ],
+            "skills": [],
+            "tags": [
+                "Rust",
+                "Asynchronous",
+                "Concurrency",
+                "Simulation"
+            ]
+        },
+        {
+            "start": [
+                2023,
+                10
+            ],
+            "end": null,
+            "title": "BehaviorTree",
+            "link": "https://github.com/coder137/behaviortree-rs",
+            "about": "Exploration of different Rust based behavior tree implementations",
+            "achievements": [],
+            "skills": [],
+            "tags": [
+                "Rust",
+                "Robotics",
+                "Simulation"
+            ]
+        },
+        {
+            "start": [
                 2023,
                 1
             ],
@@ -245,7 +284,6 @@
             "achievements": [],
             "skills": [],
             "tags": [
-                "Personal",
                 "Rust",
                 "Firmware"
             ]
@@ -259,13 +297,12 @@
         //         2022,
         //         12
         //     ],
-        //     "title": "Build in CPP [BuildCC]",
+        //     "title": "Build in CPP",
         //     "link": "https://github.com/coder137/build_in_cpp",
         //     "about": "Alternative to Makefiles by using the feature rich C++ language instead of a custom DSL",
         //     "achievements": [],
         //     "skills": [],
         //     "tags": [
-        //         "Personal",
         //         "C++",
         //         "Buildsystem"
         //     ]
@@ -285,7 +322,8 @@
             "achievements": [],
             "skills": [],
             "tags": [
-                "Personal",
+                "C",
+                "C++17",
                 "Firmware"
             ]
         }
