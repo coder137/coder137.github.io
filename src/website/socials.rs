@@ -10,9 +10,7 @@ pub fn Socials() -> Element {
                 daisyui::Button {
                     style: daisyui::ButtonStyle::Ghost,
                     modifier: daisyui::ButtonModifier::Circle,
-                    dioxus_free_icons::Icon {
-                        icon: dioxus_free_icons::icons::fa_brands_icons::FaLinkedin,
-                    }
+                    dioxus_free_icons::Icon { icon: dioxus_free_icons::icons::fa_brands_icons::FaLinkedin }
                 }
             }
 
@@ -22,9 +20,7 @@ pub fn Socials() -> Element {
                 daisyui::Button {
                     style: daisyui::ButtonStyle::Ghost,
                     modifier: daisyui::ButtonModifier::Circle,
-                    dioxus_free_icons::Icon {
-                        icon: dioxus_free_icons::icons::fa_brands_icons::FaGithub,
-                    }
+                    dioxus_free_icons::Icon { icon: dioxus_free_icons::icons::fa_brands_icons::FaGithub }
                 }
             }
 
@@ -34,9 +30,7 @@ pub fn Socials() -> Element {
                 daisyui::Button {
                     style: daisyui::ButtonStyle::Ghost,
                     modifier: daisyui::ButtonModifier::Circle,
-                    dioxus_free_icons::Icon {
-                        icon: dioxus_free_icons::icons::fa_solid_icons::FaEnvelope,
-                    }
+                    dioxus_free_icons::Icon { icon: dioxus_free_icons::icons::fa_solid_icons::FaEnvelope }
                 }
             }
         }
