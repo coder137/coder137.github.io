@@ -96,14 +96,6 @@ fn Home() -> Element {
     ];
 
     let resume = &*RESUME_INFO;
-    let navigation = rsx! {
-        for rn in RESUME_NAVIGATION {
-            li {
-                a { href: "#{rn.section_name}", class: "text-lg", "{rn.name}" }
-            }
-        }
-    };
-
     let data = rsx! {
         for rn in RESUME_NAVIGATION {
             div { id: "{rn.section_name}", class: "scroll-mt-20" }
@@ -119,7 +111,11 @@ fn Home() -> Element {
             daisyui::Menu {
                 class: "flex-wrap justify-center",
                 menu_type: daisyui::MenuType::Horizontal,
-                {navigation}
+                for rn in RESUME_NAVIGATION {
+                    li {
+                        a { href: "#{rn.section_name}", class: "text-lg", "{rn.name}" }
+                    }
+                }
             }
         }
         {data}
