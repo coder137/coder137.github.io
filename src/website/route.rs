@@ -1,4 +1,4 @@
-use crate::info::{ABOUT_IMAGE, ABOUT_IMAGE_DESCRIPTION, RESUME, RESUME_INFO};
+use crate::info::RESUME_INFO;
 pub use crate::*;
 
 #[derive(Routable, Debug, Clone, PartialEq)]
